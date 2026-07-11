@@ -213,6 +213,12 @@ body {
 }
 
 /* Aplicar animaciones */
+.anim-fadeUp { animation: fadeUp 0.7s ease-out; }
+.anim-fadeIn { animation: fadeIn 0.4s ease-out; }
+.anim-slideDown { animation: slideDown 0.5s ease-out; }
+.anim-barGrow { transform-origin: left; animation: barGrow 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.anim-distGrow { animation: distGrow 0.5s ease-out; }
+
 .gauge-card { animation: fadeUp 0.7s ease-out; }
 .stat-card { animation: fadeUp 0.7s ease-out; }
 .stat-card:nth-child(2) { animation-delay: 0.08s; }
@@ -541,6 +547,15 @@ function setGauge(pct) {
   else pctEl.style.color = 'var(--green)';
 }
 
+// Aplicar animaciones en recarga
+function reanimate(selector, animClass) {
+  document.querySelectorAll(selector).forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight; // trigger reflow
+    el.style.animation = '';
+  });
+}
+
 async function loadData() {
   try {
     const [estadoRes, analisisRes, comparativaRes, erroresRes] = await Promise.all([
@@ -713,6 +728,14 @@ async function loadData() {
         return '<tr><td>' + m.mes + '</td><td>' + m.dias_muestreados + '</td><td><span class="pct-pill" style="background:' + bg + ';color:' + color + '">' + m.disco_pct_promedio + '%</span></td><td>' + m.temp_gb_total + ' GB</td><td>' + fmtNum(m.temp_files_max) + '</td></tr>';
       }).join('');
     }
+
+    // Re-animar elementos que cambiaron datos
+    reanimate('.vel-item', 'anim-fadeUp');
+    reanimate('.gen-fill', 'anim-barGrow');
+    reanimate('.list-row', 'anim-fadeIn');
+    reanimate('.err-line', 'anim-fadeIn');
+    reanimate('.dist-item', 'anim-distGrow');
+    reanimate('.hist-table tbody tr', 'anim-fadeIn');
 
   } catch (e) {
     console.error(e);
