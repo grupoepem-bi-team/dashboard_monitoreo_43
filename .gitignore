@@ -1,1 +1,8 @@
-# Los JSON de data/ SI se suben (actualizados por cron cada 1h)
+# Ignorar archivos temporales y scripts locales
+*.pyc
+__pycache__/
+deploy_*.py
+test_regresion.py
+
+# Ignorar data/ local (usamos public/data/)
+data/
