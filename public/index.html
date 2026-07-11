@@ -263,9 +263,9 @@ async function loadData() {
     }
 
     // --- TARJETA 5: Top Generadores ---
-    if (analisis?.top_generadores) {
+    if (analisis?.generadores) {
       const tbody = document.querySelector('#tabla-generadores tbody');
-      tbody.innerHTML = analisis.top_generadores.slice(0, 6).map(g => `<tr><td>${g.label}</td><td>${fmtNum(g.count)}</td><td>${(g.bytes/1024**3).toFixed(1)}</td><td>${g.pct?.toFixed(1)}%</td></tr>`).join('');
+      tbody.innerHTML = analisis.generadores.slice(0, 6).map(g => `<tr><td>${g.label}</td><td>${fmtNum(g.count)}</td><td>${(g.bytes/1024**3).toFixed(1)}</td><td>${((g.bytes||0)/(analisis.metadata?.bytes||1)*100).toFixed(1)}%</td></tr>`).join('');
     }
 
     // --- TARJETA 6: Comparativa Mes ---
