@@ -315,6 +315,24 @@ footer a { color: var(--gold); text-decoration: none; }
     </table>
   </div>
 
+  <!-- TARJETA 8: COMPARATIVA POR DIA -->
+  <div class="card" style="grid-column: 1 / -1;">
+    <div class="card-title"><span class="icon"></span>Comparativa por Dia (Ultimos 30 dias)</div>
+    <table class="table-compact" id="table-comparativa-dia">
+      <thead><tr><th>Dia</th><th>Disco %</th><th>Disco GB</th><th>Temp GB</th><th>Archivos Temp</th><th>KNIME RAM</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- TARJETA 9: COMPARATIVA POR MES -->
+  <div class="card" style="grid-column: 1 / -1;">
+    <div class="card-title"><span class="icon"></span>Comparativa por Mes (Acumulado)</div>
+    <table class="table-compact" id="table-comparativa-mes">
+      <thead><tr><th>Mes</th><th>Dias</th><th>Disco % Prom</th><th>Temp Total GB</th><th>Temp Max Files</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
 </div>
 
 <footer>
@@ -339,14 +357,16 @@ const fmtDate = d => {
 
 async function loadData() {
   try {
-    const [estadoRes, analisisRes] = await Promise.all([
+    const [estadoRes, analisisRes, comparativaRes] = await Promise.all([
       fetch('data/estado_43.json').catch(() => null),
-      fetch('data/analisis_temp.json').catch(() => null)
+      fetch('data/analisis_temp.json').catch(() => null),
+      fetch('data/comparativa.json').catch(() => null)
     ]);
 
-    let estado = null, analisis = null;
+    let estado = null, analisis = null, comparativa = null;
     if (estadoRes?.ok) estado = await estadoRes.json();
     if (analisisRes?.ok) analisis = await analisisRes.json();
+    if (comparativaRes?.ok) comparativa = await comparativaRes.json();
 
     if (!estado && !analisis) {
       document.getElementById('last-update').textContent = 'Error: no se pudieron cargar los datos';
@@ -464,6 +484,45 @@ async function loadData() {
           <td>${fmtDate(f.LastWriteTime)}</td>
         </tr>`;
       }).join('');
+    }
+
+    // --- TARJETA 8: Comparativa por Dia ---
+    if (comparativa?.tabla_dia) {
+      const tbody = document.querySelector('#table-comparativa-dia tbody');
+      const sorted = [...comparativa.tabla_dia].reverse();
+      tbody.innerHTML = sorted.map(d => {
+        const pctClass = d.disco_pct >= 90 ? 'crit' : d.disco_pct >= 75 ? 'warn' : 'ok';
+        return `<tr>
+          <td>${d.dia}</td>
+          <td class="metric-value ${pctClass}">${d.disco_pct}%</td>
+          <td>${d.disco_gb}</td>
+          <td>${d.temp_gb}</td>
+          <td>${fmtNum(d.temp_files)}</td>
+          <td>${d.knime_mem_gb.toFixed(2)} GB</td>
+        </tr>`;
+      }).join('');
+    }
+
+    // --- TARJETA 9: Comparativa por Mes ---
+    if (comparativa?.tabla_mes) {
+      const tbody = document.querySelector('#table-comparativa-mes tbody');
+      tbody.innerHTML = comparativa.tabla_mes.map(m => {
+        const pctClass = m.disco_pct_promedio >= 90 ? 'crit' : m.disco_pct_promedio >= 75 ? 'warn' : 'ok';
+        return `<tr>
+          <td>${m.mes}</td>
+          <td>${m.dias_muestreados}</td>
+          <td class="metric-value ${pctClass}">${m.disco_pct_promedio}%</td>
+          <td>${m.temp_gb_total}</td>
+          <td>${fmtNum(m.temp_files_max)}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    // Variacion vs ayer
+    if (comparativa?.variacion_ayer) {
+      const v = comparativa.variacion_ayer;
+      const signo = v.disco_pct_delta > 0 ? '+' : '';
+      console.log(`Variacion vs ayer: Disco ${signo}${v.disco_pct_delta}%, Temp ${signo}${v.temp_gb_delta} GB`);
     }
 
   } catch (e) {
