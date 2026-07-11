@@ -3,355 +3,291 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monitoreo 43 — Reporte Diario</title>
+<title>Monitoreo 43</title>
 <style>
 :root {
-  --bg: #0d0d12;
-  --surface: #16161f;
-  --surface-hover: #1e1e2a;
-  --gold: #c9a84c;
-  --gold-light: #e8d5a3;
-  --text: #e8e8ec;
-  --text-dim: #888899;
-  --text-muted: #555566;
-  --ok: #4ade80;
-  --ok-dim: rgba(74,222,128,0.15);
-  --warn: #fbbf24;
-  --warn-dim: rgba(251,191,36,0.15);
-  --crit: #f87171;
-  --crit-dim: rgba(248,113,113,0.15);
-  --border: rgba(255,255,255,0.06);
-  --radius: 12px;
+  --bg: #0d0d12; --surface: #16161f; --gold: #c9a84c; --gold-dim: #8a7020;
+  --text: #e0e0e0; --text-dim: #888; --text-muted: #555;
+  --ok: #4ade80; --warn: #fbbf24; --crit: #f87171; --border: rgba(255,255,255,0.06);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height: 1.6; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI',system-ui,sans-serif; font-size: 12px; line-height: 1.3; height: 100vh; overflow: hidden; }
 
-/* ===== HEADER ===== */
-.header { text-align: center; padding: 24px 16px 16px; border-bottom: 1px solid var(--border); }
-.header h1 { font-size: 1.4rem; font-weight: 300; color: var(--gold); letter-spacing: 4px; text-transform: uppercase; }
-.header .subtitle { color: var(--text-dim); font-size: 0.85rem; margin-top: 4px; }
-.header .timestamp { color: var(--text-muted); font-size: 0.75rem; margin-top: 8px; }
+/* HEADER */
+header { height: 28px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; background: var(--surface); border-bottom: 1px solid var(--border); }
+header h1 { font-size: 11px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
+header .meta { font-size: 10px; color: var(--text-muted); }
 
-/* ===== CONTAINER ===== */
-.container { max-width: 1000px; margin: 0 auto; padding: 16px; }
-
-/* ===== ALERTA ===== */
-.alert { display: none; border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px; border-left: 4px solid; }
+/* ALERTA */
+.alert { display: none; padding: 4px 12px; font-size: 11px; text-align: center; background: var(--crit); color: #fff; }
 .alert.show { display: block; }
-.alert.crit { background: var(--crit-dim); border-color: var(--crit); }
-.alert.warn { background: var(--warn-dim); border-color: var(--warn); }
-.alert.ok { background: var(--ok-dim); border-color: var(--ok); }
-.alert-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
-.alert-text { font-size: 0.9rem; color: var(--text-dim); }
+.alert.warn { background: var(--warn); color: #000; }
 
-/* ===== SECCIONES ===== */
-.section { margin-bottom: 28px; }
-.section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 12px; }
+/* CONTAINER */
+.container { max-width: 1400px; margin: 0 auto; padding: 6px 12px; height: calc(100vh - 28px); overflow: hidden; }
 
-/* ===== RESUMEN (4 cards) ===== */
-.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-.summary-card { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); transition: background 0.2s; }
-.summary-card:hover { background: var(--surface-hover); }
-.summary-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-.summary-value { font-size: 2rem; font-weight: 700; margin: 4px 0; }
-.summary-value.ok { color: var(--ok); }
-.summary-value.warn { color: var(--warn); }
-.summary-value.crit { color: var(--crit); }
-.summary-sub { font-size: 0.85rem; color: var(--text-dim); }
+/* SECCION */
+.section { margin-bottom: 6px; }
+.section-title { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 3px; }
 
-/* ===== DISCO (barra grande) ===== */
-.disco-card { background: var(--surface); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border); }
-.disco-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
-.disco-header .title { font-size: 1rem; color: var(--text-dim); }
-.disco-header .pct { font-size: 2.5rem; font-weight: 700; }
-.disco-header .pct.ok { color: var(--ok); }
-.disco-header .pct.warn { color: var(--warn); }
-.disco-header .pct.crit { color: var(--crit); }
+/* RESUMEN — 4 cards en fila */
+.summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.sum-card { background: var(--surface); border-radius: 6px; padding: 8px 10px; border: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.sum-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.sum-icon.ok { background: rgba(74,222,128,0.15); color: var(--ok); }
+.sum-icon.warn { background: rgba(251,191,36,0.15); color: var(--warn); }
+.sum-icon.crit { background: rgba(248,113,113,0.15); color: var(--crit); }
+.sum-info { flex: 1; }
+.sum-value { font-size: 16px; font-weight: 700; line-height: 1.1; }
+.sum-value.ok { color: var(--ok); }
+.sum-value.warn { color: var(--warn); }
+.sum-value.crit { color: var(--crit); }
+.sum-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.sum-sub { font-size: 10px; color: var(--text-dim); margin-top: 1px; }
 
-.disco-bar-bg { height: 20px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
-.disco-bar-fill { height: 100%; border-radius: 10px; transition: width 1s ease; }
-.disco-bar-fill.ok { background: linear-gradient(90deg, var(--ok), #22c55e); }
-.disco-bar-fill.warn { background: linear-gradient(90deg, var(--warn), #f59e0b); }
-.disco-bar-fill.crit { background: linear-gradient(90deg, var(--crit), #ef4444); }
+/* DISCO + PREDICCION */
+.disco { background: var(--surface); border-radius: 6px; padding: 8px 12px; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 180px; gap: 12px; align-items: center; }
+.disco-left { }
+.disco-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.disco-title { font-size: 10px; color: var(--text-dim); }
+.disco-pct { font-size: 20px; font-weight: 700; }
+.disco-pct.ok { color: var(--ok); }
+.disco-pct.warn { color: var(--warn); }
+.disco-pct.crit { color: var(--crit); }
+.disco-bar-bg { height: 10px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: hidden; margin-bottom: 3px; }
+.disco-bar-fill { height: 100%; border-radius: 5px; transition: width 0.5s; }
+.disco-bar-fill.ok { background: var(--ok); }
+.disco-bar-fill.warn { background: var(--warn); }
+.disco-bar-fill.crit { background: var(--crit); }
+.disco-stats { display: flex; gap: 12px; font-size: 10px; color: var(--text-dim); }
+.disco-stats strong { color: var(--text); font-weight: 500; }
+.disco-right { font-size: 10px; color: var(--text-dim); line-height: 1.4; }
+.disco-right strong { color: var(--gold); }
+.disco-right .highlight { color: var(--warn); font-weight: 600; }
 
-.disco-stats { display: flex; gap: 24px; margin-bottom: 16px; }
-.disco-stat { font-size: 0.9rem; color: var(--text-dim); }
-.disco-stat strong { color: var(--text); font-weight: 500; }
+/* VELOCIDAD + GENERADORES (2 columnas) */
+.row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 
-.disco-story { font-size: 0.95rem; color: var(--text-dim); background: rgba(255,255,255,0.03); border-radius: 8px; padding: 12px 16px; }
-.disco-story strong { color: var(--gold-light); }
-.disco-story .highlight { color: var(--warn); font-weight: 600; }
+.velo-card { background: var(--surface); border-radius: 6px; padding: 8px; border: 1px solid var(--border); }
+.velo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.velo-item { text-align: center; }
+.velo-label { font-size: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+.velo-gb { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1; }
+.velo-files { font-size: 9px; color: var(--text-dim); margin-top: 1px; }
 
-/* ===== VELOCIDAD (3 números grandes) ===== */
-.velocity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.velocity-card { background: var(--surface); border-radius: var(--radius); padding: 20px; text-align: center; border: 1px solid var(--border); }
-.velocity-period { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-.velocity-gb { font-size: 2.2rem; font-weight: 700; color: var(--text); }
-.velocity-files { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
-
-/* ===== GENERADORES (barras horizontales) ===== */
-.gen-card { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); }
-.gen-item { margin-bottom: 16px; }
+.gen-card { background: var(--surface); border-radius: 6px; padding: 8px; border: 1px solid var(--border); }
+.gen-item { margin-bottom: 5px; }
 .gen-item:last-child { margin-bottom: 0; }
-.gen-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 6px; }
-.gen-label .name { color: var(--text); }
-.gen-label .size { color: var(--text-dim); font-size: 0.85rem; }
-.gen-bar-bg { height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
-.gen-bar-fill { height: 100%; border-radius: 4px; }
+.gen-label { display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 2px; }
+.gen-bar-bg { height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.gen-bar-fill { height: 100%; border-radius: 3px; }
 .gen-bar-fill.ok { background: var(--ok); }
 .gen-bar-fill.warn { background: var(--warn); }
-.gen-bar-fill.crit { background: var(--crit); }
 
-/* ===== ARCHIVOS ===== */
-.files-card { background: var(--surface); border-radius: var(--radius); padding: 16px 20px; border: 1px solid var(--border); }
-.file-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+/* ARCHIVOS + ERRORES (2 columnas) */
+.files-card { background: var(--surface); border-radius: 6px; padding: 6px 8px; border: 1px solid var(--border); max-height: 110px; overflow: auto; }
+.file-item { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; border-bottom: 1px solid var(--border); font-size: 10px; }
 .file-item:last-child { border-bottom: none; }
-.file-info { flex: 1; }
-.file-name { font-size: 0.9rem; color: var(--text); }
-.file-path { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
-.file-size { font-size: 0.9rem; color: var(--gold); font-weight: 600; white-space: nowrap; margin-left: 12px; }
+.file-name { color: var(--text); }
+.file-size { color: var(--gold); font-weight: 600; white-space: nowrap; margin-left: 8px; }
 
-/* ===== ERRORES ===== */
-.errors-card { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); border-left: 4px solid var(--crit); }
-.errors-header { display: flex; gap: 32px; margin-bottom: 16px; }
-.errors-header .big { font-size: 2rem; font-weight: 700; color: var(--crit); }
-.errors-header .label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
-.errors-header .value { font-size: 1.1rem; color: var(--text); font-weight: 500; }
-.error-item { font-size: 0.85rem; color: var(--text-dim); padding: 6px 0; border-bottom: 1px solid var(--border); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.error-item:last-child { border-bottom: none; }
+.err-card { background: var(--surface); border-radius: 6px; padding: 8px; border: 1px solid var(--border); border-left: 3px solid var(--crit); }
+.err-header { display: flex; gap: 20px; margin-bottom: 4px; }
+.err-big { font-size: 20px; font-weight: 700; color: var(--crit); line-height: 1; }
+.err-label { font-size: 8px; color: var(--text-muted); text-transform: uppercase; }
+.err-value { font-size: 11px; color: var(--text); font-weight: 500; }
+.err-list { font-size: 9px; color: var(--text-dim); max-height: 60px; overflow: auto; }
+.err-list div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 1px 0; }
 
-/* ===== LIMPIEZA + DISTRIBUCIÓN ===== */
-.clean-card { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); }
-.clean-status { font-size: 1.1rem; margin-bottom: 16px; }
-.clean-status .label { color: var(--text-dim); }
-.clean-status .value { color: var(--warn); font-weight: 600; }
-.dist-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-.dist-item { text-align: center; padding: 12px 8px; background: rgba(255,255,255,0.03); border-radius: 8px; }
-.dist-item .time { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
-.dist-item .gb { font-size: 1.2rem; font-weight: 600; color: var(--text); }
-.dist-item .files { font-size: 0.75rem; color: var(--text-dim); }
+/* LIMPIEZA + MES (2 columnas) */
+.dist-card { background: var(--surface); border-radius: 6px; padding: 8px; border: 1px solid var(--border); }
+.dist-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.dist-item { text-align: center; padding: 4px 2px; background: rgba(255,255,255,0.03); border-radius: 4px; }
+.dist-time { font-size: 8px; color: var(--text-muted); }
+.dist-gb { font-size: 12px; font-weight: 600; color: var(--text); }
+.dist-files { font-size: 8px; color: var(--text-dim); }
 
-/* ===== TABLA MES (limpia) ===== */
-.table-card { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); }
-.simple-table { width: 100%; border-collapse: collapse; }
-.simple-table th { text-align: left; padding: 10px 8px; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
-.simple-table td { padding: 10px 8px; font-size: 0.9rem; color: var(--text); border-bottom: 1px solid var(--border); }
-.simple-table tr:last-child td { border-bottom: none; }
-.simple-table td.pct { font-weight: 600; }
-.simple-table td.pct.ok { color: var(--ok); }
-.simple-table td.pct.warn { color: var(--warn); }
-.simple-table td.pct.crit { color: var(--crit); }
+.table-card { background: var(--surface); border-radius: 6px; padding: 6px 8px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 10px; }
+th { text-align: left; padding: 3px 4px; font-size: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+td { padding: 3px 4px; color: var(--text); border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+td.pct { font-weight: 600; }
+td.pct.ok { color: var(--ok); }
+td.pct.warn { color: var(--warn); }
+td.pct.crit { color: var(--crit); }
 
-/* ===== FOOTER ===== */
-.footer { text-align: center; padding: 20px; font-size: 0.75rem; color: var(--text-muted); }
+footer { text-align: center; padding: 4px; font-size: 9px; color: var(--text-muted); }
+footer a { color: var(--gold); text-decoration: none; }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-  .velocity-grid { grid-template-columns: 1fr; }
-  .dist-grid { grid-template-columns: repeat(2, 1fr); }
-  .summary-grid { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+  body { overflow: auto; height: auto; }
+  .summary { grid-template-columns: repeat(2, 1fr); }
+  .row-2col { grid-template-columns: 1fr; }
+  .disco { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<div class="header">
+<header>
   <h1>Monitoreo del 43</h1>
-  <div class="subtitle">Servidor 192.168.0.43 — GRUPOEPEM467-VM</div>
-  <div class="timestamp" id="timestamp">Actualizando...</div>
+  <div class="meta">192.168.0.43 — GRUPOEPEM467-VM — <span id="timestamp">—</span></div>
+</header>
+
+<div class="alert" id="alert-box">
+  <span id="alert-text"></span>
 </div>
 
 <div class="container">
 
-  <!-- ALERTA -->
-  <div class="alert" id="alert-box">
-    <div class="alert-title" id="alert-title"></div>
-    <div class="alert-text" id="alert-text"></div>
-  </div>
-
   <!-- RESUMEN -->
   <div class="section">
     <div class="section-title">Resumen del Sistema</div>
-    <div class="summary-grid">
-      <div class="summary-card">
-        <div class="summary-label">Estado del Servidor</div>
-        <div class="summary-value ok" id="res-status">● Conectado</div>
-        <div class="summary-sub" id="res-uptime">Datos recientes</div>
+    <div class="summary" id="summary">
+      <div class="sum-card">
+        <div class="sum-icon ok" id="icon-status">●</div>
+        <div class="sum-info">
+          <div class="sum-value ok" id="res-status">Conectado</div>
+          <div class="sum-label">Estado</div>
+          <div class="sum-sub" id="res-sub">KNIME running · OneDrive running</div>
+        </div>
       </div>
-      <div class="summary-card">
-        <div class="summary-label">Disco E:\ Usado</div>
-        <div class="summary-value ok" id="res-disco">49.8%</div>
-        <div class="summary-sub" id="res-disco-sub">122.7 / 246.3 GB</div>
+      <div class="sum-card">
+        <div class="sum-icon ok" id="icon-disco">💾</div>
+        <div class="sum-info">
+          <div class="sum-value ok" id="res-disco">49.8%</div>
+          <div class="sum-label">Disco E:\</div>
+          <div class="sum-sub" id="res-disco-sub">122.7 / 246.3 GB · 22.323 arch</div>
+        </div>
       </div>
-      <div class="summary-card">
-        <div class="summary-label">KNIME en Memoria</div>
-        <div class="summary-value ok" id="res-ram">25.5 GB</div>
-        <div class="summary-sub" id="res-ram-sub">PID 11764 — Running</div>
+      <div class="sum-card">
+        <div class="sum-icon ok" id="icon-ram">🧠</div>
+        <div class="sum-info">
+          <div class="sum-value ok" id="res-ram">25.5 GB</div>
+          <div class="sum-label">KNIME RAM</div>
+          <div class="sum-sub" id="res-ram-sub">PID 11764 · Running</div>
+        </div>
       </div>
-      <div class="summary-card">
-        <div class="summary-label">Temporales Generados Hoy</div>
-        <div class="summary-value ok" id="res-temp">107.5 GB</div>
-        <div class="summary-sub" id="res-temp-sub">22.323 archivos</div>
+      <div class="sum-card">
+        <div class="sum-icon ok" id="icon-temp">📁</div>
+        <div class="sum-info">
+          <div class="sum-value ok" id="res-temp">107.5 GB</div>
+          <div class="sum-label">Temporales</div>
+          <div class="sum-sub" id="res-temp-sub">Generados hoy</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- DISCO + PREDICCIÓN -->
+  <!-- DISCO -->
   <div class="section">
-    <div class="section-title">El Disco Temporales — ¿Cuánto Falta?</div>
-    <div class="disco-card">
-      <div class="disco-header">
-        <div class="title">Espacio usado en E:\</div>
-        <div class="pct ok" id="disco-pct">49.8%</div>
+    <div class="section-title">Disco E:\ — ¿Cuánto Falta?</div>
+    <div class="disco">
+      <div class="disco-left">
+        <div class="disco-header">
+          <span class="disco-title">Espacio usado</span>
+          <span class="disco-pct ok" id="disco-pct">49.8%</span>
+        </div>
+        <div class="disco-bar-bg"><div class="disco-bar-fill ok" id="disco-bar" style="width:49.8%"></div></div>
+        <div class="disco-stats">
+          <span><strong id="disco-used">122.7 GB</strong> usados</span>
+          <span><strong id="disco-free">123.6 GB</strong> libres</span>
+          <span><strong id="disco-total">246.3 GB</strong> totales</span>
+        </div>
       </div>
-      <div class="disco-bar-bg">
-        <div class="disco-bar-fill ok" id="disco-bar" style="width:49.8%"></div>
-      </div>
-      <div class="disco-stats">
-        <div class="disco-stat"><strong id="disco-used">122.7 GB</strong> usados</div>
-        <div class="disco-stat"><strong id="disco-free">123.6 GB</strong> libres</div>
-        <div class="disco-stat"><strong id="disco-total">246.3 GB</strong> totales</div>
-      </div>
-      <div class="disco-story" id="disco-story">
-        A ritmo de <strong>~30.1 GB por día</strong> (últimas 24h), quedan aproximadamente <span class="highlight">3 días</span> antes de alcanzar el 90% de uso. La última limpieza fue <strong>hace más de 7 días</strong>.
+      <div class="disco-right" id="disco-story">
+        A ritmo de <strong>~30.1 GB/día</strong>, quedan <span class="highlight">4 días</span> libres. Para 90%: ~3 días. Limpieza: <strong>hace +7 días</strong>.
       </div>
     </div>
   </div>
 
-  <!-- VELOCIDAD -->
+  <!-- VELOCIDAD + GENERADORES -->
   <div class="section">
-    <div class="section-title">Velocidad de Generación</div>
-    <div class="velocity-grid">
-      <div class="velocity-card">
-        <div class="velocity-period">Últimas 2 horas</div>
-        <div class="velocity-gb" id="v-2h-gb">5.1</div>
-        <div class="velocity-files" id="v-2h-files">1.427 archivos</div>
+    <div class="section-title">Velocidad y Causas</div>
+    <div class="row-2col">
+      <div class="velo-card">
+        <div class="velo-grid">
+          <div class="velo-item">
+            <div class="velo-label">2 horas</div>
+            <div class="velo-gb" id="v-2h">5.1</div>
+            <div class="velo-files" id="v-2h-f">1.427 arch</div>
+          </div>
+          <div class="velo-item">
+            <div class="velo-label">6 horas</div>
+            <div class="velo-gb" id="v-6h">8.1</div>
+            <div class="velo-files" id="v-6h-f">2.688 arch</div>
+          </div>
+          <div class="velo-item">
+            <div class="velo-label">24 horas</div>
+            <div class="velo-gb" id="v-24h">30.1</div>
+            <div class="velo-files" id="v-24h-f">8.267 arch</div>
+          </div>
+        </div>
       </div>
-      <div class="velocity-card">
-        <div class="velocity-period">Últimas 6 horas</div>
-        <div class="velocity-gb" id="v-6h-gb">8.1</div>
-        <div class="velocity-files" id="v-6h-files">2.688 archivos</div>
-      </div>
-      <div class="velocity-card">
-        <div class="velocity-period">Últimas 24 horas</div>
-        <div class="velocity-gb" id="v-24h-gb">30.1</div>
-        <div class="velocity-files" id="v-24h-files">8.267 archivos</div>
+      <div class="gen-card" id="gen-card">
+        <div class="gen-item">
+          <div class="gen-label"><span>Snapshot Temp</span><span>61.4 GB · 57%</span></div>
+          <div class="gen-bar-bg"><div class="gen-bar-fill ok" style="width:57%"></div></div>
+        </div>
+        <div class="gen-item">
+          <div class="gen-label"><span>DuplicateChecker</span><span>45.4 GB · 42%</span></div>
+          <div class="gen-bar-bg"><div class="gen-bar-fill warn" style="width:42%"></div></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- TOP GENERADORES (barras) -->
+  <!-- ARCHIVOS + ERRORES -->
   <div class="section">
-    <div class="section-title">¿Quién Genera los Temporales?</div>
-    <div class="gen-card" id="gen-card">
-      <div class="gen-item">
-        <div class="gen-label">
-          <span class="name">Snapshot Temp (contenedores KNIME)</span>
-          <span class="size">61.4 GB — 1.525 archivos — 57.4%</span>
-        </div>
-        <div class="gen-bar-bg"><div class="gen-bar-fill ok" style="width:57.4%"></div></div>
+    <div class="section-title">Archivos Grandes y Errores</div>
+    <div class="row-2col">
+      <div class="files-card" id="files-card">
+        <div class="file-item"><span class="file-name">Cobranzas_tto_o</span><span class="file-size">40.461 MB</span></div>
+        <div class="file-item"><span class="file-name">Ventas por edad</span><span class="file-size">2.563 MB</span></div>
+        <div class="file-item"><span class="file-name">Marcacion Emerg</span><span class="file-size">1.051 MB</span></div>
+        <div class="file-item"><span class="file-name">EMERG</span><span class="file-size">761 MB</span></div>
+        <div class="file-item"><span class="file-name">DATAMARTS</span><span class="file-size">572 MB</span></div>
       </div>
-      <div class="gen-item">
-        <div class="gen-label">
-          <span class="name">KNIME DuplicateChecker</span>
-          <span class="size">45.4 GB — 20.178 archivos — 42.4%</span>
+      <div class="err-card">
+        <div class="err-header">
+          <div><div class="err-big" id="err-total">11</div><div class="err-label">Errores</div></div>
+          <div><div class="err-value" id="err-dia">2026-02-24</div><div class="err-label">Día peor</div></div>
+          <div><div class="err-value" id="err-wf">N/A</div><div class="err-label">Workflow</div></div>
         </div>
-        <div class="gen-bar-bg"><div class="gen-bar-fill warn" style="width:42.4%"></div></div>
+        <div class="err-list" id="err-list">
+          <div>2026-02-24 09:54:01 — WARN — FileNodePersistor : Rule Engine</div>
+          <div>2026-02-24 09:54:21 — WARN — KNIME-Worker-3-DB Query Reader</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- TOP ARCHIVOS -->
+  <!-- DISTRIBUCIÓN + MES -->
   <div class="section">
-    <div class="section-title">Los Archivos Más Grandes</div>
-    <div class="files-card" id="files-card">
-      <div class="file-item">
-        <div class="file-info">
-          <div class="file-name">knime_Cobranzas_tto_o_14702</div>
-          <div class="file-path">E:\Temp\knime_Cobranzas_tto_o_14702\knime_container_20260708_5318991018732211148.bin.snappy</div>
+    <div class="section-title">Distribución Temporal e Historial</div>
+    <div class="row-2col">
+      <div class="dist-card">
+        <div class="dist-grid" id="dist-grid">
+          <div class="dist-item"><div class="dist-time">&lt;1h</div><div class="dist-gb" id="d-lt1h">3.4</div><div class="dist-files">1.116</div></div>
+          <div class="dist-item"><div class="dist-time">1-6h</div><div class="dist-gb" id="d-1h6h">4.7</div><div class="dist-files">1.572</div></div>
+          <div class="dist-item"><div class="dist-time">6-24h</div><div class="dist-gb" id="d-6h24h">22.0</div><div class="dist-files">5.579</div></div>
+          <div class="dist-item"><div class="dist-time">1-7d</div><div class="dist-gb" id="d-1d7d">76.8</div><div class="dist-files">13.576</div></div>
+          <div class="dist-item"><div class="dist-time">&gt;7d</div><div class="dist-gb" id="d-gt7d">0.0</div><div class="dist-files">1</div></div>
         </div>
-        <div class="file-size">40.461,75 MB</div>
+      </div>
+      <div class="table-card">
+        <table>
+          <thead><tr><th>Mes</th><th>Días</th><th>Disco%</th><th>Temp</th><th>Max Arch</th></tr></thead>
+          <tbody id="mes-tbody"><tr><td>2026-07</td><td>1</td><td class="pct ok">49.8%</td><td>107.49 GB</td><td>22.323</td></tr></tbody>
+        </table>
       </div>
     </div>
   </div>
 
-  <!-- ERRORES KNIME -->
-  <div class="section">
-    <div class="section-title">Errores en el Log de KNIME</div>
-    <div class="errors-card">
-      <div class="errors-header">
-        <div>
-          <div class="big" id="err-total">11</div>
-          <div class="label">Errores/Warnings totales</div>
-        </div>
-        <div>
-          <div class="value" id="err-dia">2026-02-24</div>
-          <div class="label">Día con más errores</div>
-        </div>
-        <div>
-          <div class="value" id="err-wf">N/A</div>
-          <div class="label">Workflow más afectado</div>
-        </div>
-      </div>
-      <div id="err-list">
-        <div class="error-item">2026-02-24 09:54:01 — WARN — FileNodePersistor : Rule Engine</div>
-        <div class="error-item">2026-02-24 09:54:21 — WARN — KNIME-Worker-3-DB Query Reader 3:97</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DISTRIBUCIÓN TEMPORAL -->
-  <div class="section">
-    <div class="section-title">Distribución Temporal de Archivos</div>
-    <div class="clean-card">
-      <div class="dist-grid">
-        <div class="dist-item">
-          <div class="time">Menos de 1h</div>
-          <div class="gb" id="dist-lt1h-gb">3.4</div>
-          <div class="files" id="dist-lt1h-files">1.116 archivos</div>
-        </div>
-        <div class="dist-item">
-          <div class="time">1 a 6 horas</div>
-          <div class="gb" id="dist-1h6h-gb">4.7</div>
-          <div class="files" id="dist-1h6h-files">1.572 archivos</div>
-        </div>
-        <div class="dist-item">
-          <div class="time">6 a 24 horas</div>
-          <div class="gb" id="dist-6h24h-gb">22.0</div>
-          <div class="files" id="dist-6h24h-files">5.579 archivos</div>
-        </div>
-        <div class="dist-item">
-          <div class="time">1 a 7 días</div>
-          <div class="gb" id="dist-1d7d-gb">76.8</div>
-          <div class="files" id="dist-1d7d-files">13.576 archivos</div>
-        </div>
-        <div class="dist-item">
-          <div class="time">Más de 7 días</div>
-          <div class="gb" id="dist-gt7d-gb">0.0</div>
-          <div class="files" id="dist-gt7d-files">1 archivo</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- COMPARATIVA MES -->
-  <div class="section">
-    <div class="section-title">Historial Mensual</div>
-    <div class="table-card">
-      <table class="simple-table">
-        <thead>
-          <tr><th>Mes</th><th>Días registrados</th><th>Disco % promedio</th><th>Temp acumulado</th><th>Máximo archivos</th></tr>
-        </thead>
-        <tbody id="mes-tbody">
-          <tr><td>2026-07</td><td>1</td><td class="pct ok">49.8%</td><td>107.49 GB</td><td>22.323</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="footer">
-    Dashboard Monitoreo 43 — Datos refrescados cada 30 minutos via cron — <a href="https://github.com/grupoepem-bi-team/dashboard_monitoreo_43" style="color:var(--gold)">Repo GitHub</a>
-  </div>
+  <footer>
+    Dashboard Monitoreo 43 — Datos refrescados cada 30 min — <a href="https://github.com/grupoepem-bi-team/dashboard_monitoreo_43">Repo GitHub</a>
+  </footer>
 
 </div>
 
@@ -379,153 +315,133 @@ async function loadData() {
     if (comparativaRes?.ok) comparativa = await comparativaRes.json();
     if (erroresRes?.ok) errores = await erroresRes.json();
 
-    const timestamp = document.getElementById('timestamp');
-    timestamp.textContent = estado?.timestamp
-      ? 'Última actualización: ' + new Date(estado.timestamp).toLocaleString('es-AR')
-      : 'Datos no disponibles';
+    const ts = document.getElementById('timestamp');
+    ts.textContent = estado?.timestamp ? new Date(estado.timestamp).toLocaleString('es-AR') : 'Sin datos';
 
-    // ===== ALERTA =====
+    // ALERTA
     const alertBox = document.getElementById('alert-box');
-    const alertTitle = document.getElementById('alert-title');
     const alertText = document.getElementById('alert-text');
-    const d = estado?.disk_e;
-    if (d) {
-      if (d.used_pct >= 90) {
-        alertBox.className = 'alert show crit';
-        alertTitle.textContent = '🚨 Disco E:\ al ' + d.used_pct.toFixed(1) + '% — Acción inmediata requerida';
-        alertText.textContent = 'Quedan solo ' + d.free_gb.toFixed(1) + ' GB libres. Detenga KNIME o limpie temporales urgente.';
-      } else if (d.used_pct >= 75) {
-        alertBox.className = 'alert show warn';
-        alertTitle.textContent = '⚠️ Disco E:\ al ' + d.used_pct.toFixed(1) + '% — Planificar limpieza';
-        alertText.textContent = 'Quedan ' + d.free_gb.toFixed(1) + ' GB libres. Considere limpiar E:\Temp en las próximas 24h.';
-      } else {
-        alertBox.className = 'alert';
-      }
+    const de = estado?.disk_e;
+    if (de) {
+      if (de.used_pct >= 90) {
+        alertBox.className = 'alert show'; alertText.textContent = '🚨 Disco E:\ al ' + de.used_pct.toFixed(1) + '% — Acción inmediata. Quedan ' + de.free_gb.toFixed(1) + ' GB.';
+      } else if (de.used_pct >= 75) {
+        alertBox.className = 'alert show warn'; alertText.textContent = '⚠️ Disco E:\ al ' + de.used_pct.toFixed(1) + '% — Planificar limpieza. Quedan ' + de.free_gb.toFixed(1) + ' GB.';
+      } else { alertBox.className = 'alert'; }
     }
 
-    // ===== RESUMEN =====
+    // RESUMEN
     if (estado) {
-      const kn = estado.knime || {};
-      const od = estado.onedrive || {};
+      const kn = estado.knime || {}, od = estado.onedrive || {};
       const statusOk = kn.status === 'Running' && od.status === 'Running';
-      document.getElementById('res-status').textContent = statusOk ? '● Conectado' : '● Atención';
-      document.getElementById('res-status').className = 'summary-value ' + (statusOk ? 'ok' : 'warn');
-      document.getElementById('res-uptime').textContent = 'KNIME ' + (kn.status || '?') + ' · OneDrive ' + (od.status || '?');
+      const statusEl = document.getElementById('res-status');
+      const iconEl = document.getElementById('icon-status');
+      statusEl.textContent = statusOk ? 'Conectado' : 'Atención';
+      statusEl.className = 'sum-value ' + (statusOk ? 'ok' : 'warn');
+      iconEl.className = 'sum-icon ' + (statusOk ? 'ok' : 'warn');
+      iconEl.textContent = statusOk ? '●' : '◐';
+      document.getElementById('res-sub').textContent = 'KNIME ' + (kn.status || '?') + ' · OneDrive ' + (od.status || '?');
 
-      const de = estado.disk_e || {};
-      const pct = de.used_pct || 0;
-      document.getElementById('res-disco').textContent = pct.toFixed(1) + '%';
-      document.getElementById('res-disco').className = 'summary-value ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
-      document.getElementById('res-disco-sub').textContent = (de.used_gb || 0).toFixed(1) + ' / ' + (de.size_gb || 0).toFixed(1) + ' GB';
+      const pct = de?.used_pct || 0;
+      const dEl = document.getElementById('res-disco');
+      const dIcon = document.getElementById('icon-disco');
+      dEl.textContent = pct.toFixed(1) + '%';
+      dEl.className = 'sum-value ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+      dIcon.className = 'sum-icon ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+      document.getElementById('res-disco-sub').textContent = (de?.used_gb || 0).toFixed(1) + ' / ' + (de?.size_gb || 0).toFixed(1) + ' GB · ' + fmtNum(estado.temp_e?.files || 0) + ' arch';
 
       document.getElementById('res-ram').textContent = (kn.mem_gb || 0).toFixed(1) + ' GB';
-      document.getElementById('res-ram-sub').textContent = 'PID ' + (kn.pid || '?') + ' — ' + (kn.status || '?');
+      document.getElementById('res-ram-sub').textContent = 'PID ' + (kn.pid || '?') + ' · ' + (kn.status || '?');
 
-      const te = estado.temp_e || {};
-      document.getElementById('res-temp').textContent = ((te.bytes || 0) / 1024**3).toFixed(1) + ' GB';
-      document.getElementById('res-temp-sub').textContent = fmtNum(te.files || 0) + ' archivos';
+      const tempGB = ((estado.temp_e?.bytes || 0) / 1024**3).toFixed(1);
+      document.getElementById('res-temp').textContent = tempGB + ' GB';
     }
 
-    // ===== DISCO + PREDICCIÓN =====
-    if (d) {
-      const pct = d.used_pct;
-      document.getElementById('disco-pct').textContent = pct.toFixed(1) + '%';
-      document.getElementById('disco-pct').className = 'pct ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
-      document.getElementById('disco-bar').style.width = Math.min(pct, 100) + '%';
-      document.getElementById('disco-bar').className = 'disco-bar-fill ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
-      document.getElementById('disco-used').textContent = d.used_gb.toFixed(1) + ' GB';
-      document.getElementById('disco-free').textContent = d.free_gb.toFixed(1) + ' GB';
-      document.getElementById('disco-total').textContent = d.size_gb.toFixed(1) + ' GB';
+    // DISCO
+    if (de) {
+      const pct = de.used_pct;
+      const pEl = document.getElementById('disco-pct');
+      const bEl = document.getElementById('disco-bar');
+      pEl.textContent = pct.toFixed(1) + '%';
+      pEl.className = 'disco-pct ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+      bEl.style.width = Math.min(pct, 100) + '%';
+      bEl.className = 'disco-bar-fill ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+      document.getElementById('disco-used').textContent = de.used_gb.toFixed(1) + ' GB';
+      document.getElementById('disco-free').textContent = de.free_gb.toFixed(1) + ' GB';
+      document.getElementById('disco-total').textContent = de.size_gb.toFixed(1) + ' GB';
 
-      // Predicción
       let story = '';
       if (analisis?.velocidad_generacion) {
         const v24 = analisis.velocidad_generacion.find(v => v.periodo === '24h');
         const gbDia = v24 ? (v24.bytes / 1024**3) : 0;
-        const dias90 = gbDia > 0 ? Math.floor((d.size_gb * 0.9 - d.used_gb) / gbDia) : 999;
-        const diasLibres = gbDia > 0 ? Math.floor(d.free_gb / gbDia) : 999;
-        story = 'A ritmo de <strong>~' + gbDia.toFixed(1) + ' GB por día</strong> (últimas 24h), quedan aproximadamente ';
-        if (diasLibres <= 3) {
-          story += '<span class="highlight">' + diasLibres + ' días</span> de espacio libre. ';
-        } else if (diasLibres <= 7) {
-          story += '<span class="highlight">' + diasLibres + ' días</span> de espacio libre. ';
-        } else {
-          story += '<strong>' + diasLibres + ' días</strong> de espacio libre. ';
-        }
-        story += 'Para llegar al 90%: ~' + dias90 + ' días.';
+        const diasLibres = gbDia > 0 ? Math.floor(de.free_gb / gbDia) : 999;
+        const dias90 = gbDia > 0 ? Math.floor((de.size_gb * 0.9 - de.used_gb) / gbDia) : 999;
+        story = 'A ritmo de <strong>~' + gbDia.toFixed(1) + ' GB/día</strong>, quedan ';
+        story += '<span class="highlight">' + diasLibres + ' días</span> libres. Para 90%: ~' + dias90 + ' días. ';
       }
       const gt7 = analisis?.distribucion_edad?.find(a => a.bucket === 'gt_7d');
-      const hasOld = gt7 && gt7.count > 0;
-      story += ' La última limpieza fue <strong>' + (hasOld ? 'hace más de 7 días' : 'en los últimos 7 días') + '</strong>.';
+      story += 'Limpieza: <strong>' + (gt7 && gt7.count > 0 ? 'hace +7 días' : 'reciente') + '</strong>.';
       document.getElementById('disco-story').innerHTML = story;
     }
 
-    // ===== VELOCIDAD =====
+    // VELOCIDAD
     if (analisis?.velocidad_generacion) {
       const v2 = analisis.velocidad_generacion.find(v => v.periodo === '2h');
       const v6 = analisis.velocidad_generacion.find(v => v.periodo === '6h');
       const v24 = analisis.velocidad_generacion.find(v => v.periodo === '24h');
-      if (v2) { document.getElementById('v-2h-gb').textContent = (v2.bytes / 1024**3).toFixed(1); document.getElementById('v-2h-files').textContent = fmtNum(v2.count) + ' archivos'; }
-      if (v6) { document.getElementById('v-6h-gb').textContent = (v6.bytes / 1024**3).toFixed(1); document.getElementById('v-6h-files').textContent = fmtNum(v6.count) + ' archivos'; }
-      if (v24) { document.getElementById('v-24h-gb').textContent = (v24.bytes / 1024**3).toFixed(1); document.getElementById('v-24h-files').textContent = fmtNum(v24.count) + ' archivos'; }
+      if (v2) { document.getElementById('v-2h').textContent = (v2.bytes / 1024**3).toFixed(1); document.getElementById('v-2h-f').textContent = fmtNum(v2.count) + ' arch'; }
+      if (v6) { document.getElementById('v-6h').textContent = (v6.bytes / 1024**3).toFixed(1); document.getElementById('v-6h-f').textContent = fmtNum(v6.count) + ' arch'; }
+      if (v24) { document.getElementById('v-24h').textContent = (v24.bytes / 1024**3).toFixed(1); document.getElementById('v-24h-f').textContent = fmtNum(v24.count) + ' arch'; }
     }
 
-    // ===== GENERADORES =====
+    // GENERADORES
     if (analisis?.generadores) {
       const total = analisis.metadata?.bytes || 1;
       const genCard = document.getElementById('gen-card');
-      genCard.innerHTML = analisis.generadores.slice(0, 6).map(g => {
+      genCard.innerHTML = analisis.generadores.slice(0, 4).map(g => {
         const pct = ((g.bytes || 0) / total * 100).toFixed(1);
-        const color = pct > 50 ? 'ok' : pct > 20 ? 'warn' : 'ok';
-        return '<div class="gen-item">' +
-          '<div class="gen-label"><span class="name">' + g.label + '</span><span class="size">' + (g.bytes/1024**3).toFixed(1) + ' GB — ' + fmtNum(g.count) + ' arch — ' + pct + '%</span></div>' +
-          '<div class="gen-bar-bg"><div class="gen-bar-fill ' + color + '" style="width:' + pct + '%"></div></div>' +
-        '</div>';
+        return '<div class="gen-item"><div class="gen-label"><span>' + g.label + '</span><span>' + (g.bytes / 1024**3).toFixed(1) + ' GB · ' + pct + '%</span></div><div class="gen-bar-bg"><div class="gen-bar-fill ' + (pct > 40 ? 'warn' : 'ok') + '" style="width:' + pct + '%"></div></div></div>';
       }).join('');
     }
 
-    // ===== ARCHIVOS =====
+    // ARCHIVOS (top 5)
     if (analisis?.top50_archivos) {
       const filesCard = document.getElementById('files-card');
-      filesCard.innerHTML = analisis.top50_archivos.slice(0, 10).map(f => {
+      filesCard.innerHTML = analisis.top50_archivos.slice(0, 5).map(f => {
         const folder = f.FullName?.split('\\').slice(-2, -1)[0] || '—';
-        return '<div class="file-item" title="' + (f.FullName || '').replace(/"/g, '&quot;') + '">' +
-          '<div class="file-info"><div class="file-name">' + folder + '</div><div class="file-path">' + (f.Name || '—').substring(0, 50) + '...</div></div>' +
-          '<div class="file-size">' + (f.SizeMB?.toLocaleString('es-AR') || '—') + ' MB</div>' +
-        '</div>';
+        return '<div class="file-item" title="' + (f.FullName || '').replace(/"/g, '&quot;') + '"><span class="file-name">' + folder + '</span><span class="file-size">' + (f.SizeMB?.toLocaleString('es-AR') || '—') + ' MB</span></div>';
       }).join('');
     }
 
-    // ===== ERRORES =====
+    // ERRORES
     if (errores) {
       document.getElementById('err-total').textContent = errores.cantidad_dia_mas_errores || 0;
       document.getElementById('err-dia').textContent = errores.dia_mas_errores || '—';
       document.getElementById('err-wf').textContent = errores.workflow_mas_errores || 'N/A';
       const list = document.getElementById('err-list');
       if (errores.errores_muestra && errores.errores_muestra.length > 0) {
-        list.innerHTML = errores.errores_muestra.slice(0, 5).map(e => {
-          const short = e.length > 90 ? e.substring(0, 87) + '...' : e;
-          return '<div class="error-item" title="' + e.replace(/"/g, '&quot;') + '">' + short + '</div>';
+        list.innerHTML = errores.errores_muestra.slice(0, 4).map(e => {
+          const short = e.length > 80 ? e.substring(0, 77) + '...' : e;
+          return '<div title="' + e.replace(/"/g, '&quot;') + '">' + short + '</div>';
         }).join('');
-      }
+      } else { list.innerHTML = '<div>Sin errores recientes</div>'; }
     }
 
-    // ===== DISTRIBUCIÓN =====
+    // DISTRIBUCION
     if (analisis?.distribucion_edad) {
       const order = ['lt_1h', '1h_6h', '6h_24h', '24h_7d', 'gt_7d'];
-      const labels = ['lt1h', '1h6h', '6h24h', '1d7d', 'gt7d'];
+      const ids = ['d-lt1h', 'd-1h6h', 'd-6h24h', 'd-1d7d', 'd-gt7d'];
+      const filesIds = ['d-lt1h-f', 'd-1h6h-f', 'd-6h24h-f', 'd-1d7d-f', 'd-gt7d-f'];
       order.forEach((bucket, i) => {
         const item = analisis.distribucion_edad.find(a => a.bucket === bucket);
         if (item) {
-          const elGb = document.getElementById('dist-' + labels[i] + '-gb');
-          const elFiles = document.getElementById('dist-' + labels[i] + '-files');
-          if (elGb) elGb.textContent = (item.bytes / 1024**3).toFixed(1);
-          if (elFiles) elFiles.textContent = fmtNum(item.count) + ' archivos';
+          const gbEl = document.getElementById(ids[i]);
+          if (gbEl) gbEl.textContent = (item.bytes / 1024**3).toFixed(1);
         }
       });
     }
 
-    // ===== MES =====
+    // MES
     if (comparativa?.tabla_mes) {
       const tbody = document.getElementById('mes-tbody');
       tbody.innerHTML = comparativa.tabla_mes.map(m => {
@@ -536,7 +452,7 @@ async function loadData() {
 
   } catch (e) {
     console.error(e);
-    document.getElementById('timestamp').textContent = 'Error cargando datos: ' + e.message;
+    document.getElementById('timestamp').textContent = 'Error: ' + e.message;
   }
 }
 
