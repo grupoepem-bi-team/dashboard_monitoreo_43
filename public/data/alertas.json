@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-07-11T10:35:00",
+  "historial": [
+    {
+      "fecha": "2026-07-11",
+      "hora": "09:17",
+      "tipo": "disco_temp_e",
+      "severidad": "info",
+      "mensaje": "Disco E: al 49.8% - Estado normal",
+      "umbral": 75,
+      "valor_actual": 49.8
+    }
+  ],
+  "umbrales": {
+    "disco_warning": 75,
+    "disco_critical": 90,
+    "temp_gb_warning": 150,
+    "temp_files_warning": 50000
+  }
+}
