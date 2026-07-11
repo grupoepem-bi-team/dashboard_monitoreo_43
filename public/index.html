@@ -184,7 +184,13 @@ tr:hover td { background: rgba(212,175,55,0.03); }
 
 <script>
 const fmtNum = n => n?.toLocaleString?.('es-AR') ?? n;
-const fmtDate = d => d ? new Date(d).toLocaleString('es-AR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '—';
+const fmtDate = d => {
+  if (!d) return '—';
+  // Formato /Date(1783516607551)/ de PowerShell JSON
+  const m = d.match(/Date\((\d+)\)/);
+  if (m) return new Date(parseInt(m[1])).toLocaleString('es-AR', {day:'2-digit', month:'2-digit', year:'2-digit', hour:'2-digit', minute:'2-digit'});
+  return new Date(d).toLocaleString('es-AR', {day:'2-digit', month:'2-digit', year:'2-digit', hour:'2-digit', minute:'2-digit'});
+};
 
 async function loadData() {
   try {
