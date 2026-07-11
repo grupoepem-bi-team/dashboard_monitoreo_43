@@ -61,25 +61,33 @@ body {
 
 /* ===== Alert ===== */
 .alert {
-  display: none; align-items: center; gap: 10px;
-  background: linear-gradient(90deg, rgba(245,166,35,0.10), rgba(245,166,35,0.02));
-  border: 1px solid rgba(245,166,35,0.35);
+  display: flex; align-items: center; gap: 10px;
+  background: linear-gradient(90deg, rgba(200,200,200,0.06), rgba(200,200,200,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 10px;
   padding: 8px 14px;
   margin-bottom: 10px; flex-shrink: 0;
 }
-.alert.show { display: flex; }
-.alert.crit { background: linear-gradient(90deg, rgba(248,113,113,0.10), rgba(248,113,113,0.02)); border-color: rgba(248,113,113,0.35); }
+.alert.warn {
+  background: linear-gradient(90deg, rgba(245,166,35,0.10), rgba(245,166,35,0.02));
+  border-color: rgba(245,166,35,0.35);
+}
+.alert.crit {
+  background: linear-gradient(90deg, rgba(248,113,113,0.10), rgba(248,113,113,0.02));
+  border-color: rgba(248,113,113,0.35);
+}
 .alert-icon {
   width: 28px; height: 28px; border-radius: 7px;
-  background: var(--amber-dim); color: var(--amber);
+  background: rgba(255,255,255,0.06); color: var(--text-2);
   display: flex; align-items: center; justify-content: center;
   font-size: 15px; flex-shrink: 0;
 }
+.alert.warn .alert-icon { background: var(--amber-dim); color: var(--amber); }
 .alert.crit .alert-icon { background: var(--red-dim); color: var(--red); }
-.alert-body b { color: var(--amber); font-size: 12px; }
+.alert-body b { color: var(--text-2); font-size: 12px; }
+.alert.warn .alert-body b { color: var(--amber); }
 .alert.crit .alert-body b { color: var(--red); }
-.alert-body p { color: var(--text-2); font-size: 11px; margin-top: 1px; }
+.alert-body p { color: var(--text-3); font-size: 11px; margin-top: 1px; }
 .alert-body p b { color: var(--text-1); font-weight: 600; }
 
 /* ===== Hero ===== */
@@ -167,9 +175,9 @@ body {
 }
 .panel-title {
   font-size: 10px; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--text-3);
+  text-transform: uppercase; color: var(--text-2);
 }
-.panel-title span { color: var(--text-2); font-weight: 500; }
+.panel-title span { color: var(--text-1); font-weight: 500; }
 
 /* Velocity */
 .velocity-row { display: flex; justify-content: space-between; gap: 8px; }
@@ -258,7 +266,7 @@ body {
 }
 
 footer {
-  margin-top: 6px; text-align: center; font-size: 10px; color: var(--text-3);
+  margin-top: 6px; text-align: center; font-size: 10px; color: var(--text-2);
   font-family: var(--mono); flex-shrink: 0;
 }
 footer a { color: var(--amber); text-decoration: none; }
@@ -296,10 +304,10 @@ footer a { color: var(--amber); text-decoration: none; }
 
   <!-- Alert -->
   <div class="alert" id="alert-box">
-    <div class="alert-icon">&#9888;</div>
+    <div class="alert-icon" id="alert-icon">&#9431;</div>
     <div class="alert-body">
-      <b id="alert-title">Atención — capacidad en descenso</b>
-      <p id="alert-text">A este ritmo el disco alcanza el 90% en pocos días.</p>
+      <b id="alert-title">Estado estable</b>
+      <p id="alert-text">Monitoreo activo · Última limpieza hace +7 días · Próxima revisión recomendada en 3 días</p>
     </div>
   </div>
 
@@ -512,6 +520,7 @@ async function loadData() {
 
     // ALERT
     const alertBox = document.getElementById('alert-box');
+    const alertIcon = document.getElementById('alert-icon');
     const alertTitle = document.getElementById('alert-title');
     const alertText = document.getElementById('alert-text');
     const de = estado?.disk_e;
@@ -524,15 +533,20 @@ async function loadData() {
       const diasLibres = gbDia > 0 ? Math.floor(de.free_gb / gbDia) : 999;
       const dias90 = gbDia > 0 ? Math.floor((de.size_gb * 0.9 - de.used_gb) / gbDia) : 999;
       if (de.used_pct >= 90) {
-        alertBox.className = 'alert show crit';
+        alertBox.className = 'alert crit';
+        alertIcon.textContent = '\u2757';
         alertTitle.textContent = 'Crítico — disco al ' + de.used_pct.toFixed(1) + '%';
         alertText.innerHTML = 'Quedan ' + de.free_gb.toFixed(1) + ' GB. Acción inmediata requerida.';
       } else if (de.used_pct >= 75) {
-        alertBox.className = 'alert show';
+        alertBox.className = 'alert warn';
+        alertIcon.textContent = '\u26A0';
         alertTitle.textContent = 'Atención — capacidad en descenso';
         alertText.innerHTML = 'A este ritmo (~' + gbDia.toFixed(1) + ' GB/día) el 90% en ~' + dias90 + ' días. Llenado en ~' + diasLibres + ' días.';
       } else {
         alertBox.className = 'alert';
+        alertIcon.textContent = '\u24D8';
+        alertTitle.textContent = 'Estado estable';
+        alertText.innerHTML = 'Monitoreo activo · Última limpieza hace +7 días · Próxima revisión recomendada en ' + dias90 + ' días';
       }
     }
 
