@@ -6,125 +6,117 @@
 <title>Monitoreo 43</title>
 <style>
 :root {
-  --bg: #0d0d12; --surface: #16161f; --gold: #c9a84c; --gold-dim: #8a7020;
-  --text: #e0e0e0; --text-dim: #888; --text-muted: #555;
-  --ok: #4ade80; --warn: #fbbf24; --crit: #f87171; --border: rgba(255,255,255,0.06);
+  --bg: #0a0a0f; --panel: #12121a; --gold: #c9a84c;
+  --text: #e0e0e0; --dim: #777; --muted: #444;
+  --ok: #4ade80; --warn: #fbbf24; --crit: #f87171;
+  --b: rgba(255,255,255,0.04);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--text); font-family: 'Segoe UI',system-ui,sans-serif; font-size: 12px; line-height: 1.3; height: 100vh; overflow: hidden; }
+html, body { height: 100vh; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Segoe UI',system-ui,sans-serif; font-size: 11px; }
 
-/* HEADER */
-header { height: 28px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; background: var(--surface); border-bottom: 1px solid var(--border); }
-header h1 { font-size: 11px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
-header .meta { font-size: 10px; color: var(--text-muted); }
+/* ===== HEADER 1 línea ===== */
+header { height: 20px; display: flex; align-items: center; justify-content: space-between; padding: 0 8px; background: var(--panel); border-bottom: 1px solid var(--b); font-size: 10px; }
+header h1 { font-size: 10px; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; }
+header .meta { color: var(--muted); }
 
-/* ALERTA */
-.alert { display: none; padding: 4px 12px; font-size: 11px; text-align: center; background: var(--crit); color: #fff; }
+/* ===== ALERTA ===== */
+.alert { display: none; padding: 2px 8px; font-size: 10px; text-align: center; background: var(--crit); color: #fff; }
 .alert.show { display: block; }
 .alert.warn { background: var(--warn); color: #000; }
 
-/* CONTAINER */
-.container { max-width: 1400px; margin: 0 auto; padding: 6px 12px; height: calc(100vh - 28px); overflow: hidden; }
+/* ===== CONTAINER ===== */
+.container { height: calc(100vh - 20px); padding: 4px 8px; display: flex; flex-direction: column; gap: 4px; max-width: 1400px; margin: 0 auto; }
 
-/* SECCION */
-.section { margin-bottom: 6px; }
-.section-title { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 3px; }
+/* ===== CARDS ===== */
+.card { background: var(--panel); border: 1px solid var(--b); border-radius: 4px; padding: 4px 6px; }
+.card-title { font-size: 8px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
 
-/* RESUMEN — 4 cards en fila */
-.summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-.sum-card { background: var(--surface); border-radius: 6px; padding: 8px 10px; border: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
-.sum-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-.sum-icon.ok { background: rgba(74,222,128,0.15); color: var(--ok); }
-.sum-icon.warn { background: rgba(251,191,36,0.15); color: var(--warn); }
-.sum-icon.crit { background: rgba(248,113,113,0.15); color: var(--crit); }
-.sum-info { flex: 1; }
-.sum-value { font-size: 16px; font-weight: 700; line-height: 1.1; }
-.sum-value.ok { color: var(--ok); }
-.sum-value.warn { color: var(--warn); }
-.sum-value.crit { color: var(--crit); }
-.sum-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-.sum-sub { font-size: 10px; color: var(--text-dim); margin-top: 1px; }
+/* ===== RESUMEN (4 en fila) ===== */
+.row-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; flex-shrink: 0; }
+.sum { display: flex; align-items: center; gap: 6px; }
+.sum-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+.sum-icon.ok { background: rgba(74,222,128,0.12); color: var(--ok); }
+.sum-icon.warn { background: rgba(251,191,36,0.12); color: var(--warn); }
+.sum-icon.crit { background: rgba(248,113,113,0.12); color: var(--crit); }
+.sum-val { font-size: 15px; font-weight: 700; line-height: 1; }
+.sum-val.ok { color: var(--ok); }
+.sum-val.warn { color: var(--warn); }
+.sum-val.crit { color: var(--crit); }
+.sum-lbl { font-size: 8px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.sum-sub { font-size: 9px; color: var(--dim); }
 
-/* DISCO + PREDICCION */
-.disco { background: var(--surface); border-radius: 6px; padding: 8px 12px; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 180px; gap: 12px; align-items: center; }
-.disco-left { }
-.disco-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-.disco-title { font-size: 10px; color: var(--text-dim); }
-.disco-pct { font-size: 20px; font-weight: 700; }
-.disco-pct.ok { color: var(--ok); }
-.disco-pct.warn { color: var(--warn); }
-.disco-pct.crit { color: var(--crit); }
-.disco-bar-bg { height: 10px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: hidden; margin-bottom: 3px; }
-.disco-bar-fill { height: 100%; border-radius: 5px; transition: width 0.5s; }
+/* ===== DISCO ===== */
+.row-disco { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.disco-bar-bg { flex: 1; height: 8px; background: rgba(255,255,255,0.04); border-radius: 4px; overflow: hidden; }
+.disco-bar-fill { height: 100%; border-radius: 4px; }
 .disco-bar-fill.ok { background: var(--ok); }
 .disco-bar-fill.warn { background: var(--warn); }
 .disco-bar-fill.crit { background: var(--crit); }
-.disco-stats { display: flex; gap: 12px; font-size: 10px; color: var(--text-dim); }
-.disco-stats strong { color: var(--text); font-weight: 500; }
-.disco-right { font-size: 10px; color: var(--text-dim); line-height: 1.4; }
-.disco-right strong { color: var(--gold); }
-.disco-right .highlight { color: var(--warn); font-weight: 600; }
+.disco-pct { font-size: 16px; font-weight: 700; white-space: nowrap; }
+.disco-pct.ok { color: var(--ok); }
+.disco-pct.warn { color: var(--warn); }
+.disco-pct.crit { color: var(--crit); }
+.disco-story { font-size: 10px; color: var(--dim); white-space: nowrap; }
+.disco-story strong { color: var(--gold); }
+.disco-story .warn { color: var(--warn); font-weight: 600; }
 
-/* VELOCIDAD + GENERADORES (2 columnas) */
-.row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+/* ===== ROW 2 COL ===== */
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; flex: 1; min-height: 0; }
 
-.velo-card { background: var(--surface); border-radius: 6px; padding: 8px; border: 1px solid var(--border); }
-.velo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.velo-item { text-align: center; }
-.velo-label { font-size: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+/* VELOCIDAD */
+.velo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; text-align: center; }
+.velo-lbl { font-size: 8px; color: var(--muted); text-transform: uppercase; }
 .velo-gb { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1; }
-.velo-files { font-size: 9px; color: var(--text-dim); margin-top: 1px; }
+.velo-files { font-size: 9px; color: var(--dim); }
 
-.gen-card { background: var(--surface); border-radius: 6px; padding: 8px; border: 1px solid var(--border); }
-.gen-item { margin-bottom: 5px; }
+/* GENERADORES */
+.gen-item { margin-bottom: 3px; }
 .gen-item:last-child { margin-bottom: 0; }
-.gen-label { display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 2px; }
-.gen-bar-bg { height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
-.gen-bar-fill { height: 100%; border-radius: 3px; }
+.gen-label { display: flex; justify-content: space-between; font-size: 10px; }
+.gen-bar-bg { height: 4px; background: rgba(255,255,255,0.04); border-radius: 2px; overflow: hidden; margin-top: 1px; }
+.gen-bar-fill { height: 100%; border-radius: 2px; }
 .gen-bar-fill.ok { background: var(--ok); }
 .gen-bar-fill.warn { background: var(--warn); }
 
-/* ARCHIVOS + ERRORES (2 columnas) */
-.files-card { background: var(--surface); border-radius: 6px; padding: 6px 8px; border: 1px solid var(--border); max-height: 110px; overflow: auto; }
-.file-item { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; border-bottom: 1px solid var(--border); font-size: 10px; }
+/* ARCHIVOS */
+.file-item { display: flex; justify-content: space-between; align-items: center; padding: 2px 0; border-bottom: 1px solid var(--b); font-size: 10px; }
 .file-item:last-child { border-bottom: none; }
 .file-name { color: var(--text); }
-.file-size { color: var(--gold); font-weight: 600; white-space: nowrap; margin-left: 8px; }
+.file-size { color: var(--gold); font-weight: 600; white-space: nowrap; margin-left: 6px; }
 
-.err-card { background: var(--surface); border-radius: 6px; padding: 8px; border: 1px solid var(--border); border-left: 3px solid var(--crit); }
-.err-header { display: flex; gap: 20px; margin-bottom: 4px; }
-.err-big { font-size: 20px; font-weight: 700; color: var(--crit); line-height: 1; }
-.err-label { font-size: 8px; color: var(--text-muted); text-transform: uppercase; }
-.err-value { font-size: 11px; color: var(--text); font-weight: 500; }
-.err-list { font-size: 9px; color: var(--text-dim); max-height: 60px; overflow: auto; }
+/* ERRORES */
+.err-header { display: flex; gap: 16px; margin-bottom: 3px; }
+.err-big { font-size: 18px; font-weight: 700; color: var(--crit); line-height: 1; }
+.err-label { font-size: 8px; color: var(--muted); text-transform: uppercase; }
+.err-val { font-size: 11px; color: var(--text); font-weight: 500; }
+.err-list { font-size: 9px; color: var(--dim); }
 .err-list div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 1px 0; }
 
-/* LIMPIEZA + MES (2 columnas) */
-.dist-card { background: var(--surface); border-radius: 6px; padding: 8px; border: 1px solid var(--border); }
-.dist-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
-.dist-item { text-align: center; padding: 4px 2px; background: rgba(255,255,255,0.03); border-radius: 4px; }
-.dist-time { font-size: 8px; color: var(--text-muted); }
-.dist-gb { font-size: 12px; font-weight: 600; color: var(--text); }
-.dist-files { font-size: 8px; color: var(--text-dim); }
+/* DISTRIBUCIÓN */
+.dist { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; text-align: center; }
+.dist-item { padding: 3px 2px; background: rgba(255,255,255,0.02); border-radius: 3px; }
+.dist-time { font-size: 8px; color: var(--muted); }
+.dist-gb { font-size: 13px; font-weight: 700; color: var(--text); }
+.dist-files { font-size: 8px; color: var(--dim); }
 
-.table-card { background: var(--surface); border-radius: 6px; padding: 6px 8px; border: 1px solid var(--border); }
+/* TABLA */
+.table-wrap { overflow: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 10px; }
-th { text-align: left; padding: 3px 4px; font-size: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
-td { padding: 3px 4px; color: var(--text); border-bottom: 1px solid var(--border); }
+th { text-align: left; padding: 2px 3px; font-size: 8px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--b); }
+td { padding: 2px 3px; color: var(--text); border-bottom: 1px solid var(--b); }
 tr:last-child td { border-bottom: none; }
 td.pct { font-weight: 600; }
 td.pct.ok { color: var(--ok); }
 td.pct.warn { color: var(--warn); }
 td.pct.crit { color: var(--crit); }
 
-footer { text-align: center; padding: 4px; font-size: 9px; color: var(--text-muted); }
+/* FOOTER mínimo */
+footer { font-size: 9px; color: var(--muted); text-align: center; padding: 2px; }
 footer a { color: var(--gold); text-decoration: none; }
 
-@media (max-width: 900px) {
-  body { overflow: auto; height: auto; }
-  .summary { grid-template-columns: repeat(2, 1fr); }
-  .row-2col { grid-template-columns: 1fr; }
-  .disco { grid-template-columns: 1fr; }
+@media (max-width: 700px) {
+  .row-4 { grid-template-columns: repeat(2, 1fr); }
+  .row-2 { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -132,48 +124,51 @@ footer a { color: var(--gold); text-decoration: none; }
 
 <header>
   <h1>Monitoreo del 43</h1>
-  <div class="meta">192.168.0.43 — GRUPOEPEM467-VM — <span id="timestamp">—</span></div>
+  <div class="meta">192.168.0.43 — <span id="timestamp">—</span></div>
 </header>
 
-<div class="alert" id="alert-box">
-  <span id="alert-text"></span>
-</div>
+<div class="alert" id="alert-box"><span id="alert-text"></span></div>
 
 <div class="container">
 
   <!-- RESUMEN -->
-  <div class="section">
-    <div class="section-title">Resumen del Sistema</div>
-    <div class="summary" id="summary">
-      <div class="sum-card">
+  <div class="row-4">
+    <div class="card">
+      <div class="sum">
         <div class="sum-icon ok" id="icon-status">●</div>
-        <div class="sum-info">
-          <div class="sum-value ok" id="res-status">Conectado</div>
-          <div class="sum-label">Estado</div>
+        <div>
+          <div class="sum-val ok" id="res-status">Conectado</div>
+          <div class="sum-lbl">Estado</div>
           <div class="sum-sub" id="res-sub">KNIME running · OneDrive running</div>
         </div>
       </div>
-      <div class="sum-card">
+    </div>
+    <div class="card">
+      <div class="sum">
         <div class="sum-icon ok" id="icon-disco">💾</div>
-        <div class="sum-info">
-          <div class="sum-value ok" id="res-disco">49.8%</div>
-          <div class="sum-label">Disco E:\</div>
+        <div>
+          <div class="sum-val ok" id="res-disco">49.8%</div>
+          <div class="sum-lbl">Disco E:\</div>
           <div class="sum-sub" id="res-disco-sub">122.7 / 246.3 GB · 22.323 arch</div>
         </div>
       </div>
-      <div class="sum-card">
+    </div>
+    <div class="card">
+      <div class="sum">
         <div class="sum-icon ok" id="icon-ram">🧠</div>
-        <div class="sum-info">
-          <div class="sum-value ok" id="res-ram">25.5 GB</div>
-          <div class="sum-label">KNIME RAM</div>
-          <div class="sum-sub" id="res-ram-sub">PID 11764 · Running</div>
+        <div>
+          <div class="sum-val ok" id="res-ram">25.5 GB</div>
+          <div class="sum-lbl">KNIME RAM</div>
+          <div class="sum-sub" id="res-ram-sub">PID 11764 · running</div>
         </div>
       </div>
-      <div class="sum-card">
+    </div>
+    <div class="card">
+      <div class="sum">
         <div class="sum-icon ok" id="icon-temp">📁</div>
-        <div class="sum-info">
-          <div class="sum-value ok" id="res-temp">107.5 GB</div>
-          <div class="sum-label">Temporales</div>
+        <div>
+          <div class="sum-val ok" id="res-temp">107.5 GB</div>
+          <div class="sum-lbl">Temporales</div>
           <div class="sum-sub" id="res-temp-sub">Generados hoy</div>
         </div>
       </div>
@@ -181,102 +176,65 @@ footer a { color: var(--gold); text-decoration: none; }
   </div>
 
   <!-- DISCO -->
-  <div class="section">
-    <div class="section-title">Disco E:\ — ¿Cuánto Falta?</div>
-    <div class="disco">
-      <div class="disco-left">
-        <div class="disco-header">
-          <span class="disco-title">Espacio usado</span>
-          <span class="disco-pct ok" id="disco-pct">49.8%</span>
-        </div>
-        <div class="disco-bar-bg"><div class="disco-bar-fill ok" id="disco-bar" style="width:49.8%"></div></div>
-        <div class="disco-stats">
-          <span><strong id="disco-used">122.7 GB</strong> usados</span>
-          <span><strong id="disco-free">123.6 GB</strong> libres</span>
-          <span><strong id="disco-total">246.3 GB</strong> totales</span>
-        </div>
-      </div>
-      <div class="disco-right" id="disco-story">
-        A ritmo de <strong>~30.1 GB/día</strong>, quedan <span class="highlight">4 días</span> libres. Para 90%: ~3 días. Limpieza: <strong>hace +7 días</strong>.
-      </div>
-    </div>
+  <div class="card row-disco">
+    <div class="disco-pct ok" id="disco-pct">49.8%</div>
+    <div class="disco-bar-bg"><div class="disco-bar-fill ok" id="disco-bar" style="width:49.8%"></div></div>
+    <div class="disco-story" id="disco-story"><strong>122.7 GB</strong> usados · <strong>123.6 GB</strong> libres · <strong>246.3 GB</strong> total · Ritmo: <strong>~30.1 GB/día</strong> · Quedan <span class="warn">4 días</span> libres · 90% en ~3 días · Limpieza: <strong>+7 días</strong></div>
   </div>
 
   <!-- VELOCIDAD + GENERADORES -->
-  <div class="section">
-    <div class="section-title">Velocidad y Causas</div>
-    <div class="row-2col">
-      <div class="velo-card">
-        <div class="velo-grid">
-          <div class="velo-item">
-            <div class="velo-label">2 horas</div>
-            <div class="velo-gb" id="v-2h">5.1</div>
-            <div class="velo-files" id="v-2h-f">1.427 arch</div>
-          </div>
-          <div class="velo-item">
-            <div class="velo-label">6 horas</div>
-            <div class="velo-gb" id="v-6h">8.1</div>
-            <div class="velo-files" id="v-6h-f">2.688 arch</div>
-          </div>
-          <div class="velo-item">
-            <div class="velo-label">24 horas</div>
-            <div class="velo-gb" id="v-24h">30.1</div>
-            <div class="velo-files" id="v-24h-f">8.267 arch</div>
-          </div>
-        </div>
+  <div class="row-2">
+    <div class="card">
+      <div class="card-title">Velocidad</div>
+      <div class="velo">
+        <div><div class="velo-lbl">2 horas</div><div class="velo-gb" id="v-2h">5.1</div><div class="velo-files" id="v-2h-f">1.427 arch</div></div>
+        <div><div class="velo-lbl">6 horas</div><div class="velo-gb" id="v-6h">8.1</div><div class="velo-files" id="v-6h-f">2.688 arch</div></div>
+        <div><div class="velo-lbl">24 horas</div><div class="velo-gb" id="v-24h">30.1</div><div class="velo-files" id="v-24h-f">8.267 arch</div></div>
       </div>
-      <div class="gen-card" id="gen-card">
-        <div class="gen-item">
-          <div class="gen-label"><span>Snapshot Temp</span><span>61.4 GB · 57%</span></div>
-          <div class="gen-bar-bg"><div class="gen-bar-fill ok" style="width:57%"></div></div>
-        </div>
-        <div class="gen-item">
-          <div class="gen-label"><span>DuplicateChecker</span><span>45.4 GB · 42%</span></div>
-          <div class="gen-bar-bg"><div class="gen-bar-fill warn" style="width:42%"></div></div>
-        </div>
-      </div>
+    </div>
+    <div class="card" id="gen-card">
+      <div class="card-title">Generadores</div>
+      <div class="gen-item"><div class="gen-label"><span>Snapshot Temp</span><span>61.4 GB · 57%</span></div><div class="gen-bar-bg"><div class="gen-bar-fill ok" style="width:57%"></div></div></div>
+      <div class="gen-item"><div class="gen-label"><span>DuplicateChecker</span><span>45.4 GB · 42%</span></div><div class="gen-bar-bg"><div class="gen-bar-fill warn" style="width:42%"></div></div></div>
     </div>
   </div>
 
   <!-- ARCHIVOS + ERRORES -->
-  <div class="section">
-    <div class="section-title">Archivos Grandes y Errores</div>
-    <div class="row-2col">
-      <div class="files-card" id="files-card">
-        <div class="file-item"><span class="file-name">Cobranzas_tto_o</span><span class="file-size">40.461 MB</span></div>
-        <div class="file-item"><span class="file-name">Ventas por edad</span><span class="file-size">2.563 MB</span></div>
-        <div class="file-item"><span class="file-name">Marcacion Emerg</span><span class="file-size">1.051 MB</span></div>
-        <div class="file-item"><span class="file-name">EMERG</span><span class="file-size">761 MB</span></div>
-        <div class="file-item"><span class="file-name">DATAMARTS</span><span class="file-size">572 MB</span></div>
+  <div class="row-2">
+    <div class="card" id="files-card">
+      <div class="card-title">Archivos Grandes</div>
+      <div class="file-item"><span class="file-name">Cobranzas_tto_o</span><span class="file-size">40.461 MB</span></div>
+      <div class="file-item"><span class="file-name">Ventas por edad</span><span class="file-size">2.563 MB</span></div>
+      <div class="file-item"><span class="file-name">Marcacion Emerg</span><span class="file-size">1.051 MB</span></div>
+      <div class="file-item"><span class="file-name">EMERG</span><span class="file-size">761 MB</span></div>
+      <div class="file-item"><span class="file-name">DATAMARTS</span><span class="file-size">572 MB</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Errores KNIME</div>
+      <div class="err-header">
+        <div><div class="err-big" id="err-total">11</div><div class="err-label">Errores</div></div>
+        <div><div class="err-val" id="err-dia">2026-02-24</div><div class="err-label">Día peor</div></div>
+        <div><div class="err-val" id="err-wf">N/A</div><div class="err-label">Workflow</div></div>
       </div>
-      <div class="err-card">
-        <div class="err-header">
-          <div><div class="err-big" id="err-total">11</div><div class="err-label">Errores</div></div>
-          <div><div class="err-value" id="err-dia">2026-02-24</div><div class="err-label">Día peor</div></div>
-          <div><div class="err-value" id="err-wf">N/A</div><div class="err-label">Workflow</div></div>
-        </div>
-        <div class="err-list" id="err-list">
-          <div>2026-02-24 09:54:01 — WARN — FileNodePersistor : Rule Engine</div>
-          <div>2026-02-24 09:54:21 — WARN — KNIME-Worker-3-DB Query Reader</div>
-        </div>
-      </div>
+      <div class="err-list" id="err-list"><div>2026-02-24 09:54:01 — WARN — FileNodePersistor : Rule Engine</div><div>2026-02-24 09:54:21 — WARN — KNIME-Worker-3-DB Query Reader</div></div>
     </div>
   </div>
 
   <!-- DISTRIBUCIÓN + MES -->
-  <div class="section">
-    <div class="section-title">Distribución Temporal e Historial</div>
-    <div class="row-2col">
-      <div class="dist-card">
-        <div class="dist-grid" id="dist-grid">
-          <div class="dist-item"><div class="dist-time">&lt;1h</div><div class="dist-gb" id="d-lt1h">3.4</div><div class="dist-files">1.116</div></div>
-          <div class="dist-item"><div class="dist-time">1-6h</div><div class="dist-gb" id="d-1h6h">4.7</div><div class="dist-files">1.572</div></div>
-          <div class="dist-item"><div class="dist-time">6-24h</div><div class="dist-gb" id="d-6h24h">22.0</div><div class="dist-files">5.579</div></div>
-          <div class="dist-item"><div class="dist-time">1-7d</div><div class="dist-gb" id="d-1d7d">76.8</div><div class="dist-files">13.576</div></div>
-          <div class="dist-item"><div class="dist-time">&gt;7d</div><div class="dist-gb" id="d-gt7d">0.0</div><div class="dist-files">1</div></div>
-        </div>
+  <div class="row-2">
+    <div class="card">
+      <div class="card-title">Distribución Temporal</div>
+      <div class="dist" id="dist-grid">
+        <div class="dist-item"><div class="dist-time">&lt;1h</div><div class="dist-gb" id="d-lt1h">3.4</div><div class="dist-files">1.116 arch</div></div>
+        <div class="dist-item"><div class="dist-time">1-6h</div><div class="dist-gb" id="d-1h6h">4.7</div><div class="dist-files">1.572 arch</div></div>
+        <div class="dist-item"><div class="dist-time">6-24h</div><div class="dist-gb" id="d-6h24h">22.0</div><div class="dist-files">5.579 arch</div></div>
+        <div class="dist-item"><div class="dist-time">1-7d</div><div class="dist-gb" id="d-1d7d">76.8</div><div class="dist-files">13.576 arch</div></div>
+        <div class="dist-item"><div class="dist-time">&gt;7d</div><div class="dist-gb" id="d-gt7d">0.0</div><div class="dist-files">1 arch</div></div>
       </div>
-      <div class="table-card">
+    </div>
+    <div class="card">
+      <div class="card-title">Historial Mensual</div>
+      <div class="table-wrap">
         <table>
           <thead><tr><th>Mes</th><th>Días</th><th>Disco%</th><th>Temp</th><th>Max Arch</th></tr></thead>
           <tbody id="mes-tbody"><tr><td>2026-07</td><td>1</td><td class="pct ok">49.8%</td><td>107.49 GB</td><td>22.323</td></tr></tbody>
@@ -285,9 +243,7 @@ footer a { color: var(--gold); text-decoration: none; }
     </div>
   </div>
 
-  <footer>
-    Dashboard Monitoreo 43 — Datos refrescados cada 30 min — <a href="https://github.com/grupoepem-bi-team/dashboard_monitoreo_43">Repo GitHub</a>
-  </footer>
+  <footer>Dashboard 43 — Refrescado cada 30 min — <a href="https://github.com/grupoepem-bi-team/dashboard_monitoreo_43">GitHub</a></footer>
 
 </div>
 
@@ -315,43 +271,36 @@ async function loadData() {
     if (comparativaRes?.ok) comparativa = await comparativaRes.json();
     if (erroresRes?.ok) errores = await erroresRes.json();
 
-    const ts = document.getElementById('timestamp');
-    ts.textContent = estado?.timestamp ? new Date(estado.timestamp).toLocaleString('es-AR') : 'Sin datos';
+    document.getElementById('timestamp').textContent = estado?.timestamp ? new Date(estado.timestamp).toLocaleString('es-AR') : 'Sin datos';
 
     // ALERTA
     const alertBox = document.getElementById('alert-box');
     const alertText = document.getElementById('alert-text');
     const de = estado?.disk_e;
     if (de) {
-      if (de.used_pct >= 90) {
-        alertBox.className = 'alert show'; alertText.textContent = '🚨 Disco E:\ al ' + de.used_pct.toFixed(1) + '% — Acción inmediata. Quedan ' + de.free_gb.toFixed(1) + ' GB.';
-      } else if (de.used_pct >= 75) {
-        alertBox.className = 'alert show warn'; alertText.textContent = '⚠️ Disco E:\ al ' + de.used_pct.toFixed(1) + '% — Planificar limpieza. Quedan ' + de.free_gb.toFixed(1) + ' GB.';
-      } else { alertBox.className = 'alert'; }
+      if (de.used_pct >= 90) { alertBox.className = 'alert show'; alertText.textContent = '🚨 Disco E:\ al ' + de.used_pct.toFixed(1) + '% — Acción inmediata. Quedan ' + de.free_gb.toFixed(1) + ' GB.'; }
+      else if (de.used_pct >= 75) { alertBox.className = 'alert show warn'; alertText.textContent = '⚠️ Disco E:\ al ' + de.used_pct.toFixed(1) + '% — Planificar limpieza. Quedan ' + de.free_gb.toFixed(1) + ' GB.'; }
+      else { alertBox.className = 'alert'; }
     }
 
     // RESUMEN
     if (estado) {
       const kn = estado.knime || {}, od = estado.onedrive || {};
       const statusOk = kn.status === 'Running' && od.status === 'Running';
-      const statusEl = document.getElementById('res-status');
-      const iconEl = document.getElementById('icon-status');
-      statusEl.textContent = statusOk ? 'Conectado' : 'Atención';
-      statusEl.className = 'sum-value ' + (statusOk ? 'ok' : 'warn');
-      iconEl.className = 'sum-icon ' + (statusOk ? 'ok' : 'warn');
-      iconEl.textContent = statusOk ? '●' : '◐';
+      document.getElementById('res-status').textContent = statusOk ? 'Conectado' : 'Atención';
+      document.getElementById('res-status').className = 'sum-val ' + (statusOk ? 'ok' : 'warn');
+      document.getElementById('icon-status').className = 'sum-icon ' + (statusOk ? 'ok' : 'warn');
+      document.getElementById('icon-status').textContent = statusOk ? '●' : '◐';
       document.getElementById('res-sub').textContent = 'KNIME ' + (kn.status || '?') + ' · OneDrive ' + (od.status || '?');
 
       const pct = de?.used_pct || 0;
-      const dEl = document.getElementById('res-disco');
-      const dIcon = document.getElementById('icon-disco');
-      dEl.textContent = pct.toFixed(1) + '%';
-      dEl.className = 'sum-value ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
-      dIcon.className = 'sum-icon ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+      document.getElementById('res-disco').textContent = pct.toFixed(1) + '%';
+      document.getElementById('res-disco').className = 'sum-val ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+      document.getElementById('icon-disco').className = 'sum-icon ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
       document.getElementById('res-disco-sub').textContent = (de?.used_gb || 0).toFixed(1) + ' / ' + (de?.size_gb || 0).toFixed(1) + ' GB · ' + fmtNum(estado.temp_e?.files || 0) + ' arch';
 
       document.getElementById('res-ram').textContent = (kn.mem_gb || 0).toFixed(1) + ' GB';
-      document.getElementById('res-ram-sub').textContent = 'PID ' + (kn.pid || '?') + ' · ' + (kn.status || '?');
+      document.getElementById('res-ram-sub').textContent = 'PID ' + (kn.pid || '?');
 
       const tempGB = ((estado.temp_e?.bytes || 0) / 1024**3).toFixed(1);
       document.getElementById('res-temp').textContent = tempGB + ' GB';
@@ -366,9 +315,6 @@ async function loadData() {
       pEl.className = 'disco-pct ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
       bEl.style.width = Math.min(pct, 100) + '%';
       bEl.className = 'disco-bar-fill ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
-      document.getElementById('disco-used').textContent = de.used_gb.toFixed(1) + ' GB';
-      document.getElementById('disco-free').textContent = de.free_gb.toFixed(1) + ' GB';
-      document.getElementById('disco-total').textContent = de.size_gb.toFixed(1) + ' GB';
 
       let story = '';
       if (analisis?.velocidad_generacion) {
@@ -376,11 +322,12 @@ async function loadData() {
         const gbDia = v24 ? (v24.bytes / 1024**3) : 0;
         const diasLibres = gbDia > 0 ? Math.floor(de.free_gb / gbDia) : 999;
         const dias90 = gbDia > 0 ? Math.floor((de.size_gb * 0.9 - de.used_gb) / gbDia) : 999;
-        story = 'A ritmo de <strong>~' + gbDia.toFixed(1) + ' GB/día</strong>, quedan ';
-        story += '<span class="highlight">' + diasLibres + ' días</span> libres. Para 90%: ~' + dias90 + ' días. ';
+        story = '<strong>' + de.used_gb.toFixed(1) + ' GB</strong> usados · <strong>' + de.free_gb.toFixed(1) + ' GB</strong> libres · <strong>' + de.size_gb.toFixed(1) + ' GB</strong> total · Ritmo: <strong>~' + gbDia.toFixed(1) + ' GB/día</strong> · Quedan <span class="warn">' + diasLibres + ' días</span> libres · 90% en ~' + dias90 + ' días · Limpieza: <strong>';
+      } else {
+        story = '<strong>' + de.used_gb.toFixed(1) + ' GB</strong> usados · <strong>' + de.free_gb.toFixed(1) + ' GB</strong> libres · <strong>' + de.size_gb.toFixed(1) + ' GB</strong> total · Limpieza: <strong>';
       }
       const gt7 = analisis?.distribucion_edad?.find(a => a.bucket === 'gt_7d');
-      story += 'Limpieza: <strong>' + (gt7 && gt7.count > 0 ? 'hace +7 días' : 'reciente') + '</strong>.';
+      story += (gt7 && gt7.count > 0 ? '+7 días' : 'reciente') + '</strong>';
       document.getElementById('disco-story').innerHTML = story;
     }
 
@@ -398,16 +345,16 @@ async function loadData() {
     if (analisis?.generadores) {
       const total = analisis.metadata?.bytes || 1;
       const genCard = document.getElementById('gen-card');
-      genCard.innerHTML = analisis.generadores.slice(0, 4).map(g => {
+      genCard.innerHTML = '<div class="card-title">Generadores</div>' + analisis.generadores.slice(0, 4).map(g => {
         const pct = ((g.bytes || 0) / total * 100).toFixed(1);
         return '<div class="gen-item"><div class="gen-label"><span>' + g.label + '</span><span>' + (g.bytes / 1024**3).toFixed(1) + ' GB · ' + pct + '%</span></div><div class="gen-bar-bg"><div class="gen-bar-fill ' + (pct > 40 ? 'warn' : 'ok') + '" style="width:' + pct + '%"></div></div></div>';
       }).join('');
     }
 
-    // ARCHIVOS (top 5)
+    // ARCHIVOS
     if (analisis?.top50_archivos) {
       const filesCard = document.getElementById('files-card');
-      filesCard.innerHTML = analisis.top50_archivos.slice(0, 5).map(f => {
+      filesCard.innerHTML = '<div class="card-title">Archivos Grandes</div>' + analisis.top50_archivos.slice(0, 5).map(f => {
         const folder = f.FullName?.split('\\').slice(-2, -1)[0] || '—';
         return '<div class="file-item" title="' + (f.FullName || '').replace(/"/g, '&quot;') + '"><span class="file-name">' + folder + '</span><span class="file-size">' + (f.SizeMB?.toLocaleString('es-AR') || '—') + ' MB</span></div>';
       }).join('');
@@ -420,18 +367,17 @@ async function loadData() {
       document.getElementById('err-wf').textContent = errores.workflow_mas_errores || 'N/A';
       const list = document.getElementById('err-list');
       if (errores.errores_muestra && errores.errores_muestra.length > 0) {
-        list.innerHTML = errores.errores_muestra.slice(0, 4).map(e => {
-          const short = e.length > 80 ? e.substring(0, 77) + '...' : e;
+        list.innerHTML = errores.errores_muestra.slice(0, 3).map(e => {
+          const short = e.length > 70 ? e.substring(0, 67) + '...' : e;
           return '<div title="' + e.replace(/"/g, '&quot;') + '">' + short + '</div>';
         }).join('');
       } else { list.innerHTML = '<div>Sin errores recientes</div>'; }
     }
 
-    // DISTRIBUCION
+    // DISTRIBUCIÓN
     if (analisis?.distribucion_edad) {
       const order = ['lt_1h', '1h_6h', '6h_24h', '24h_7d', 'gt_7d'];
       const ids = ['d-lt1h', 'd-1h6h', 'd-6h24h', 'd-1d7d', 'd-gt7d'];
-      const filesIds = ['d-lt1h-f', 'd-1h6h-f', 'd-6h24h-f', 'd-1d7d-f', 'd-gt7d-f'];
       order.forEach((bucket, i) => {
         const item = analisis.distribucion_edad.find(a => a.bucket === bucket);
         if (item) {
