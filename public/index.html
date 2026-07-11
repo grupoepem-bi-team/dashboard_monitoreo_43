@@ -190,6 +190,61 @@ body {
 .vel-count { font-size: 9px; color: var(--text-3); font-family: var(--mono); }
 .vel-item.hi .vel-num { color: var(--amber); }
 
+/* ===== Animaciones ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes barGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes distGrow {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Aplicar animaciones */
+.gauge-card { animation: fadeUp 0.7s ease-out; }
+.stat-card { animation: fadeUp 0.7s ease-out; }
+.stat-card:nth-child(2) { animation-delay: 0.08s; }
+.stat-card:nth-child(3) { animation-delay: 0.16s; }
+.stat-card:nth-child(4) { animation-delay: 0.24s; }
+.alert { animation: slideDown 0.5s ease-out; }
+.panel { animation: fadeUp 0.6s ease-out; }
+.gen-fill { transform-origin: left; animation: barGrow 0.8s cubic-bezier(0.22, 1, 0.36, 1); transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.dist-item { animation: distGrow 0.5s ease-out; }
+.dist-item:nth-child(2) { animation-delay: 0.06s; }
+.dist-item:nth-child(3) { animation-delay: 0.12s; }
+.dist-item:nth-child(4) { animation-delay: 0.18s; }
+.dist-item:nth-child(5) { animation-delay: 0.24s; }
+.vel-item { animation: fadeUp 0.5s ease-out; }
+.vel-item:nth-child(2) { animation-delay: 0.08s; }
+.vel-item:nth-child(3) { animation-delay: 0.16s; }
+.list-row { animation: fadeIn 0.4s ease-out; }
+.list-row:nth-child(2) { animation-delay: 0.05s; }
+.list-row:nth-child(3) { animation-delay: 0.10s; }
+.list-row:nth-child(4) { animation-delay: 0.15s; }
+.list-row:nth-child(5) { animation-delay: 0.20s; }
+.err-line { animation: fadeIn 0.35s ease-out; }
+.err-line:nth-child(2) { animation-delay: 0.06s; }
+.err-line:nth-child(3) { animation-delay: 0.12s; }
+.err-line:nth-child(4) { animation-delay: 0.18s; }
+.err-line:nth-child(5) { animation-delay: 0.24s; }
+.err-count { animation: distGrow 0.5s ease-out; }
+.disco-bar-fill { transition: width 1s cubic-bezier(0.22, 1, 0.36, 1); }
+.hist-table tbody tr { animation: fadeIn 0.4s ease-out; }
+.hist-table tbody tr:nth-child(2) { animation-delay: 0.06s; }
+.hist-table tbody tr:nth-child(3) { animation-delay: 0.12s; }
+
 /* Generators */
 .gen-row { margin-bottom: 8px; }
 .gen-row:last-child { margin-bottom: 0; }
