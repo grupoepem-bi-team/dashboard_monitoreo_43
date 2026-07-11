@@ -224,7 +224,7 @@ async function loadData() {
     // --- TARJETA 2: Disco ---
     if (estado?.disk_e) {
       const d = estado.disk_e;
-      document.getElementById('disk-total').textContent = d.total_gb?.toFixed(0) + ' GB';
+      document.getElementById('disk-total').textContent = d.size_gb?.toFixed(0) + ' GB';
       document.getElementById('disk-used').textContent = d.used_gb?.toFixed(1) + ' GB';
       document.getElementById('disk-free').textContent = d.free_gb?.toFixed(1) + ' GB';
       document.getElementById('disk-pct').textContent = d.used_pct?.toFixed(1) + '%';
@@ -246,9 +246,9 @@ async function loadData() {
     }
 
     // --- TARJETA 4: Velocidad ---
-    if (analisis?.histograma_velocidad) {
+    if (analisis?.velocidad_generacion) {
       const tbody = document.querySelector('#tabla-velocidad tbody');
-      const sorted = [...analisis.histograma_velocidad].sort((a,b) => b.periodo.localeCompare(a.periodo));
+      const sorted = [...analisis.velocidad_generacion].sort((a,b) => b.periodo.localeCompare(a.periodo));
       tbody.innerHTML = sorted.map(v => `<tr><td>${v.label}</td><td>${fmtNum(v.count)}</td><td>${(v.bytes/1024**3).toFixed(1)}</td></tr>`).join('');
     }
     if (analisis?.histograma_hora) {
@@ -256,11 +256,10 @@ async function loadData() {
       document.getElementById('pico-hora').textContent = pico ? String(pico.hora).padStart(2,'0')+':00 ('+(pico.bytes/1024**3).toFixed(1)+' GB)' : '—';
     }
     // Dia con mas temporales (del histograma por dia si existe, o estimar)
-    if (analisis?.pico_dia) {
-      document.getElementById('pico-dia').textContent = analisis.pico_dia;
-    } else if (analisis?.histograma_dia) {
-      const picoDia = [...analisis.histograma_dia].sort((a,b) => (b.bytes||0)-(a.bytes||0))[0];
-      document.getElementById('pico-dia').textContent = picoDia ? picoDia.dia + ' ('+(picoDia.bytes/1024**3).toFixed(1)+' GB)' : '—';
+    // Dia con mas temporales (de los generadores por workflow)
+    if (analisis?.generadores) {
+      const picoGen = [...analisis.generadores].sort((a,b) => (b.bytes||0)-(a.bytes||0))[0];
+      document.getElementById('pico-dia').textContent = picoGen ? picoGen.label + ' ('+(picoGen.bytes/1024**3).toFixed(1)+' GB)' : '—';
     }
 
     // --- TARJETA 5: Top Generadores ---
