@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Monitoreo 43 — Grupo EPEM</title>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --panel: #111118;
+  --gold: #d4af37;
+  --gold-dim: #8a7020;
+  --text: #e0e0e0;
+  --text-dim: #888;
+  --ok: #2ecc71;
+  --warn: #f39c12;
+  --crit: #e74c3c;
+  --info: #3498db;
+  --border: rgba(212,175,55,0.15);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+}
+header {
+  text-align: center;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+header h1 {
+  color: var(--gold);
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+header .subtitle {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+header .timestamp {
+  color: var(--gold-dim);
+  font-size: 0.8rem;
+  margin-top: 8px;
+  font-family: monospace;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.card-title {
+  color: var(--gold);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title .icon {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold);
+}
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.metric-row:last-child { border-bottom: none; }
+.metric-label { color: var(--text-dim); font-size: 0.85rem; }
+.metric-value { color: var(--text); font-size: 1.1rem; font-weight: 600; }
+.metric-value.ok { color: var(--ok); }
+.metric-value.warn { color: var(--warn); }
+.metric-value.crit { color: var(--crit); }
+
+/* Barra de progreso */
+.bar-container {
+  width: 100%;
+  height: 24px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 12px;
+  position: relative;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  position: relative;
+}
+.bar-fill.ok { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+.bar-fill.warn { background: linear-gradient(90deg, #e67e22, #f39c12); }
+.bar-fill.crit { background: linear-gradient(90deg, #c0392b, #e74c3c); }
+.bar-label {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  pointer-events: none;
+}
+
+/* Tablas compactas */
+.table-compact {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  margin-top: 8px;
+}
+.table-compact th {
+  text-align: left;
+  color: var(--gold-dim);
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+}
+.table-compact td {
+  padding: 5px 4px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  color: var(--text);
+}
+.table-compact td:last-child,
+.table-compact td:nth-child(2) {
+  text-align: right;
+  font-family: monospace;
+}
+.table-compact tr:hover td {
+  background: rgba(212,175,55,0.03);
+}
+
+/* Mini barras para tablas */
+.mini-bar {
+  display: inline-block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--gold);
+  vertical-align: middle;
+  margin-left: 8px;
+  opacity: 0.7;
+}
+
+/* Estado badge */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.badge.ok { background: rgba(46,204,113,0.15); color: var(--ok); }
+.badge.warn { background: rgba(243,156,18,0.15); color: var(--warn); }
+.badge.crit { background: rgba(231,76,60,0.15); color: var(--crit); }
+.badge.info { background: rgba(52,152,219,0.15); color: var(--info); }
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.75rem;
+}
+footer a { color: var(--gold); text-decoration: none; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+  header h1 { font-size: 1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Monitoreo del 43</h1>
+  <div class="subtitle">GRUPOEPEM467-VM · 192.168.0.43 · Windows Server</div>
+  <div class="timestamp" id="last-update">Cargando datos...</div>
+</header>
+
+<div class="grid">
+
+  <!-- TARJETA 1: ESTADO GENERAL -->
+  <div class="card">
+    <div class="card-title"><span class="icon"></span>Estado General</div>
+    <div class="metric-row">
+      <span class="metric-label">KNIME</span>
+      <span class="metric-value" id="knime-status">—</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-label">PID</span>
+      <span class="metric-value" id="knime-pid">—</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-label">RAM</span>
+      <span class="metric-value" id="knime-mem">—</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-label">OneDrive</span>
+      <span class="metric-value" id="onedrive-status">—</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-label">PID OneDrive</span>
+      <span class="metric-value" id="onedrive-pid">—</span>
+    </div>
+  </div>
+
+  <!-- TARJETA 2: DISCO E:\ -->
+  <div class="card">
+    <div class="card-title"><span class="icon"></span>Disco E:\ (Temporales)</div>
+    <div class="metric-row">
+      <span class="metric-label">Total</span>
+      <span class="metric-value" id="disk-total">—</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-label">Usado</span>
+      <span class="metric-value" id="disk-used">—</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-label">Libre</span>
+      <span class="metric-value" id="disk-free">—</span>
+    </div>
+    <div class="metric-row">
+      <span class="metric-label">% Usado</span>
+      <span class="metric-value" id="disk-pct">—</span>
+    </div>
+    <div class="bar-container">
+      <div class="bar-fill" id="disk-bar" style="width:0%"><span class="bar-label" id="disk-bar-label">0%</span></div>
+    </div>
+    <div style="margin-top:12px; font-size:0.75rem; color:var(--text-dim);">
+      Temp E:\: <span id="temp-files">—</span> arch, <span id="temp-gb">—</span> GB
+    </div>
+  </div>
+
+  <!-- TARJETA 3: TOP GENERADORES -->
+  <div class="card">
+    <div class="card-title"><span class="icon"></span>Top Generadores de Temp</div>
+    <table class="table-compact" id="table-generadores">
+      <thead><tr><th>Generador</th><th>Archivos</th><th>GB</th><th>%</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- TARJETA 4: VELOCIDAD -->
+  <div class="card">
+    <div class="card-title"><span class="icon"></span>Velocidad de Generacion</div>
+    <table class="table-compact" id="table-velocidad">
+      <thead><tr><th>Periodo</th><th>Archivos nuevos</th><th>GB nuevos</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- TARJETA 5: HISTOGRAMA HORARIO -->
+  <div class="card">
+    <div class="card-title"><span class="icon"></span>Pico de Creacion por Hora</div>
+    <table class="table-compact" id="table-horas">
+      <thead><tr><th>Hora</th><th>Archivos</th><th>GB</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- TARJETA 6: EDAD DE ARCHIVOS -->
+  <div class="card">
+    <div class="card-title"><span class="icon"></span>Distribucion por Edad</div>
+    <table class="table-compact" id="table-edad">
+      <thead><tr><th>Edad</th><th>Archivos</th><th>GB</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- TARJETA 7: TOP ARCHIVOS -->
+  <div class="card" style="grid-column: 1 / -1;">
+    <div class="card-title"><span class="icon"></span>Top 15 Archivos mas Grandes</div>
+    <table class="table-compact" id="table-top50">
+      <thead><tr><th>Workflow</th><th>Nombre</th><th>MB</th><th>Creado</th><th>Modificado</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  Dashboard Monitoreo 43 · Grupo EPEM BI · Datos cada 30 min via cron ·
+  <a href="https://github.com/grupoepem-bi-team/dashboard_monitoreo_43" target="_blank">Repo GitHub</a>
+</footer>
+
+<script>
+const fmtNum = n => n?.toLocaleString('es-AR') ?? '—';
+const fmtGB = b => (b / 1024**3).toFixed(2);
+const fmtMB = b => (b / 1024**2).toFixed(2);
+const fmtDate = d => {
+  if (!d) return '—';
+  if (typeof d === 'string' && d.startsWith('/Date')) {
+    const ms = parseInt(d.replace(/[^0-9-]/g, ''));
+    d = new Date(ms);
+  } else {
+    d = new Date(d);
+  }
+  return d.toLocaleString('es-AR', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+};
+
+async function loadData() {
+  try {
+    const [estadoRes, analisisRes] = await Promise.all([
+      fetch('data/estado_43.json').catch(() => null),
+      fetch('data/analisis_temp.json').catch(() => null)
+    ]);
+
+    let estado = null, analisis = null;
+    if (estadoRes?.ok) estado = await estadoRes.json();
+    if (analisisRes?.ok) analisis = await analisisRes.json();
+
+    if (!estado && !analisis) {
+      document.getElementById('last-update').textContent = 'Error: no se pudieron cargar los datos';
+      return;
+    }
+
+    // Timestamp
+    const ts = estado?.timestamp ?? analisis?.timestamp ?? new Date().toISOString();
+    document.getElementById('last-update').textContent = 'Ultima actualizacion: ' + new Date(ts).toLocaleString('es-AR');
+
+    // --- TARJETA 1: Estado General ---
+    if (estado) {
+      const k = estado.knime;
+      document.getElementById('knime-status').innerHTML = k?.status === 'running'
+        ? '<span class="badge ok">Running</span>'
+        : '<span class="badge crit">Stopped</span>';
+      document.getElementById('knime-pid').textContent = k?.pid ?? '—';
+      document.getElementById('knime-mem').textContent = k?.mem_gb ? k.mem_gb.toFixed(2) + ' GB' : '—';
+
+      const o = estado.onedrive;
+      document.getElementById('onedrive-status').innerHTML = o?.status === 'running'
+        ? '<span class="badge ok">Running</span>'
+        : '<span class="badge crit">Stopped</span>';
+      document.getElementById('onedrive-pid').textContent = o?.pid ?? '—';
+    }
+
+    // --- TARJETA 2: Disco E:\ ---
+    if (estado?.disk_e) {
+      const d = estado.disk_e;
+      document.getElementById('disk-total').textContent = d.size_gb + ' GB';
+      document.getElementById('disk-used').textContent = d.used_gb.toFixed(2) + ' GB';
+      document.getElementById('disk-free').textContent = d.free_gb.toFixed(2) + ' GB';
+      const pct = d.used_pct;
+      const el = document.getElementById('disk-pct');
+      el.textContent = pct.toFixed(1) + '%';
+      el.className = 'metric-value ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+
+      const bar = document.getElementById('disk-bar');
+      bar.style.width = pct + '%';
+      bar.className = 'bar-fill ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+      document.getElementById('disk-bar-label').textContent = pct.toFixed(1) + '%';
+
+      if (estado.temp_e) {
+        document.getElementById('temp-files').textContent = fmtNum(estado.temp_e.files);
+        document.getElementById('temp-gb').textContent = fmtGB(estado.temp_e.bytes);
+      }
+    }
+
+    // --- TARJETA 3: Generadores ---
+    if (analisis?.generadores) {
+      const totalBytes = analisis.generadores.reduce((s, g) => s + (g.bytes || 0), 0);
+      const tbody = document.querySelector('#table-generadores tbody');
+      tbody.innerHTML = analisis.generadores
+        .sort((a, b) => (b.bytes || 0) - (a.bytes || 0))
+        .map(g => {
+          const gb = (g.bytes / 1024**3).toFixed(2);
+          const pct = totalBytes > 0 ? ((g.bytes / totalBytes) * 100).toFixed(1) : 0;
+          const barW = Math.min(100, pct);
+          return `<tr>
+            <td>${g.label}</td>
+            <td>${fmtNum(g.count)}</td>
+            <td>${gb}</td>
+            <td>${pct}%<span class="mini-bar" style="width:${barW}px"></span></td>
+          </tr>`;
+        }).join('');
+    }
+
+    // --- TARJETA 4: Velocidad ---
+    if (analisis?.velocidad_generacion) {
+      const tbody = document.querySelector('#table-velocidad tbody');
+      const order = ['2h', '6h', '24h'];
+      const sorted = order.map(p => analisis.velocidad_generacion.find(v => v.periodo === p)).filter(Boolean);
+      tbody.innerHTML = sorted.map(v => `<tr>
+        <td>${v.label}</td>
+        <td>${fmtNum(v.count)}</td>
+        <td>${(v.bytes / 1024**3).toFixed(2)}</td>
+      </tr>`).join('');
+    }
+
+    // --- TARJETA 5: Horas ---
+    if (analisis?.histograma_hora) {
+      const tbody = document.querySelector('#table-horas tbody');
+      const sorted = [...analisis.histograma_hora].sort((a, b) => (b.bytes || 0) - (a.bytes || 0)).slice(0, 8);
+      tbody.innerHTML = sorted.map(h => `<tr>
+        <td>${String(h.hora).padStart(2, '0')}:00</td>
+        <td>${fmtNum(h.count)}</td>
+        <td>${(h.bytes / 1024**3).toFixed(2)}</td>
+      </tr>`).join('');
+    }
+
+    // --- TARJETA 6: Edad ---
+    if (analisis?.distribucion_edad) {
+      const tbody = document.querySelector('#table-edad tbody');
+      const order = ['lt_1h', '1h_6h', '6h_24h', '24h_7d', 'gt_7d'];
+      const sorted = order.map(b => analisis.distribucion_edad.find(a => a.bucket === b)).filter(Boolean);
+      tbody.innerHTML = sorted.map(a => `<tr>
+        <td>${a.label}</td>
+        <td>${fmtNum(a.count)}</td>
+        <td>${(a.bytes / 1024**3).toFixed(2)}</td>
+      </tr>`).join('');
+    }
+
+    // --- TARJETA 7: Top 15 ---
+    if (analisis?.top50_archivos) {
+      const tbody = document.querySelector('#table-top50 tbody');
+      const top15 = analisis.top50_archivos.slice(0, 15);
+      tbody.innerHTML = top15.map(f => {
+        const folder = f.FullName?.split('\\').slice(-2, -1)[0] ?? '—';
+        const name = f.Name ?? '—';
+        return `<tr>
+          <td>${folder}</td>
+          <td title="${f.FullName ?? ''}">${name.length > 40 ? name.slice(0, 37) + '...' : name}</td>
+          <td>${f.SizeMB?.toLocaleString('es-AR') ?? '—'}</td>
+          <td>${fmtDate(f.CreationTime)}</td>
+          <td>${fmtDate(f.LastWriteTime)}</td>
+        </tr>`;
+      }).join('');
+    }
+
+  } catch (e) {
+    console.error(e);
+    document.getElementById('last-update').textContent = 'Error cargando datos: ' + e.message;
+  }
+}
+
+// Auto-refresh cada 5 minutos
+loadData();
+setInterval(loadData, 300000);
+</script>
+</body>
+</html>
