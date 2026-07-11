@@ -3,208 +3,354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monitoreo 43 — Grupo EPEM</title>
+<title>Monitoreo 43 — Reporte Diario</title>
 <style>
-/* === VARIABLES === */
 :root {
-  --bg: #0a0a0f; --panel: #111118; --gold: #d4af37; --gold-dim: #8a7020;
-  --text: #e0e0e0; --text-dim: #888; --ok: #2ecc71; --warn: #f39c12; --crit: #e74c3c;
-  --info: #3498db; --border: rgba(212,175,55,0.15);
+  --bg: #0d0d12;
+  --surface: #16161f;
+  --surface-hover: #1e1e2a;
+  --gold: #c9a84c;
+  --gold-light: #e8d5a3;
+  --text: #e8e8ec;
+  --text-dim: #888899;
+  --text-muted: #555566;
+  --ok: #4ade80;
+  --ok-dim: rgba(74,222,128,0.15);
+  --warn: #fbbf24;
+  --warn-dim: rgba(251,191,36,0.15);
+  --crit: #f87171;
+  --crit-dim: rgba(248,113,113,0.15);
+  --border: rgba(255,255,255,0.06);
+  --radius: 12px;
 }
-body.light {
-  --bg: #f5f5f0; --panel: #fff; --gold: #8a6d0b; --gold-dim: #a68a3c;
-  --text: #222; --text-dim: #555; --ok: #27ae60; --warn: #e67e22; --crit: #c0392b;
-  --info: #2980b9; --border: rgba(0,0,0,0.1);
-}
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100vh; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; transition: background 0.3s, color 0.3s; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height: 1.6; }
 
-/* === HEADER === */
-header { height: 4.5vh; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; background: var(--panel); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-header h1 { font-size: 1.4vh; color: var(--gold); letter-spacing: 2px; }
-header .meta { font-size: 1vh; color: var(--text-dim); }
-header .actions { display: flex; gap: 8px; align-items: center; }
-.btn { font-size: 0.85vh; padding: 3px 8px; border: 1px solid var(--border); background: transparent; color: var(--text-dim); border-radius: 4px; cursor: pointer; }
-.btn:hover { border-color: var(--gold); color: var(--gold); }
+/* ===== HEADER ===== */
+.header { text-align: center; padding: 24px 16px 16px; border-bottom: 1px solid var(--border); }
+.header h1 { font-size: 1.4rem; font-weight: 300; color: var(--gold); letter-spacing: 4px; text-transform: uppercase; }
+.header .subtitle { color: var(--text-dim); font-size: 0.85rem; margin-top: 4px; }
+.header .timestamp { color: var(--text-muted); font-size: 0.75rem; margin-top: 8px; }
 
-/* === ALERTA BANNER === */
-.alert-banner { display: none; padding: 3px 12px; font-size: 1vh; text-align: center; background: var(--crit); color: #fff; }
-.alert-banner.show { display: block; }
-.alert-banner.warn { background: var(--warn); color: #000; }
+/* ===== CONTAINER ===== */
+.container { max-width: 1000px; margin: 0 auto; padding: 16px; }
 
-/* === GRID === */
-.dashboard { height: 95.5vh; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 5px; padding: 5px; }
+/* ===== ALERTA ===== */
+.alert { display: none; border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px; border-left: 4px solid; }
+.alert.show { display: block; }
+.alert.crit { background: var(--crit-dim); border-color: var(--crit); }
+.alert.warn { background: var(--warn-dim); border-color: var(--warn); }
+.alert.ok { background: var(--ok-dim); border-color: var(--ok); }
+.alert-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
+.alert-text { font-size: 0.9rem; color: var(--text-dim); }
 
-/* === TARJETAS === */
-.card { background: var(--panel); border: 1px solid var(--border); border-radius: 5px; padding: 6px; display: flex; flex-direction: column; overflow: hidden; position: relative; }
-.card-title { font-size: 1.1vh; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
-.card-title .icon { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; display: inline-block; }
-.card-body { flex: 1; overflow: auto; font-size: 1.05vh; }
+/* ===== SECCIONES ===== */
+.section { margin-bottom: 28px; }
+.section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 12px; }
 
-/* === METRICAS === */
-.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); gap: 6px; }
-.metric { text-align: center; }
-.metric .value { font-size: 1.8vh; font-weight: 700; display: block; line-height: 1.2; }
-.metric .label { font-size: 0.85vh; color: var(--text-dim); text-transform: uppercase; }
-.metric.ok { color: var(--ok); }
-.metric.warn { color: var(--warn); }
-.metric.crit { color: var(--crit); }
-.metric.dim { color: var(--text-dim); }
+/* ===== RESUMEN (4 cards) ===== */
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.summary-card { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); transition: background 0.2s; }
+.summary-card:hover { background: var(--surface-hover); }
+.summary-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.summary-value { font-size: 2rem; font-weight: 700; margin: 4px 0; }
+.summary-value.ok { color: var(--ok); }
+.summary-value.warn { color: var(--warn); }
+.summary-value.crit { color: var(--crit); }
+.summary-sub { font-size: 0.85rem; color: var(--text-dim); }
 
-/* === PROGRESO === */
-.progress-bar { height: 6px; background: rgba(128,128,128,0.1); border-radius: 3px; overflow: hidden; margin: 3px 0; }
-.progress-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
-.progress-fill.ok { background: var(--ok); }
-.progress-fill.warn { background: var(--warn); }
-.progress-fill.crit { background: var(--crit); }
+/* ===== DISCO (barra grande) ===== */
+.disco-card { background: var(--surface); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border); }
+.disco-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+.disco-header .title { font-size: 1rem; color: var(--text-dim); }
+.disco-header .pct { font-size: 2.5rem; font-weight: 700; }
+.disco-header .pct.ok { color: var(--ok); }
+.disco-header .pct.warn { color: var(--warn); }
+.disco-header .pct.crit { color: var(--crit); }
 
-/* === SPARKLINE === */
-.spark { display: flex; align-items: flex-end; gap: 1px; height: 20px; }
-.spark-bar { flex: 1; min-width: 2px; border-radius: 1px; opacity: 0.7; }
+.disco-bar-bg { height: 20px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
+.disco-bar-fill { height: 100%; border-radius: 10px; transition: width 1s ease; }
+.disco-bar-fill.ok { background: linear-gradient(90deg, var(--ok), #22c55e); }
+.disco-bar-fill.warn { background: linear-gradient(90deg, var(--warn), #f59e0b); }
+.disco-bar-fill.crit { background: linear-gradient(90deg, var(--crit), #ef4444); }
 
-/* === HEATMAP === */
-.heatmap { display: grid; grid-template-columns: repeat(24, 1fr); gap: 1px; }
-.heatmap-cell { aspect-ratio: 1; border-radius: 1px; font-size: 0.6vh; display: flex; align-items: center; justify-content: center; }
+.disco-stats { display: flex; gap: 24px; margin-bottom: 16px; }
+.disco-stat { font-size: 0.9rem; color: var(--text-dim); }
+.disco-stat strong { color: var(--text); font-weight: 500; }
 
-/* === TABLAS === */
-table { width: 100%; border-collapse: collapse; font-size: 0.95vh; }
-th { text-align: left; color: var(--gold-dim); font-weight: 500; padding: 2px 3px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--panel); }
-td { padding: 2px 3px; border-bottom: 1px solid rgba(128,128,128,0.05); }
-tr:hover td { background: rgba(212,175,55,0.03); }
+.disco-story { font-size: 0.95rem; color: var(--text-dim); background: rgba(255,255,255,0.03); border-radius: 8px; padding: 12px 16px; }
+.disco-story strong { color: var(--gold-light); }
+.disco-story .highlight { color: var(--warn); font-weight: 600; }
 
-/* === TOOLTIP === */
-[title] { cursor: help; }
+/* ===== VELOCIDAD (3 números grandes) ===== */
+.velocity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.velocity-card { background: var(--surface); border-radius: var(--radius); padding: 20px; text-align: center; border: 1px solid var(--border); }
+.velocity-period { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.velocity-gb { font-size: 2.2rem; font-weight: 700; color: var(--text); }
+.velocity-files { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
 
-/* === RESPONSIVE === */
-@media (max-width: 1200px) {
-  .dashboard { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(5, 1fr); }
-  html, body { overflow: auto; }
-}
-@media (max-width: 800px) {
-  .dashboard { grid-template-columns: 1fr; }
+/* ===== GENERADORES (barras horizontales) ===== */
+.gen-card { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); }
+.gen-item { margin-bottom: 16px; }
+.gen-item:last-child { margin-bottom: 0; }
+.gen-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 6px; }
+.gen-label .name { color: var(--text); }
+.gen-label .size { color: var(--text-dim); font-size: 0.85rem; }
+.gen-bar-bg { height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
+.gen-bar-fill { height: 100%; border-radius: 4px; }
+.gen-bar-fill.ok { background: var(--ok); }
+.gen-bar-fill.warn { background: var(--warn); }
+.gen-bar-fill.crit { background: var(--crit); }
+
+/* ===== ARCHIVOS ===== */
+.files-card { background: var(--surface); border-radius: var(--radius); padding: 16px 20px; border: 1px solid var(--border); }
+.file-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.file-item:last-child { border-bottom: none; }
+.file-info { flex: 1; }
+.file-name { font-size: 0.9rem; color: var(--text); }
+.file-path { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+.file-size { font-size: 0.9rem; color: var(--gold); font-weight: 600; white-space: nowrap; margin-left: 12px; }
+
+/* ===== ERRORES ===== */
+.errors-card { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); border-left: 4px solid var(--crit); }
+.errors-header { display: flex; gap: 32px; margin-bottom: 16px; }
+.errors-header .big { font-size: 2rem; font-weight: 700; color: var(--crit); }
+.errors-header .label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+.errors-header .value { font-size: 1.1rem; color: var(--text); font-weight: 500; }
+.error-item { font-size: 0.85rem; color: var(--text-dim); padding: 6px 0; border-bottom: 1px solid var(--border); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.error-item:last-child { border-bottom: none; }
+
+/* ===== LIMPIEZA + DISTRIBUCIÓN ===== */
+.clean-card { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); }
+.clean-status { font-size: 1.1rem; margin-bottom: 16px; }
+.clean-status .label { color: var(--text-dim); }
+.clean-status .value { color: var(--warn); font-weight: 600; }
+.dist-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.dist-item { text-align: center; padding: 12px 8px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+.dist-item .time { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
+.dist-item .gb { font-size: 1.2rem; font-weight: 600; color: var(--text); }
+.dist-item .files { font-size: 0.75rem; color: var(--text-dim); }
+
+/* ===== TABLA MES (limpia) ===== */
+.table-card { background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); }
+.simple-table { width: 100%; border-collapse: collapse; }
+.simple-table th { text-align: left; padding: 10px 8px; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
+.simple-table td { padding: 10px 8px; font-size: 0.9rem; color: var(--text); border-bottom: 1px solid var(--border); }
+.simple-table tr:last-child td { border-bottom: none; }
+.simple-table td.pct { font-weight: 600; }
+.simple-table td.pct.ok { color: var(--ok); }
+.simple-table td.pct.warn { color: var(--warn); }
+.simple-table td.pct.crit { color: var(--crit); }
+
+/* ===== FOOTER ===== */
+.footer { text-align: center; padding: 20px; font-size: 0.75rem; color: var(--text-muted); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .velocity-grid { grid-template-columns: 1fr; }
+  .dist-grid { grid-template-columns: repeat(2, 1fr); }
+  .summary-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
-<header>
-  <h1>MONITOREO DEL 43</h1>
-  <div class="meta">192.168.0.43 | GRUPOEPEM467-VM | <span id="last-update">—</span> | <span id="conn-status">●</span></div>
-  <div class="actions">
-    <button class="btn" onclick="toggleTheme()">☀/☾</button>
-    <button class="btn" onclick="exportCSV()">↓ CSV</button>
+
+<div class="header">
+  <h1>Monitoreo del 43</h1>
+  <div class="subtitle">Servidor 192.168.0.43 — GRUPOEPEM467-VM</div>
+  <div class="timestamp" id="timestamp">Actualizando...</div>
+</div>
+
+<div class="container">
+
+  <!-- ALERTA -->
+  <div class="alert" id="alert-box">
+    <div class="alert-title" id="alert-title"></div>
+    <div class="alert-text" id="alert-text"></div>
   </div>
-</header>
 
-<div class="alert-banner" id="alert-banner"></div>
-
-<div class="dashboard">
-
-  <!-- 1. ESTADO + CONEXION -->
-  <div class="card">
-    <div class="card-title"><span class="icon"></span>Estado General</div>
-    <div class="card-body">
-      <div class="metrics" id="metrics-general">
-        <div class="metric"><span class="value ok" id="knime-status">—</span><span class="label">KNIME</span></div>
-        <div class="metric"><span class="value ok" id="onedrive-status">—</span><span class="label">OneDrive</span></div>
-        <div class="metric"><span class="value" id="knime-pid">—</span><span class="label">PID</span></div>
-        <div class="metric"><span class="value" id="knime-ram">—</span><span class="label">RAM</span></div>
-        <div class="metric"><span class="value" id="conn-indicator">●</span><span class="label">Conexion</span></div>
+  <!-- RESUMEN -->
+  <div class="section">
+    <div class="section-title">Resumen del Sistema</div>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-label">Estado del Servidor</div>
+        <div class="summary-value ok" id="res-status">● Conectado</div>
+        <div class="summary-sub" id="res-uptime">Datos recientes</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Disco E:\ Usado</div>
+        <div class="summary-value ok" id="res-disco">49.8%</div>
+        <div class="summary-sub" id="res-disco-sub">122.7 / 246.3 GB</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">KNIME en Memoria</div>
+        <div class="summary-value ok" id="res-ram">25.5 GB</div>
+        <div class="summary-sub" id="res-ram-sub">PID 11764 — Running</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Temporales Generados Hoy</div>
+        <div class="summary-value ok" id="res-temp">107.5 GB</div>
+        <div class="summary-sub" id="res-temp-sub">22.323 archivos</div>
       </div>
     </div>
   </div>
 
-  <!-- 2. DISCO + PREDICCION -->
-  <div class="card">
-    <div class="card-title"><span class="icon"></span>Disco E:\ + Prediccion</div>
-    <div class="card-body">
-      <div class="metrics">
-        <div class="metric"><span class="value" id="disk-total">—</span><span class="label">Total</span></div>
-        <div class="metric"><span class="value" id="disk-used">—</span><span class="label">Usado</span></div>
-        <div class="metric"><span class="value" id="disk-free">—</span><span class="label">Libre</span></div>
-        <div class="metric"><span class="value" id="pred-dias">—</span><span class="label">Dias al 90%</span></div>
+  <!-- DISCO + PREDICCIÓN -->
+  <div class="section">
+    <div class="section-title">El Disco Temporales — ¿Cuánto Falta?</div>
+    <div class="disco-card">
+      <div class="disco-header">
+        <div class="title">Espacio usado en E:\</div>
+        <div class="pct ok" id="disco-pct">49.8%</div>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="disk-bar" style="width:0%"></div></div>
-      <div style="display:flex;justify-content:space-between;font-size:0.95vh;color:var(--text-dim)">
-        <span id="disk-pct">—%</span>
-        <span id="disk-temp-info">—</span>
+      <div class="disco-bar-bg">
+        <div class="disco-bar-fill ok" id="disco-bar" style="width:49.8%"></div>
       </div>
-      <div style="margin-top:4px;font-size:0.9vh;color:var(--warn)" id="pred-text"></div>
-    </div>
-  </div>
-
-  <!-- 3. COMPARATIVA DIA + SPARKLINE -->
-  <div class="card">
-    <div class="card-title"><span class="icon"></span>Comparativa por Dia + Tendencia</div>
-    <div class="card-body">
-      <div class="spark" id="sparkline-dia"></div>
-      <table id="tabla-dia"><thead><tr><th>Dia</th><th>Disco%</th><th>Temp GB</th><th>Arch</th><th>RAM</th></tr></thead><tbody></tbody></table>
-    </div>
-  </div>
-
-  <!-- 4. VELOCIDAD + PICO + HEATMAP -->
-  <div class="card">
-    <div class="card-title"><span class="icon"></span>Velocidad + Heatmap 24h</div>
-    <div class="card-body">
-      <div class="heatmap" id="heatmap-hora"></div>
-      <div style="font-size:0.85vh;color:var(--text-dim);text-align:center;margin-top:2px">00 → 23h (rojo = mas temporales)</div>
-      <div style="margin-top:4px;font-size:0.95vh">
-        <span style="color:var(--gold)">Pico hora:</span> <span id="pico-hora">—</span> |
-        <span style="color:var(--gold)">Generador max:</span> <span id="pico-gen">—</span>
+      <div class="disco-stats">
+        <div class="disco-stat"><strong id="disco-used">122.7 GB</strong> usados</div>
+        <div class="disco-stat"><strong id="disco-free">123.6 GB</strong> libres</div>
+        <div class="disco-stat"><strong id="disco-total">246.3 GB</strong> totales</div>
+      </div>
+      <div class="disco-story" id="disco-story">
+        A ritmo de <strong>~30.1 GB por día</strong> (últimas 24h), quedan aproximadamente <span class="highlight">3 días</span> antes de alcanzar el 90% de uso. La última limpieza fue <strong>hace más de 7 días</strong>.
       </div>
     </div>
   </div>
 
-  <!-- 5. TOP GENERADORES -->
-  <div class="card">
-    <div class="card-title"><span class="icon"></span>Top Generadores</div>
-    <div class="card-body">
-      <table id="tabla-generadores"><thead><tr><th>Generador</th><th>Arch</th><th>GB</th><th>%</th></tr></thead><tbody></tbody></table>
-    </div>
-  </div>
-
-  <!-- 6. COMPARATIVA MES + ALERTAS -->
-  <div class="card">
-    <div class="card-title"><span class="icon"></span>Comparativa Mes + Alertas</div>
-    <div class="card-body">
-      <table id="tabla-mes"><thead><tr><th>Mes</th><th>Dias</th><th>Disco%</th><th>Temp</th><th>MaxF</th></tr></thead><tbody></tbody></table>
-      <div style="margin-top:4px;font-size:0.9vh;color:var(--text-dim)">
-        <strong style="color:var(--gold)">Alertas:</span> <span id="alertas-resumen">Sin alertas registradas</span>
+  <!-- VELOCIDAD -->
+  <div class="section">
+    <div class="section-title">Velocidad de Generación</div>
+    <div class="velocity-grid">
+      <div class="velocity-card">
+        <div class="velocity-period">Últimas 2 horas</div>
+        <div class="velocity-gb" id="v-2h-gb">5.1</div>
+        <div class="velocity-files" id="v-2h-files">1.427 archivos</div>
+      </div>
+      <div class="velocity-card">
+        <div class="velocity-period">Últimas 6 horas</div>
+        <div class="velocity-gb" id="v-6h-gb">8.1</div>
+        <div class="velocity-files" id="v-6h-files">2.688 archivos</div>
+      </div>
+      <div class="velocity-card">
+        <div class="velocity-period">Últimas 24 horas</div>
+        <div class="velocity-gb" id="v-24h-gb">30.1</div>
+        <div class="velocity-files" id="v-24h-files">8.267 archivos</div>
       </div>
     </div>
   </div>
 
-  <!-- 7. ERRORES KNIME + DRILL -->
-  <div class="card">
-    <div class="card-title"><span class="icon"></span>Errores KNIME</div>
-    <div class="card-body">
-      <div class="metrics">
-        <div class="metric"><span class="value crit" id="errores-total">—</span><span class="label">Total</span></div>
-        <div class="metric"><span class="value warn" id="errores-dia">—</span><span class="label">Dia Peor</span></div>
-        <div class="metric"><span class="value" id="errores-wf">—</span><span class="label">Workflow</span></div>
+  <!-- TOP GENERADORES (barras) -->
+  <div class="section">
+    <div class="section-title">¿Quién Genera los Temporales?</div>
+    <div class="gen-card" id="gen-card">
+      <div class="gen-item">
+        <div class="gen-label">
+          <span class="name">Snapshot Temp (contenedores KNIME)</span>
+          <span class="size">61.4 GB — 1.525 archivos — 57.4%</span>
+        </div>
+        <div class="gen-bar-bg"><div class="gen-bar-fill ok" style="width:57.4%"></div></div>
       </div>
-      <div style="margin-top:3px;font-size:0.9vh;color:var(--text-dim);max-height:60px;overflow:auto" id="errores-lista"></div>
+      <div class="gen-item">
+        <div class="gen-label">
+          <span class="name">KNIME DuplicateChecker</span>
+          <span class="size">45.4 GB — 20.178 archivos — 42.4%</span>
+        </div>
+        <div class="gen-bar-bg"><div class="gen-bar-fill warn" style="width:42.4%"></div></div>
+      </div>
     </div>
   </div>
 
-  <!-- 8. LIMPIEZA + DISTRIBUCION -->
-  <div class="card">
-    <div class="card-title"><span class="icon"></span>Limpieza + Distribucion</div>
-    <div class="card-body">
-      <div style="font-size:1vh;margin-bottom:4px">
-        <strong style="color:var(--gold)">Ultima limpieza:</span> <span id="ultima-limpieza">Desconocida</span>
+  <!-- TOP ARCHIVOS -->
+  <div class="section">
+    <div class="section-title">Los Archivos Más Grandes</div>
+    <div class="files-card" id="files-card">
+      <div class="file-item">
+        <div class="file-info">
+          <div class="file-name">knime_Cobranzas_tto_o_14702</div>
+          <div class="file-path">E:\Temp\knime_Cobranzas_tto_o_14702\knime_container_20260708_5318991018732211148.bin.snappy</div>
+        </div>
+        <div class="file-size">40.461,75 MB</div>
       </div>
-      <div id="mini-chart-dist" style="display:flex;align-items:flex-end;gap:2px;height:25px;margin-bottom:4px"></div>
-      <table id="tabla-distribucion"><thead><tr><th>Tiempo</th><th>Arch</th><th>GB</th></tr></thead><tbody></tbody></table>
     </div>
   </div>
 
-  <!-- 9. TOP 10 ARCHIVOS -->
-  <div class="card">
-    <div class="card-title"><span class="icon"></span>Top 10 Archivos + Ruta</div>
-    <div class="card-body">
-      <table id="tabla-top10"><thead><tr><th>Workflow</th><th>MB</th><th>Creado</th></tr></thead><tbody></tbody></table>
+  <!-- ERRORES KNIME -->
+  <div class="section">
+    <div class="section-title">Errores en el Log de KNIME</div>
+    <div class="errors-card">
+      <div class="errors-header">
+        <div>
+          <div class="big" id="err-total">11</div>
+          <div class="label">Errores/Warnings totales</div>
+        </div>
+        <div>
+          <div class="value" id="err-dia">2026-02-24</div>
+          <div class="label">Día con más errores</div>
+        </div>
+        <div>
+          <div class="value" id="err-wf">N/A</div>
+          <div class="label">Workflow más afectado</div>
+        </div>
+      </div>
+      <div id="err-list">
+        <div class="error-item">2026-02-24 09:54:01 — WARN — FileNodePersistor : Rule Engine</div>
+        <div class="error-item">2026-02-24 09:54:21 — WARN — KNIME-Worker-3-DB Query Reader 3:97</div>
+      </div>
     </div>
+  </div>
+
+  <!-- DISTRIBUCIÓN TEMPORAL -->
+  <div class="section">
+    <div class="section-title">Distribución Temporal de Archivos</div>
+    <div class="clean-card">
+      <div class="dist-grid">
+        <div class="dist-item">
+          <div class="time">Menos de 1h</div>
+          <div class="gb" id="dist-lt1h-gb">3.4</div>
+          <div class="files" id="dist-lt1h-files">1.116 archivos</div>
+        </div>
+        <div class="dist-item">
+          <div class="time">1 a 6 horas</div>
+          <div class="gb" id="dist-1h6h-gb">4.7</div>
+          <div class="files" id="dist-1h6h-files">1.572 archivos</div>
+        </div>
+        <div class="dist-item">
+          <div class="time">6 a 24 horas</div>
+          <div class="gb" id="dist-6h24h-gb">22.0</div>
+          <div class="files" id="dist-6h24h-files">5.579 archivos</div>
+        </div>
+        <div class="dist-item">
+          <div class="time">1 a 7 días</div>
+          <div class="gb" id="dist-1d7d-gb">76.8</div>
+          <div class="files" id="dist-1d7d-files">13.576 archivos</div>
+        </div>
+        <div class="dist-item">
+          <div class="time">Más de 7 días</div>
+          <div class="gb" id="dist-gt7d-gb">0.0</div>
+          <div class="files" id="dist-gt7d-files">1 archivo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARATIVA MES -->
+  <div class="section">
+    <div class="section-title">Historial Mensual</div>
+    <div class="table-card">
+      <table class="simple-table">
+        <thead>
+          <tr><th>Mes</th><th>Días registrados</th><th>Disco % promedio</th><th>Temp acumulado</th><th>Máximo archivos</th></tr>
+        </thead>
+        <tbody id="mes-tbody">
+          <tr><td>2026-07</td><td>1</td><td class="pct ok">49.8%</td><td>107.49 GB</td><td>22.323</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    Dashboard Monitoreo 43 — Datos refrescados cada 30 minutos via cron — <a href="https://github.com/grupoepem-bi-team/dashboard_monitoreo_43" style="color:var(--gold)">Repo GitHub</a>
   </div>
 
 </div>
@@ -212,248 +358,191 @@ tr:hover td { background: rgba(212,175,55,0.03); }
 <script>
 const fmtNum = n => n?.toLocaleString?.('es-AR') ?? n;
 const fmtDate = d => {
-  if (!d) return '—';
+  if (!d) return '';
   const m = d.match(/Date\((\d+)\)/);
-  if (m) return new Date(parseInt(m[1])).toLocaleString('es-AR',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'});
-  return new Date(d).toLocaleString('es-AR',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'});
+  if (m) return new Date(parseInt(m[1])).toLocaleString('es-AR', {day:'2-digit', month:'2-digit', year:'2-digit'});
+  return new Date(d).toLocaleString('es-AR', {day:'2-digit', month:'2-digit', year:'2-digit'});
 };
-
-let lastData = {};
-
-function toggleTheme() {
-  document.body.classList.toggle('light');
-}
-
-function exportCSV() {
-  if (!lastData.estado) { alert('Esperando datos...'); return; }
-  let csv = 'Metrica,Valor\n';
-  const e = lastData.estado;
-  csv += `Disco Total GB,${e.disk_e?.size_gb}\n`;
-  csv += `Disco Usado GB,${e.disk_e?.used_gb}\n`;
-  csv += `Disco Usado %,${e.disk_e?.used_pct}\n`;
-  csv += `KNIME PID,${e.knime?.pid}\n`;
-  csv += `KNIME RAM GB,${e.knime?.mem_gb}\n`;
-  csv += `Temp Archivos,${e.temp_e?.files}\n`;
-  csv += `Temp GB,${(e.temp_e?.bytes||0)/1024**3}\n`;
-  csv += `Ultima Actualizacion,${e.timestamp}\n`;
-  const blob = new Blob([csv], {type: 'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `monitoreo43_${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();
-}
-
-function colorForValue(val, max) {
-  const pct = val / max;
-  if (pct > 0.7) return 'var(--crit)';
-  if (pct > 0.4) return 'var(--warn)';
-  return 'var(--ok)';
-}
 
 async function loadData() {
   try {
-    const tsStart = Date.now();
-    const [estadoRes, analisisRes, comparativaRes, erroresRes, alertasRes] = await Promise.all([
+    const [estadoRes, analisisRes, comparativaRes, erroresRes] = await Promise.all([
       fetch('data/estado_43.json').catch(() => null),
       fetch('data/analisis_temp.json').catch(() => null),
       fetch('data/comparativa.json').catch(() => null),
-      fetch('data/errores_knime.json').catch(() => null),
-      fetch('data/alertas.json').catch(() => null)
+      fetch('data/errores_knime.json').catch(() => null)
     ]);
-    const connMs = Date.now() - tsStart;
 
-    let estado = null, analisis = null, comparativa = null, errores = null, alertas = null;
+    let estado = null, analisis = null, comparativa = null, errores = null;
     if (estadoRes?.ok) estado = await estadoRes.json();
     if (analisisRes?.ok) analisis = await analisisRes.json();
     if (comparativaRes?.ok) comparativa = await comparativaRes.json();
     if (erroresRes?.ok) errores = await erroresRes.json();
-    if (alertasRes?.ok) alertas = await alertasRes.json();
 
-    lastData = { estado, analisis, comparativa, errores, alertas };
+    const timestamp = document.getElementById('timestamp');
+    timestamp.textContent = estado?.timestamp
+      ? 'Última actualización: ' + new Date(estado.timestamp).toLocaleString('es-AR')
+      : 'Datos no disponibles';
 
-    // === ESTADO DE CONEXION ===
-    const connStatus = document.getElementById('conn-status');
-    const connIndicator = document.getElementById('conn-indicator');
-    const isFresh = estado && estado.timestamp && (Date.now() - new Date(estado.timestamp).getTime()) < 60*60*1000;
-    if (isFresh) {
-      connStatus.textContent = '●';
-      connStatus.style.color = 'var(--ok)';
-      connIndicator.textContent = '●';
-      connIndicator.className = 'value ok';
-    } else {
-      connStatus.textContent = '●';
-      connStatus.style.color = 'var(--crit)';
-      connIndicator.textContent = '●';
-      connIndicator.className = 'value crit';
-    }
-
-    // === TARJETA 1: Estado ===
-    if (estado) {
-      document.getElementById('last-update').textContent = estado.timestamp ? new Date(estado.timestamp).toLocaleString('es-AR') : '—';
-      const knime = estado.knime || {};
-      const od = estado.onedrive || {};
-      document.getElementById('knime-status').textContent = knime.status || '—';
-      document.getElementById('knime-status').className = `value ${knime.status === 'Running' ? 'ok' : 'crit'}`;
-      document.getElementById('onedrive-status').textContent = od.status || '—';
-      document.getElementById('onedrive-status').className = `value ${od.status === 'Running' ? 'ok' : 'crit'}`;
-      document.getElementById('knime-pid').textContent = knime.pid || '—';
-      document.getElementById('knime-ram').textContent = knime.mem_gb ? knime.mem_gb.toFixed(1) + ' GB' : '—';
-    }
-
-    // === TARJETA 2: Disco + Prediccion ===
-    if (estado?.disk_e) {
-      const d = estado.disk_e;
-      document.getElementById('disk-total').textContent = d.size_gb?.toFixed(0) + ' GB';
-      document.getElementById('disk-used').textContent = d.used_gb?.toFixed(1) + ' GB';
-      document.getElementById('disk-free').textContent = d.free_gb?.toFixed(1) + ' GB';
-      document.getElementById('disk-pct').textContent = d.used_pct?.toFixed(1) + '%';
-      const bar = document.getElementById('disk-bar');
-      bar.style.width = Math.min(d.used_pct, 100) + '%';
-      bar.className = `progress-fill ${d.used_pct >= 90 ? 'crit' : d.used_pct >= 75 ? 'warn' : 'ok'}`;
-      const temp = estado.temp_e || {};
-      document.getElementById('disk-temp-info').textContent = fmtNum(temp.files) + ' arch, ' + ((temp.bytes||0)/1024**3).toFixed(1) + ' GB';
-
-      // ALERTA BANNER
-      const banner = document.getElementById('alert-banner');
+    // ===== ALERTA =====
+    const alertBox = document.getElementById('alert-box');
+    const alertTitle = document.getElementById('alert-title');
+    const alertText = document.getElementById('alert-text');
+    const d = estado?.disk_e;
+    if (d) {
       if (d.used_pct >= 90) {
-        banner.textContent = `🚨 ALERTA CRITICA: Disco E:\ al ${d.used_pct.toFixed(1)}% — Accion inmediata requerida`;
-        banner.className = 'alert-banner show';
+        alertBox.className = 'alert show crit';
+        alertTitle.textContent = '🚨 Disco E:\ al ' + d.used_pct.toFixed(1) + '% — Acción inmediata requerida';
+        alertText.textContent = 'Quedan solo ' + d.free_gb.toFixed(1) + ' GB libres. Detenga KNIME o limpie temporales urgente.';
       } else if (d.used_pct >= 75) {
-        banner.textContent = `⚠️ ADVERTENCIA: Disco E:\ al ${d.used_pct.toFixed(1)}% — Considerar limpieza`;
-        banner.className = 'alert-banner show warn';
+        alertBox.className = 'alert show warn';
+        alertTitle.textContent = '⚠️ Disco E:\ al ' + d.used_pct.toFixed(1) + '% — Planificar limpieza';
+        alertText.textContent = 'Quedan ' + d.free_gb.toFixed(1) + ' GB libres. Considere limpiar E:\Temp en las próximas 24h.';
       } else {
-        banner.className = 'alert-banner';
+        alertBox.className = 'alert';
       }
+    }
 
-      // PREDICCION
+    // ===== RESUMEN =====
+    if (estado) {
+      const kn = estado.knime || {};
+      const od = estado.onedrive || {};
+      const statusOk = kn.status === 'Running' && od.status === 'Running';
+      document.getElementById('res-status').textContent = statusOk ? '● Conectado' : '● Atención';
+      document.getElementById('res-status').className = 'summary-value ' + (statusOk ? 'ok' : 'warn');
+      document.getElementById('res-uptime').textContent = 'KNIME ' + (kn.status || '?') + ' · OneDrive ' + (od.status || '?');
+
+      const de = estado.disk_e || {};
+      const pct = de.used_pct || 0;
+      document.getElementById('res-disco').textContent = pct.toFixed(1) + '%';
+      document.getElementById('res-disco').className = 'summary-value ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+      document.getElementById('res-disco-sub').textContent = (de.used_gb || 0).toFixed(1) + ' / ' + (de.size_gb || 0).toFixed(1) + ' GB';
+
+      document.getElementById('res-ram').textContent = (kn.mem_gb || 0).toFixed(1) + ' GB';
+      document.getElementById('res-ram-sub').textContent = 'PID ' + (kn.pid || '?') + ' — ' + (kn.status || '?');
+
+      const te = estado.temp_e || {};
+      document.getElementById('res-temp').textContent = ((te.bytes || 0) / 1024**3).toFixed(1) + ' GB';
+      document.getElementById('res-temp-sub').textContent = fmtNum(te.files || 0) + ' archivos';
+    }
+
+    // ===== DISCO + PREDICCIÓN =====
+    if (d) {
+      const pct = d.used_pct;
+      document.getElementById('disco-pct').textContent = pct.toFixed(1) + '%';
+      document.getElementById('disco-pct').className = 'pct ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+      document.getElementById('disco-bar').style.width = Math.min(pct, 100) + '%';
+      document.getElementById('disco-bar').className = 'disco-bar-fill ' + (pct >= 90 ? 'crit' : pct >= 75 ? 'warn' : 'ok');
+      document.getElementById('disco-used').textContent = d.used_gb.toFixed(1) + ' GB';
+      document.getElementById('disco-free').textContent = d.free_gb.toFixed(1) + ' GB';
+      document.getElementById('disco-total').textContent = d.size_gb.toFixed(1) + ' GB';
+
+      // Predicción
+      let story = '';
       if (analisis?.velocidad_generacion) {
-        const vel24h = analisis.velocidad_generacion.find(v => v.periodo === '24h');
-        const bytes24h = vel24h ? vel24h.bytes : 0;
-        const gb24h = bytes24h / 1024**3;
-        const free = d.free_gb;
-        const target90 = d.size_gb * 0.90 - d.used_gb;
-        const dias90 = gb24h > 0 ? Math.floor(target90 / gb24h) : 999;
-        const el = document.getElementById('pred-dias');
-        el.textContent = dias90 <= 999 ? dias90 + ' d' : '∞';
-        el.className = `value ${dias90 <= 3 ? 'crit' : dias90 <= 7 ? 'warn' : 'ok'}`;
-        document.getElementById('pred-text').textContent = `A ritmo actual: ~${gb24h.toFixed(1)} GB/dia. Quedan ~${free.toFixed(1)} GB libres.`;
+        const v24 = analisis.velocidad_generacion.find(v => v.periodo === '24h');
+        const gbDia = v24 ? (v24.bytes / 1024**3) : 0;
+        const dias90 = gbDia > 0 ? Math.floor((d.size_gb * 0.9 - d.used_gb) / gbDia) : 999;
+        const diasLibres = gbDia > 0 ? Math.floor(d.free_gb / gbDia) : 999;
+        story = 'A ritmo de <strong>~' + gbDia.toFixed(1) + ' GB por día</strong> (últimas 24h), quedan aproximadamente ';
+        if (diasLibres <= 3) {
+          story += '<span class="highlight">' + diasLibres + ' días</span> de espacio libre. ';
+        } else if (diasLibres <= 7) {
+          story += '<span class="highlight">' + diasLibres + ' días</span> de espacio libre. ';
+        } else {
+          story += '<strong>' + diasLibres + ' días</strong> de espacio libre. ';
+        }
+        story += 'Para llegar al 90%: ~' + dias90 + ' días.';
+      }
+      const gt7 = analisis?.distribucion_edad?.find(a => a.bucket === 'gt_7d');
+      const hasOld = gt7 && gt7.count > 0;
+      story += ' La última limpieza fue <strong>' + (hasOld ? 'hace más de 7 días' : 'en los últimos 7 días') + '</strong>.';
+      document.getElementById('disco-story').innerHTML = story;
+    }
+
+    // ===== VELOCIDAD =====
+    if (analisis?.velocidad_generacion) {
+      const v2 = analisis.velocidad_generacion.find(v => v.periodo === '2h');
+      const v6 = analisis.velocidad_generacion.find(v => v.periodo === '6h');
+      const v24 = analisis.velocidad_generacion.find(v => v.periodo === '24h');
+      if (v2) { document.getElementById('v-2h-gb').textContent = (v2.bytes / 1024**3).toFixed(1); document.getElementById('v-2h-files').textContent = fmtNum(v2.count) + ' archivos'; }
+      if (v6) { document.getElementById('v-6h-gb').textContent = (v6.bytes / 1024**3).toFixed(1); document.getElementById('v-6h-files').textContent = fmtNum(v6.count) + ' archivos'; }
+      if (v24) { document.getElementById('v-24h-gb').textContent = (v24.bytes / 1024**3).toFixed(1); document.getElementById('v-24h-files').textContent = fmtNum(v24.count) + ' archivos'; }
+    }
+
+    // ===== GENERADORES =====
+    if (analisis?.generadores) {
+      const total = analisis.metadata?.bytes || 1;
+      const genCard = document.getElementById('gen-card');
+      genCard.innerHTML = analisis.generadores.slice(0, 6).map(g => {
+        const pct = ((g.bytes || 0) / total * 100).toFixed(1);
+        const color = pct > 50 ? 'ok' : pct > 20 ? 'warn' : 'ok';
+        return '<div class="gen-item">' +
+          '<div class="gen-label"><span class="name">' + g.label + '</span><span class="size">' + (g.bytes/1024**3).toFixed(1) + ' GB — ' + fmtNum(g.count) + ' arch — ' + pct + '%</span></div>' +
+          '<div class="gen-bar-bg"><div class="gen-bar-fill ' + color + '" style="width:' + pct + '%"></div></div>' +
+        '</div>';
+      }).join('');
+    }
+
+    // ===== ARCHIVOS =====
+    if (analisis?.top50_archivos) {
+      const filesCard = document.getElementById('files-card');
+      filesCard.innerHTML = analisis.top50_archivos.slice(0, 10).map(f => {
+        const folder = f.FullName?.split('\\').slice(-2, -1)[0] || '—';
+        return '<div class="file-item" title="' + (f.FullName || '').replace(/"/g, '&quot;') + '">' +
+          '<div class="file-info"><div class="file-name">' + folder + '</div><div class="file-path">' + (f.Name || '—').substring(0, 50) + '...</div></div>' +
+          '<div class="file-size">' + (f.SizeMB?.toLocaleString('es-AR') || '—') + ' MB</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    // ===== ERRORES =====
+    if (errores) {
+      document.getElementById('err-total').textContent = errores.cantidad_dia_mas_errores || 0;
+      document.getElementById('err-dia').textContent = errores.dia_mas_errores || '—';
+      document.getElementById('err-wf').textContent = errores.workflow_mas_errores || 'N/A';
+      const list = document.getElementById('err-list');
+      if (errores.errores_muestra && errores.errores_muestra.length > 0) {
+        list.innerHTML = errores.errores_muestra.slice(0, 5).map(e => {
+          const short = e.length > 90 ? e.substring(0, 87) + '...' : e;
+          return '<div class="error-item" title="' + e.replace(/"/g, '&quot;') + '">' + short + '</div>';
+        }).join('');
       }
     }
 
-    // === TARJETA 3: Comparativa Dia + Sparkline ===
-    if (comparativa?.tabla_dia) {
-      const tbody = document.querySelector('#tabla-dia tbody');
-      const sorted = [...comparativa.tabla_dia].reverse().slice(0, 7);
-      tbody.innerHTML = sorted.map(d => {
-        const cls = d.disco_pct >= 90 ? 'crit' : d.disco_pct >= 75 ? 'warn' : 'ok';
-        return `<tr><td>${d.dia}</td><td class="${cls}">${d.disco_pct}%</td><td>${d.temp_gb}</td><td>${fmtNum(d.temp_files)}</td><td>${d.knime_mem_gb.toFixed(1)}</td></tr>`;
-      }).join('');
-
-      // Sparkline de disco%
-      const spark = document.getElementById('sparkline-dia');
-      const maxPct = Math.max(...comparativa.tabla_dia.map(d => d.disco_pct), 100);
-      spark.innerHTML = comparativa.tabla_dia.map(d => {
-        const h = (d.disco_pct / maxPct * 100).toFixed(0);
-        const c = d.disco_pct >= 90 ? 'var(--crit)' : d.disco_pct >= 75 ? 'var(--warn)' : 'var(--ok)';
-        return `<div class="spark-bar" style="height:${h}%;background:${c}" title="${d.dia}: ${d.disco_pct}%"></div>`;
-      }).join('');
+    // ===== DISTRIBUCIÓN =====
+    if (analisis?.distribucion_edad) {
+      const order = ['lt_1h', '1h_6h', '6h_24h', '24h_7d', 'gt_7d'];
+      const labels = ['lt1h', '1h6h', '6h24h', '1d7d', 'gt7d'];
+      order.forEach((bucket, i) => {
+        const item = analisis.distribucion_edad.find(a => a.bucket === bucket);
+        if (item) {
+          const elGb = document.getElementById('dist-' + labels[i] + '-gb');
+          const elFiles = document.getElementById('dist-' + labels[i] + '-files');
+          if (elGb) elGb.textContent = (item.bytes / 1024**3).toFixed(1);
+          if (elFiles) elFiles.textContent = fmtNum(item.count) + ' archivos';
+        }
+      });
     }
 
-    // === TARJETA 4: Heatmap + Pico ===
-    if (analisis?.histograma_hora) {
-      const hm = document.getElementById('heatmap-hora');
-      const maxBytes = Math.max(...analisis.histograma_hora.map(h => h.bytes || 0), 1);
-      hm.innerHTML = analisis.histograma_hora.map(h => {
-        const pct = (h.bytes || 0) / maxBytes;
-        const alpha = (0.1 + pct * 0.9).toFixed(2);
-        const color = pct > 0.6 ? `rgba(231,76,60,${alpha})` : pct > 0.3 ? `rgba(243,156,18,${alpha})` : `rgba(46,204,113,${alpha})`;
-        return `<div class="heatmap-cell" style="background:${color}" title="${String(h.hora).padStart(2,'0')}:00 - ${(h.bytes/1024**3).toFixed(1)} GB"></div>`;
-      }).join('');
-
-      const pico = [...analisis.histograma_hora].sort((a,b) => (b.bytes || 0) - (a.bytes || 0))[0];
-      document.getElementById('pico-hora').textContent = pico ? String(pico.hora).padStart(2,'0') + ':00 (' + (pico.bytes/1024**3).toFixed(1) + ' GB)' : '—';
-    }
-    if (analisis?.generadores) {
-      const picoGen = [...analisis.generadores].sort((a,b) => (b.bytes||0)-(a.bytes||0))[0];
-      document.getElementById('pico-gen').textContent = picoGen ? picoGen.label + ' (' + (picoGen.bytes/1024**3).toFixed(1) + ' GB)' : '—';
-    }
-
-    // === TARJETA 5: Top Generadores ===
-    if (analisis?.generadores) {
-      const tbody = document.querySelector('#tabla-generadores tbody');
-      const totalBytes = analisis.metadata?.bytes || 1;
-      tbody.innerHTML = analisis.generadores.slice(0, 6).map(g => `<tr><td title="${g.label}">${g.label}</td><td>${fmtNum(g.count)}</td><td>${(g.bytes/1024**3).toFixed(1)}</td><td>${((g.bytes||0)/totalBytes*100).toFixed(1)}%</td></tr>`).join('');
-    }
-
-    // === TARJETA 6: Comparativa Mes + Alertas ===
+    // ===== MES =====
     if (comparativa?.tabla_mes) {
-      const tbody = document.querySelector('#tabla-mes tbody');
+      const tbody = document.getElementById('mes-tbody');
       tbody.innerHTML = comparativa.tabla_mes.map(m => {
         const cls = m.disco_pct_promedio >= 90 ? 'crit' : m.disco_pct_promedio >= 75 ? 'warn' : 'ok';
-        return `<tr><td>${m.mes}</td><td>${m.dias_muestreados}</td><td class="${cls}">${m.disco_pct_promedio}%</td><td>${m.temp_gb_total}</td><td>${fmtNum(m.temp_files_max)}</td></tr>`;
-      }).join('');
-    }
-    // Alertas historial
-    const alertasResumen = document.getElementById('alertas-resumen');
-    if (alertas?.historial && alertas.historial.length > 0) {
-      const ultima = alertas.historial[alertas.historial.length - 1];
-      alertasResumen.innerHTML = `${alertas.historial.length} alertas. Ultima: ${ultima.fecha} ${ultima.tipo} (${ultima.severidad})`;
-    } else {
-      alertasResumen.textContent = 'Sin alertas registradas (umbrales no alcanzados)';
-    }
-
-    // === TARJETA 7: Errores KNIME ===
-    if (errores) {
-      document.getElementById('errores-total').textContent = errores.total_lineas > 0 ? (errores.cantidad_dia_mas_errores || 0) : 'N/A';
-      document.getElementById('errores-dia').textContent = errores.dia_mas_errores || 'N/A';
-      document.getElementById('errores-wf').textContent = errores.workflow_mas_errores || 'N/A';
-      const lista = document.getElementById('errores-lista');
-      if (errores.errores_muestra && errores.errores_muestra.length > 0) {
-        lista.innerHTML = errores.errores_muestra.slice(0, 5).map((e, i) => `<div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${e.replace(/"/g,'&quot;')}">${i + 1}. ${e.slice(0, 80)}</div>`).join('');
-      } else {
-        lista.textContent = errores.total_lineas > 0 ? 'Sin errores recientes en muestra' : 'Log no analizado';
-      }
-    }
-
-    // === TARJETA 8: Limpieza + Distribucion ===
-    if (analisis?.distribucion_edad) {
-      const tbody = document.querySelector('#tabla-distribucion tbody');
-      const order = ['lt_1h', '1h_6h', '6h_24h', '24h_7d', 'gt_7d'];
-      const sorted = order.map(b => analisis.distribucion_edad.find(a => a.bucket === b)).filter(Boolean);
-      const totalBytes = sorted.reduce((s, a) => s + (a.bytes || 0), 0) || 1;
-      tbody.innerHTML = sorted.map(a => `<tr><td>${a.label}</td><td>${fmtNum(a.count)}</td><td>${(a.bytes/1024**3).toFixed(1)}</td></tr>`).join('');
-
-      // Mini chart
-      const mini = document.getElementById('mini-chart-dist');
-      mini.innerHTML = sorted.map(a => {
-        const h = ((a.bytes || 0) / totalBytes * 100).toFixed(0);
-        return `<div style="flex:1;background:${colorForValue(a.bytes,totalBytes)};border-radius:2px;height:${h}%;min-height:2px" title="${a.label}: ${(a.bytes/1024**3).toFixed(1)} GB"></div>`;
-      }).join('');
-
-      const gt7d = analisis.distribucion_edad.find(a => a.bucket === 'gt_7d');
-      const hasOld = gt7d && gt7d.count > 0;
-      document.getElementById('ultima-limpieza').textContent = hasOld ? '> 7 dias (hay archivos viejos)' : '< 7 dias (todo reciente)';
-    }
-
-    // === TARJETA 9: Top 10 ===
-    if (analisis?.top50_archivos) {
-      const tbody = document.querySelector('#tabla-top10 tbody');
-      const top10 = analisis.top50_archivos.slice(0, 10);
-      tbody.innerHTML = top10.map(f => {
-        const folder = f.FullName?.split('\\').slice(-2, -1)[0] ?? '—';
-        return `<tr title="${f.FullName?.replace(/"/g,'&quot;') ?? ''}"><td>${folder}</td><td>${f.SizeMB?.toLocaleString('es-AR') ?? '—'}</td><td>${fmtDate(f.CreationTime)}</td></tr>`;
+        return '<tr><td>' + m.mes + '</td><td>' + m.dias_muestreados + '</td><td class="pct ' + cls + '">' + m.disco_pct_promedio + '%</td><td>' + m.temp_gb_total + ' GB</td><td>' + fmtNum(m.temp_files_max) + '</td></tr>';
       }).join('');
     }
 
   } catch (e) {
     console.error(e);
-    document.getElementById('last-update').textContent = 'Error: ' + e.message;
-    document.getElementById('conn-status').style.color = 'var(--crit)';
+    document.getElementById('timestamp').textContent = 'Error cargando datos: ' + e.message;
   }
 }
 
 loadData();
 setInterval(loadData, 300000);
 </script>
+
 </body>
 </html>
