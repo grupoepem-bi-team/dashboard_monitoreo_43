@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-23T06:00:17.434596",
+  "timestamp": "2026-07-23T07:00:18.011204",
   "host": "192.168.0.43",
   "hostname": "GRUPOEPEM467-VM",
   "analisis_path": "E:\\Temp",
   "metadata": {
-    "files": 6228,
+    "files": 6591,
     "dirs": 71,
-    "bytes": 33136598798
+    "bytes": 34358140464
   },
   "histograma_hora": [
     {
@@ -22,7 +22,7 @@
     {
       "hora": 10,
       "count": 142,
-      "bytes": 242113940
+      "bytes": 242114062
     },
     {
       "hora": 11,
@@ -106,13 +106,13 @@
     },
     {
       "hora": 5,
-      "count": 439,
-      "bytes": 1259804758
+      "count": 403,
+      "bytes": 733154505
     },
     {
       "hora": 6,
-      "count": 40,
-      "bytes": 87512209
+      "count": 429,
+      "bytes": 1544784307
     },
     {
       "hora": 7,
@@ -134,14 +134,14 @@
     {
       "pattern": "snap",
       "label": "Snapshot Temp",
-      "count": 694,
-      "bytes": 19055596617
+      "count": 683,
+      "bytes": 18763077164
     },
     {
       "pattern": "KNIME_DuplicateChecker",
       "label": "KNIME DuplicateChecker",
-      "count": 5378,
-      "bytes": 14008597194
+      "count": 5741,
+      "bytes": 15231737252
     },
     {
       "pattern": "jar_cache",
@@ -153,13 +153,13 @@
       "pattern": "others",
       "label": "Otros",
       "count": 47,
-      "bytes": 10501360
+      "bytes": 10501482
     },
     {
       "pattern": "tmp",
       "label": "Generic Tmp",
-      "count": 12,
-      "bytes": 636248
+      "count": 13,
+      "bytes": 637488
     },
     {
       "pattern": "workflow",
@@ -190,20 +190,20 @@
     {
       "bucket": "1h_6h",
       "label": "1 a 6 horas",
-      "count": 1628,
-      "bytes": 4317944916
+      "count": 1647,
+      "bytes": 5419061776
     },
     {
       "bucket": "24h_7d",
       "label": "1 a 7 dias",
-      "count": 1087,
-      "bytes": 14798878668
+      "count": 1127,
+      "bytes": 14886390999
     },
     {
       "bucket": "6h_24h",
       "label": "6 a 24 horas",
-      "count": 3047,
-      "bytes": 11860004322
+      "count": 3337,
+      "bytes": 12289523959
     },
     {
       "bucket": "gt_7d",
@@ -214,28 +214,28 @@
     {
       "bucket": "lt_1h",
       "label": "Menos de 1 hora",
-      "count": 395,
-      "bytes": 2159770892
+      "count": 399,
+      "bytes": 1472244031
     }
   ],
   "velocidad_generacion": [
     {
       "periodo": "24h",
       "label": "Ultimas 24 horas",
-      "count": 5070,
-      "bytes": 18337720130
+      "count": 5383,
+      "bytes": 19180829766
     },
     {
       "periodo": "2h",
       "label": "Ultimas 2 horas",
-      "count": 690,
-      "bytes": 2744143240
+      "count": 748,
+      "bytes": 3090392737
     },
     {
       "periodo": "6h",
       "label": "Ultimas 6 horas",
-      "count": 2023,
-      "bytes": 6477715808
+      "count": 2046,
+      "bytes": 6891305807
     }
   ],
   "top50_archivos": [
@@ -319,6 +319,15 @@
       "CreationTime": "/Date(1784785147426)/",
       "LastWriteTime": "/Date(1784785177634)/",
       "LastAccessTime": "/Date(1784785177634)/"
+    },
+    {
+      "Name": "KNIME_DuplicateChecker451062967881693584.bin",
+      "FullName": "E:\\Temp\\knime_Cobranzas_tto_o_12648\\KNIME_DuplicateChecker451062967881693584.bin",
+      "SizeMB": 645.52,
+      "SizeGB": 0.63,
+      "CreationTime": "/Date(1784798502712)/",
+      "LastWriteTime": "/Date(1784798532034)/",
+      "LastAccessTime": "/Date(1784798532034)/"
     },
     {
       "Name": "knime_container_20260721_6862062139740558793.bin.snappy",
@@ -679,15 +688,6 @@
       "CreationTime": "/Date(1784751673359)/",
       "LastWriteTime": "/Date(1784751677978)/",
       "LastAccessTime": "/Date(1784751677978)/"
-    },
-    {
-      "Name": "KNIME_DuplicateChecker16591185179024983720.bin",
-      "FullName": "E:\\Temp\\knime_Servicio Est_ti_12678\\KNIME_DuplicateChecker16591185179024983720.bin",
-      "SizeMB": 74.95,
-      "SizeGB": 0.07,
-      "CreationTime": "/Date(1784657159193)/",
-      "LastWriteTime": "/Date(1784657164492)/",
-      "LastAccessTime": "/Date(1784725079678)/"
     }
   ],
   "extensiones": [],
