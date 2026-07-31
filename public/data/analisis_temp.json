@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-31T11:00:35.814808",
+  "timestamp": "2026-07-31T12:00:37.274247",
   "host": "192.168.0.43",
   "hostname": "GRUPOEPEM467-VM",
   "analisis_path": "E:\\Temp",
   "metadata": {
-    "files": 26380,
+    "files": 26678,
     "dirs": 377,
-    "bytes": 162174495225
+    "bytes": 162211815739
   },
   "histograma_hora": [
     {
@@ -21,18 +21,18 @@
     },
     {
       "hora": 10,
-      "count": 1792,
-      "bytes": 11219430378
+      "count": 1122,
+      "bytes": 6718062465
     },
     {
       "hora": 11,
-      "count": 1321,
-      "bytes": 29708994051
+      "count": 2273,
+      "bytes": 34363301573
     },
     {
       "hora": 12,
-      "count": 999,
-      "bytes": 7499072501
+      "count": 1008,
+      "bytes": 7583425222
     },
     {
       "hora": 13,
@@ -126,22 +126,22 @@
     },
     {
       "hora": 9,
-      "count": 3108,
-      "bytes": 37605644710
+      "count": 3102,
+      "bytes": 37417259264
     }
   ],
   "generadores": [
     {
       "pattern": "snap",
       "label": "Snapshot Temp",
-      "count": 5665,
-      "bytes": 112431593011
+      "count": 5607,
+      "bytes": 111692959857
     },
     {
       "pattern": "KNIME_DuplicateChecker",
       "label": "KNIME DuplicateChecker",
-      "count": 19959,
-      "bytes": 49434464801
+      "count": 20303,
+      "bytes": 50225004575
     },
     {
       "pattern": "jar_cache",
@@ -153,7 +153,7 @@
       "pattern": "others",
       "label": "Otros",
       "count": 222,
-      "bytes": 62610991
+      "bytes": 62611255
     },
     {
       "pattern": "tmp",
@@ -190,52 +190,52 @@
     {
       "bucket": "1h_6h",
       "label": "1 a 6 horas",
-      "count": 1589,
-      "bytes": 4415325111
+      "count": 1681,
+      "bytes": 4343490037
     },
     {
       "bucket": "24h_7d",
       "label": "1 a 7 dias",
-      "count": 9777,
-      "bytes": 59930049059
+      "count": 9445,
+      "bytes": 58693054209
     },
     {
       "bucket": "6h_24h",
       "label": "6 a 24 horas",
-      "count": 4127,
-      "bytes": 22307448152
+      "count": 4368,
+      "bytes": 22932236206
     },
     {
       "bucket": "gt_7d",
       "label": "Mas de 7 dias",
-      "count": 9455,
-      "bytes": 69965243201
+      "count": 9818,
+      "bytes": 71347359547
     },
     {
       "bucket": "lt_1h",
       "label": "Menos de 1 hora",
-      "count": 1059,
-      "bytes": 5585966386
+      "count": 980,
+      "bytes": 4913262110
     }
   ],
   "velocidad_generacion": [
     {
       "periodo": "24h",
       "label": "Ultimas 24 horas",
-      "count": 6786,
-      "bytes": 32325855229
+      "count": 7032,
+      "bytes": 32191988353
     },
     {
       "periodo": "2h",
       "label": "Ultimas 2 horas",
-      "count": 1594,
-      "bytes": 7231767052
+      "count": 1353,
+      "bytes": 5802722032
     },
     {
       "periodo": "6h",
       "label": "Ultimas 6 horas",
-      "count": 2659,
-      "bytes": 10018407077
+      "count": 2664,
+      "bytes": 9259752147
     }
   ],
   "top50_archivos": [
@@ -357,15 +357,6 @@
       "LastAccessTime": "/Date(1784895097675)/"
     },
     {
-      "Name": "knime_container_20260725_10007111048928400018.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_13368\\knime_container_20260725_10007111048928400018.bin.snappy",
-      "SizeMB": 572.56,
-      "SizeGB": 0.56,
-      "CreationTime": "/Date(1784991019218)/",
-      "LastWriteTime": "/Date(1784991072096)/",
-      "LastAccessTime": "/Date(1784991072096)/"
-    },
-    {
       "Name": "knime_container_20260727_10169770054986475431.bin.snappy",
       "FullName": "E:\\Temp\\knime_DATAMARTS_11703\\knime_container_20260727_10169770054986475431.bin.snappy",
       "SizeMB": 572.56,
@@ -373,6 +364,15 @@
       "CreationTime": "/Date(1785155821127)/",
       "LastWriteTime": "/Date(1785155875672)/",
       "LastAccessTime": "/Date(1785485853599)/"
+    },
+    {
+      "Name": "knime_container_20260725_10007111048928400018.bin.snappy",
+      "FullName": "E:\\Temp\\knime_DATAMARTS_13368\\knime_container_20260725_10007111048928400018.bin.snappy",
+      "SizeMB": 572.56,
+      "SizeGB": 0.56,
+      "CreationTime": "/Date(1784991019218)/",
+      "LastWriteTime": "/Date(1784991072096)/",
+      "LastAccessTime": "/Date(1784991072096)/"
     },
     {
       "Name": "knime_container_20260724_8518465790558328680.bin.snappy",
@@ -465,15 +465,6 @@
       "LastAccessTime": "/Date(1784979270784)/"
     },
     {
-      "Name": "knime_container_20260725_10410496386426355028.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_13368\\knime_container_20260725_10410496386426355028.bin.snappy",
-      "SizeMB": 497.83,
-      "SizeGB": 0.49,
-      "CreationTime": "/Date(1784991644082)/",
-      "LastWriteTime": "/Date(1784991783468)/",
-      "LastAccessTime": "/Date(1784991783468)/"
-    },
-    {
       "Name": "knime_container_20260727_10074242478820951084.bin.snappy",
       "FullName": "E:\\Temp\\knime_DATAMARTS_11703\\knime_container_20260727_10074242478820951084.bin.snappy",
       "SizeMB": 497.83,
@@ -481,6 +472,15 @@
       "CreationTime": "/Date(1785156416334)/",
       "LastWriteTime": "/Date(1785156517462)/",
       "LastAccessTime": "/Date(1785485853599)/"
+    },
+    {
+      "Name": "knime_container_20260725_10410496386426355028.bin.snappy",
+      "FullName": "E:\\Temp\\knime_DATAMARTS_13368\\knime_container_20260725_10410496386426355028.bin.snappy",
+      "SizeMB": 497.83,
+      "SizeGB": 0.49,
+      "CreationTime": "/Date(1784991644082)/",
+      "LastWriteTime": "/Date(1784991783468)/",
+      "LastAccessTime": "/Date(1784991783468)/"
     },
     {
       "Name": "knime_container_20260721_12914331628208293101.bin.snappy",
@@ -501,15 +501,6 @@
       "LastAccessTime": "/Date(1784979270784)/"
     },
     {
-      "Name": "knime_container_20260725_10248983815435206298.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_13368\\knime_container_20260725_10248983815435206298.bin.snappy",
-      "SizeMB": 492.57,
-      "SizeGB": 0.48,
-      "CreationTime": "/Date(1784991554021)/",
-      "LastWriteTime": "/Date(1784991626535)/",
-      "LastAccessTime": "/Date(1784991626535)/"
-    },
-    {
       "Name": "knime_container_20260727_15254340493921524171.bin.snappy",
       "FullName": "E:\\Temp\\knime_DATAMARTS_11703\\knime_container_20260727_15254340493921524171.bin.snappy",
       "SizeMB": 492.57,
@@ -517,6 +508,15 @@
       "CreationTime": "/Date(1785156289245)/",
       "LastWriteTime": "/Date(1785156359461)/",
       "LastAccessTime": "/Date(1785485853599)/"
+    },
+    {
+      "Name": "knime_container_20260725_10248983815435206298.bin.snappy",
+      "FullName": "E:\\Temp\\knime_DATAMARTS_13368\\knime_container_20260725_10248983815435206298.bin.snappy",
+      "SizeMB": 492.57,
+      "SizeGB": 0.48,
+      "CreationTime": "/Date(1784991554021)/",
+      "LastWriteTime": "/Date(1784991626535)/",
+      "LastAccessTime": "/Date(1784991626535)/"
     },
     {
       "Name": "knime_container_20260724_11487335274894493434.bin.snappy",
