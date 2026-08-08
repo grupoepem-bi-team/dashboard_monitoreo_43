@@ -1,18 +1,18 @@
 {
-  "timestamp": "2026-08-08T10:00:12.176915",
+  "timestamp": "2026-08-08T11:00:18.972087",
   "host": "192.168.0.241",
   "hostname": "srv-mysql-espejo-241",
   "disk": {
     "size": "196G",
-    "used": "157G",
-    "avail": "30G",
-    "use_pct": 85,
+    "used": "160G",
+    "avail": "28G",
+    "use_pct": 86,
     "status": "ok"
   },
   "memory": {
     "total": "23Gi",
     "used": "20Gi",
-    "free": "2.1Gi",
+    "free": "1.4Gi",
     "status": "ok"
   },
   "mysql": {
@@ -23,13 +23,13 @@
     "total_objetos": 615
   },
   "replica": {
-    "io_running": true,
-    "sql_running": true,
-    "seconds_behind": 232,
+    "io_running": false,
+    "sql_running": false,
+    "seconds_behind": null,
     "last_error": "",
     "last_errno": 0,
     "master_log_file": "mysql-bin.000358",
-    "exec_master_log_pos": 660736906,
+    "exec_master_log_pos": 665944307,
     "status": "ok"
   },
   "source": "192.168.0.95"
