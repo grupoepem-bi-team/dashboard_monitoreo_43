@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-31T09:00:40.577474",
+    "generated_at": "2026-08-31T12:00:13.138712",
     "version": "15.2",
     "health": {
       "srv-250": "online",
@@ -216,9 +216,9 @@
       "type": "skill",
       "server": "srv-95",
       "status": "active",
-      "schedule": "137 skills",
+      "schedule": "138 skills",
       "human_desc": "Centro de skills organizadas por categoria.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "🎓",
       "subtasks": [
         {
@@ -272,10 +272,10 @@
         },
         {
           "name": "🐙 Github",
-          "desc": "7 skills",
+          "desc": "6 skills",
           "status": "done",
           "icon": "🐙",
-          "human_summary": "7 skills de Github listas para usar."
+          "human_summary": "6 skills de Github listas para usar."
         },
         {
           "name": "🎬 Media",
@@ -307,10 +307,10 @@
         },
         {
           "name": "🔬 Research",
-          "desc": "8 skills",
+          "desc": "7 skills",
           "status": "done",
           "icon": "🔬",
-          "human_summary": "8 skills de Research listas para usar."
+          "human_summary": "7 skills de Research listas para usar."
         },
         {
           "name": "🏠 Smart Home",
@@ -328,10 +328,17 @@
         },
         {
           "name": "💻 Software Development",
-          "desc": "13 skills",
+          "desc": "15 skills",
           "status": "done",
           "icon": "💻",
-          "human_summary": "13 skills de Software Development listas para usar."
+          "human_summary": "15 skills de Software Development listas para usar."
+        },
+        {
+          "name": "📦 Web",
+          "desc": "1 skills",
+          "status": "done",
+          "icon": "📦",
+          "human_summary": "1 skills de Web listas para usar."
         }
       ]
     },
@@ -343,7 +350,7 @@
       "status": "active",
       "schedule": "27 scripts",
       "human_desc": "Scripts de automatizacion y monitoreo.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "📜",
       "subtasks": [
         {
@@ -433,7 +440,7 @@
       "status": "active",
       "schedule": "Continuo",
       "human_desc": "Centro de datos: logs, credenciales, cron, memorias e indices.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "🗄️",
       "subtasks": [
         {
@@ -474,7 +481,7 @@
       "status": "active",
       "schedule": "24/7",
       "human_desc": "Base datos principal EPEM.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "🗄️",
       "subtasks": [
         {
@@ -515,7 +522,7 @@
       "status": "active",
       "schedule": "Continuo",
       "human_desc": "Envia binlog a .241.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "🔄",
       "subtasks": [
         {
@@ -549,7 +556,7 @@
       "status": "active",
       "schedule": "24/7",
       "human_desc": "Recibe de .250.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "🪞",
       "subtasks": [
         {
@@ -583,7 +590,7 @@
       "status": "active",
       "schedule": "9:00 AM",
       "human_desc": "Compara .250 vs .241.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "🔎",
       "subtasks": [
         {
@@ -624,7 +631,7 @@
       "status": "active",
       "schedule": "24/7",
       "human_desc": "Legacy tests.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "🧪",
       "subtasks": [
         {
@@ -651,7 +658,7 @@
       "status": "active",
       "schedule": "3:00 AM",
       "human_desc": "Restaura desde .50.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "📥",
       "subtasks": [
         {
@@ -692,7 +699,7 @@
       "status": "active",
       "schedule": "Continuo",
       "human_desc": "MySQL + disco.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "💓",
       "subtasks": [
         {
@@ -726,7 +733,7 @@
       "status": "active",
       "schedule": "2:00 AM",
       "human_desc": "Comprime DB.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "💾",
       "subtasks": [
         {
@@ -767,7 +774,7 @@
       "status": "active",
       "schedule": "24/7",
       "human_desc": "Escritorio remoto.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "🖥️",
       "subtasks": [
         {
@@ -828,7 +835,7 @@
       "status": "active",
       "schedule": "Docker 8070",
       "human_desc": "Dashboard Power BI: 23 tableros monitoreados via Docker en .95. GitHub sync activo.",
-      "last_run": "09:00",
+      "last_run": "12:00",
       "icon": "📊",
       "subtasks": [
         {
@@ -998,17 +1005,17 @@
       "type": "forensic",
       "server": "srv-99",
       "status": "active",
-      "schedule": "Load: 0.4 | Disco: 67% | RAM: 0%",
-      "human_desc": "Diagnóstico operativo del servidor. Carga: 0.4, Disco máx: 67%, RAM: 0%",
-      "last_run": "2026-08-31 08:00:51",
+      "schedule": "Load: 0.8 | Disco: 67% | RAM: 0%",
+      "human_desc": "Diagnóstico operativo del servidor. Carga: 0.8, Disco máx: 67%, RAM: 0%",
+      "last_run": "2026-08-31 11:00:27",
       "icon": "📊",
       "subtasks": [
         {
-          "name": "Load 0.4",
+          "name": "Load 0.8",
           "desc": "CPU",
           "status": "done",
           "icon": "⚡",
-          "human_summary": "Promedio de procesos esperando: 0.4"
+          "human_summary": "Promedio de procesos esperando: 0.8"
         },
         {
           "name": "Disco 67%",
@@ -1032,8 +1039,8 @@
       "type": "skill",
       "server": "srv-99",
       "status": "active",
-      "schedule": "24 categorías",
-      "human_desc": "Skills descubiertas en servidor .99: 24 categorías.",
+      "schedule": "25 categorías",
+      "human_desc": "Skills descubiertas en servidor .99: 25 categorías.",
       "last_run": "Vivo",
       "icon": "🎓",
       "subtasks": [
@@ -1107,17 +1114,17 @@
       "type": "forensic",
       "server": "srv-241",
       "status": "active",
-      "schedule": "Load: 6.9 | Disco: 88% | RAM: 0%",
-      "human_desc": "Diagnóstico operativo del servidor. Carga: 6.9, Disco máx: 88%, RAM: 0%",
-      "last_run": "2026-08-31 08:01:22",
+      "schedule": "Load: 5.5 | Disco: 88% | RAM: 0%",
+      "human_desc": "Diagnóstico operativo del servidor. Carga: 5.5, Disco máx: 88%, RAM: 0%",
+      "last_run": "2026-08-31 11:01:00",
       "icon": "📊",
       "subtasks": [
         {
-          "name": "Load 6.9",
+          "name": "Load 5.5",
           "desc": "CPU",
           "status": "active",
           "icon": "⚡",
-          "human_summary": "Promedio de procesos esperando: 6.9"
+          "human_summary": "Promedio de procesos esperando: 5.5"
         },
         {
           "name": "Disco 88%",
@@ -1143,7 +1150,7 @@
       "status": "unknown",
       "schedule": "Load: 0.0 | Disco: 100% | RAM: 0%",
       "human_desc": "Diagnóstico operativo del servidor. Carga: 0.0, Disco máx: 100%, RAM: 0%",
-      "last_run": "2026-08-31 08:01:03",
+      "last_run": "2026-08-31 11:00:39",
       "icon": "📊",
       "subtasks": [
         {
@@ -1177,7 +1184,7 @@
       "status": "unknown",
       "schedule": "Load: 0.0 | Disco: 0% | RAM: 0%",
       "human_desc": "Diagnóstico operativo del servidor. Carga: 0.0, Disco máx: 0%, RAM: 0%",
-      "last_run": "2026-08-31 08:01:28",
+      "last_run": "2026-08-31 11:01:08",
       "icon": "📊",
       "subtasks": [
         {
@@ -1209,17 +1216,17 @@
       "type": "service",
       "server": "srv-43",
       "status": "pending",
-      "schedule": "49 eventos",
-      "human_desc": "Servicio DashboardMonitorWorker en loop de reinicio: 49 eventos NSSM.",
+      "schedule": "46 eventos",
+      "human_desc": "Servicio DashboardMonitorWorker en loop de reinicio: 46 eventos NSSM.",
       "last_run": "Intermitente",
       "icon": "🔧",
       "subtasks": [
         {
-          "name": "Crashes: 49",
+          "name": "Crashes: 46",
           "desc": "CRASH",
           "status": "pending",
           "icon": "💥",
-          "human_summary": "Se reinició 49 veces por fallos."
+          "human_summary": "Se reinició 46 veces por fallos."
         },
         {
           "name": "KNIME 24/7",
@@ -1235,18 +1242,18 @@
       "name": "👥 Sesiones RDP",
       "type": "forensic",
       "server": "srv-43",
-      "status": "active",
-      "schedule": "1 activas / 1 total",
-      "human_desc": "Usuarios conectados por escritorio remoto: administrador (Activo).",
+      "status": "pending",
+      "schedule": "0 activas / 1 total",
+      "human_desc": "Usuarios conectados por escritorio remoto: administrador (Desconectado).",
       "last_run": "En vivo",
       "icon": "👥",
       "subtasks": [
         {
-          "name": "Activas: 1",
+          "name": "Activas: 0",
           "desc": "RDP",
           "status": "done",
           "icon": "👤",
-          "human_summary": "1 personas usando el servidor ahora."
+          "human_summary": "0 personas usando el servidor ahora."
         },
         {
           "name": "Total: 1",
@@ -1265,7 +1272,7 @@
       "status": "unknown",
       "schedule": "Load: 0.0 | Disco: 0% | RAM: 0%",
       "human_desc": "Diagnóstico operativo del servidor. Carga: 0.0, Disco máx: 0%, RAM: 0%",
-      "last_run": "2026-08-31 08:01:29",
+      "last_run": "2026-08-31 11:01:08",
       "icon": "📊",
       "subtasks": [
         {
