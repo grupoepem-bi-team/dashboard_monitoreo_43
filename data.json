@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-09-02T06:00:18.158546",
+    "generated_at": "2026-09-02T09:00:28.747030",
     "version": "15.2",
     "health": {
       "srv-250": "online",
@@ -218,7 +218,7 @@
       "status": "active",
       "schedule": "138 skills",
       "human_desc": "Centro de skills organizadas por categoria.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "🎓",
       "subtasks": [
         {
@@ -350,7 +350,7 @@
       "status": "active",
       "schedule": "27 scripts",
       "human_desc": "Scripts de automatizacion y monitoreo.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "📜",
       "subtasks": [
         {
@@ -440,7 +440,7 @@
       "status": "active",
       "schedule": "Continuo",
       "human_desc": "Centro de datos: logs, credenciales, cron, memorias e indices.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "🗄️",
       "subtasks": [
         {
@@ -481,7 +481,7 @@
       "status": "active",
       "schedule": "24/7",
       "human_desc": "Base datos principal EPEM.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "🗄️",
       "subtasks": [
         {
@@ -522,7 +522,7 @@
       "status": "active",
       "schedule": "Continuo",
       "human_desc": "Envia binlog a .241.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "🔄",
       "subtasks": [
         {
@@ -556,7 +556,7 @@
       "status": "active",
       "schedule": "24/7",
       "human_desc": "Recibe de .250.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "🪞",
       "subtasks": [
         {
@@ -590,7 +590,7 @@
       "status": "active",
       "schedule": "9:00 AM",
       "human_desc": "Compara .250 vs .241.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "🔎",
       "subtasks": [
         {
@@ -631,7 +631,7 @@
       "status": "active",
       "schedule": "24/7",
       "human_desc": "Legacy tests.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "🧪",
       "subtasks": [
         {
@@ -658,7 +658,7 @@
       "status": "active",
       "schedule": "3:00 AM",
       "human_desc": "Restaura desde .50.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "📥",
       "subtasks": [
         {
@@ -699,7 +699,7 @@
       "status": "active",
       "schedule": "Continuo",
       "human_desc": "MySQL + disco.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "💓",
       "subtasks": [
         {
@@ -733,7 +733,7 @@
       "status": "active",
       "schedule": "2:00 AM",
       "human_desc": "Comprime DB.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "💾",
       "subtasks": [
         {
@@ -774,7 +774,7 @@
       "status": "active",
       "schedule": "24/7",
       "human_desc": "Escritorio remoto.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "🖥️",
       "subtasks": [
         {
@@ -835,7 +835,7 @@
       "status": "active",
       "schedule": "Docker 8070",
       "human_desc": "Dashboard Power BI: 23 tableros monitoreados via Docker en .95. GitHub sync activo.",
-      "last_run": "06:00",
+      "last_run": "09:00",
       "icon": "📊",
       "subtasks": [
         {
@@ -1005,17 +1005,17 @@
       "type": "forensic",
       "server": "srv-99",
       "status": "active",
-      "schedule": "Load: 0.5 | Disco: 67% | RAM: 0%",
-      "human_desc": "Diagnóstico operativo del servidor. Carga: 0.5, Disco máx: 67%, RAM: 0%",
-      "last_run": "2026-09-02 05:00:29",
+      "schedule": "Load: 1.2 | Disco: 67% | RAM: 0%",
+      "human_desc": "Diagnóstico operativo del servidor. Carga: 1.2, Disco máx: 67%, RAM: 0%",
+      "last_run": "2026-09-02 08:00:34",
       "icon": "📊",
       "subtasks": [
         {
-          "name": "Load 0.5",
+          "name": "Load 1.2",
           "desc": "CPU",
           "status": "done",
           "icon": "⚡",
-          "human_summary": "Promedio de procesos esperando: 0.5"
+          "human_summary": "Promedio de procesos esperando: 1.2"
         },
         {
           "name": "Disco 67%",
@@ -1114,17 +1114,17 @@
       "type": "forensic",
       "server": "srv-241",
       "status": "active",
-      "schedule": "Load: 1.1 | Disco: 87% | RAM: 0%",
-      "human_desc": "Diagnóstico operativo del servidor. Carga: 1.1, Disco máx: 87%, RAM: 0%",
-      "last_run": "2026-09-02 05:00:58",
+      "schedule": "Load: 6.6 | Disco: 87% | RAM: 0%",
+      "human_desc": "Diagnóstico operativo del servidor. Carga: 6.6, Disco máx: 87%, RAM: 0%",
+      "last_run": "2026-09-02 08:01:05",
       "icon": "📊",
       "subtasks": [
         {
-          "name": "Load 1.1",
+          "name": "Load 6.6",
           "desc": "CPU",
-          "status": "done",
+          "status": "active",
           "icon": "⚡",
-          "human_summary": "Promedio de procesos esperando: 1.1"
+          "human_summary": "Promedio de procesos esperando: 6.6"
         },
         {
           "name": "Disco 87%",
@@ -1147,18 +1147,18 @@
       "name": "🔍 Estado Forense",
       "type": "forensic",
       "server": "srv-240",
-      "status": "unknown",
-      "schedule": "Load: 0.0 | Disco: 100% | RAM: 0%",
-      "human_desc": "Diagnóstico operativo del servidor. Carga: 0.0, Disco máx: 100%, RAM: 0%",
-      "last_run": "2026-09-02 05:00:40",
+      "status": "active",
+      "schedule": "Load: 0.2 | Disco: 100% | RAM: 0%",
+      "human_desc": "Diagnóstico operativo del servidor. Carga: 0.2, Disco máx: 100%, RAM: 0%",
+      "last_run": "2026-09-02 08:00:46",
       "icon": "📊",
       "subtasks": [
         {
-          "name": "Load 0.0",
+          "name": "Load 0.2",
           "desc": "CPU",
           "status": "done",
           "icon": "⚡",
-          "human_summary": "Promedio de procesos esperando: 0.0"
+          "human_summary": "Promedio de procesos esperando: 0.2"
         },
         {
           "name": "Disco 100%",
@@ -1184,7 +1184,7 @@
       "status": "unknown",
       "schedule": "Load: 0.0 | Disco: 0% | RAM: 0%",
       "human_desc": "Diagnóstico operativo del servidor. Carga: 0.0, Disco máx: 0%, RAM: 0%",
-      "last_run": "2026-09-02 05:01:03",
+      "last_run": "2026-09-02 08:01:11",
       "icon": "📊",
       "subtasks": [
         {
@@ -1216,17 +1216,17 @@
       "type": "service",
       "server": "srv-43",
       "status": "pending",
-      "schedule": "48 eventos",
-      "human_desc": "Servicio DashboardMonitorWorker en loop de reinicio: 48 eventos NSSM.",
+      "schedule": "20 eventos",
+      "human_desc": "Servicio DashboardMonitorWorker en loop de reinicio: 20 eventos NSSM.",
       "last_run": "Intermitente",
       "icon": "🔧",
       "subtasks": [
         {
-          "name": "Crashes: 48",
+          "name": "Crashes: 20",
           "desc": "CRASH",
           "status": "pending",
           "icon": "💥",
-          "human_summary": "Se reinició 48 veces por fallos."
+          "human_summary": "Se reinició 20 veces por fallos."
         },
         {
           "name": "KNIME 24/7",
@@ -1272,7 +1272,7 @@
       "status": "unknown",
       "schedule": "Load: 0.0 | Disco: 0% | RAM: 0%",
       "human_desc": "Diagnóstico operativo del servidor. Carga: 0.0, Disco máx: 0%, RAM: 0%",
-      "last_run": "2026-09-02 05:01:04",
+      "last_run": "2026-09-02 08:01:12",
       "icon": "📊",
       "subtasks": [
         {
