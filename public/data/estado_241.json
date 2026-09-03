@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-02T22:00:36.575447",
+  "timestamp": "2026-09-02T23:01:03.347435",
   "host": "192.168.0.241",
   "hostname": "srv-mysql-espejo-241",
   "disk": {
@@ -12,7 +12,7 @@
   "memory": {
     "total": "23Gi",
     "used": "20Gi",
-    "free": "445Mi",
+    "free": "404Mi",
     "status": "ok"
   },
   "mysql": {
@@ -25,11 +25,11 @@
   "replica": {
     "io_running": true,
     "sql_running": true,
-    "seconds_behind": 0,
+    "seconds_behind": 825,
     "last_error": "",
     "last_errno": 0,
     "master_log_file": "mysql-bin.000364",
-    "exec_master_log_pos": 79876013,
+    "exec_master_log_pos": 118443186,
     "status": "ok"
   },
   "source": "192.168.0.95"
