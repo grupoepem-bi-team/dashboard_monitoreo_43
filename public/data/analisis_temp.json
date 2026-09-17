@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-09-17T15:00:43.507394",
+  "timestamp": "2026-09-17T16:01:03.538167",
   "host": "192.168.0.43",
   "hostname": "GRUPOEPEM467-VM",
   "analisis_path": "E:\\Temp",
   "metadata": {
-    "files": 2701,
+    "files": 1383,
     "dirs": 68,
-    "bytes": 18689525375
+    "bytes": 5792859836
   },
   "histograma_hora": [
     {
@@ -26,33 +26,33 @@
     },
     {
       "hora": 11,
-      "count": 673,
-      "bytes": 9087424917
+      "count": 361,
+      "bytes": 2703012458
     },
     {
       "hora": 12,
-      "count": 382,
-      "bytes": 2176432590
+      "count": 111,
+      "bytes": 174409504
     },
     {
       "hora": 13,
-      "count": 391,
-      "bytes": 1419686237
+      "count": 83,
+      "bytes": 214503836
     },
     {
       "hora": 14,
-      "count": 1184,
-      "bytes": 6005846641
+      "count": 110,
+      "bytes": 279895630
     },
     {
       "hora": 15,
-      "count": 2,
-      "bytes": 105430
+      "count": 646,
+      "bytes": 2420395085
     },
     {
       "hora": 16,
-      "count": 0,
-      "bytes": 0
+      "count": 2,
+      "bytes": 562461
     },
     {
       "hora": 17,
@@ -134,14 +134,14 @@
     {
       "pattern": "snap",
       "label": "Snapshot Temp",
-      "count": 1304,
-      "bytes": 15573575887
+      "count": 878,
+      "bytes": 4920918452
     },
     {
       "pattern": "KNIME_DuplicateChecker",
       "label": "KNIME DuplicateChecker",
-      "count": 1251,
-      "bytes": 3046714031
+      "count": 353,
+      "bytes": 802107341
     },
     {
       "pattern": "jar_cache",
@@ -152,13 +152,13 @@
     {
       "pattern": "others",
       "label": "Otros",
-      "count": 44,
-      "bytes": 11459212
+      "count": 47,
+      "bytes": 12006496
     },
     {
       "pattern": "tmp",
       "label": "Generic Tmp",
-      "count": 7,
+      "count": 9,
       "bytes": 135032
     },
     {
@@ -190,20 +190,20 @@
     {
       "bucket": "1h_6h",
       "label": "1 a 6 horas",
-      "count": 1440,
-      "bytes": 12392680663
+      "count": 665,
+      "bytes": 3371821428
     },
     {
       "bucket": "24h_7d",
       "label": "1 a 7 dias",
-      "count": 0,
-      "bytes": 0
+      "count": 1,
+      "bytes": 105430
     },
     {
       "bucket": "6h_24h",
       "label": "6 a 24 horas",
-      "count": 2,
-      "bytes": 134990
+      "count": 1,
+      "bytes": 29560
     },
     {
       "bucket": "gt_7d",
@@ -214,85 +214,31 @@
     {
       "bucket": "lt_1h",
       "label": "Menos de 1 hora",
-      "count": 1109,
-      "bytes": 5228168596
+      "count": 647,
+      "bytes": 2420852116
     }
   ],
   "velocidad_generacion": [
     {
       "periodo": "24h",
       "label": "Ultimas 24 horas",
-      "count": 2550,
-      "bytes": 17615785922
+      "count": 1313,
+      "bytes": 5792703104
     },
     {
       "periodo": "2h",
       "label": "Ultimas 2 horas",
-      "count": 1492,
-      "bytes": 6350536129
+      "count": 757,
+      "bytes": 2700747746
     },
     {
       "periodo": "6h",
       "label": "Ultimas 6 horas",
-      "count": 2548,
-      "bytes": 17615650932
+      "count": 1312,
+      "bytes": 5792673544
     }
   ],
   "top50_archivos": [
-    {
-      "Name": "knime_container_20260917_780627019360630471.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_780627019360630471.bin.snappy",
-      "SizeMB": 593.11,
-      "SizeGB": 0.58,
-      "CreationTime": "/Date(1789656555439)/",
-      "LastWriteTime": "/Date(1789656645922)/",
-      "LastAccessTime": "/Date(1789656645922)/"
-    },
-    {
-      "Name": "knime_container_20260917_13369080994321767395.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_13369080994321767395.bin.snappy",
-      "SizeMB": 575.15,
-      "SizeGB": 0.56,
-      "CreationTime": "/Date(1789656466456)/",
-      "LastWriteTime": "/Date(1789656544245)/",
-      "LastAccessTime": "/Date(1789656544245)/"
-    },
-    {
-      "Name": "knime_container_20260917_1309139652917589283.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_1309139652917589283.bin.snappy",
-      "SizeMB": 531.09,
-      "SizeGB": 0.52,
-      "CreationTime": "/Date(1789656296457)/",
-      "LastWriteTime": "/Date(1789656349211)/",
-      "LastAccessTime": "/Date(1789656349211)/"
-    },
-    {
-      "Name": "knime_container_20260917_11264272841248072698.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_11264272841248072698.bin.snappy",
-      "SizeMB": 516.14,
-      "SizeGB": 0.5,
-      "CreationTime": "/Date(1789657329856)/",
-      "LastWriteTime": "/Date(1789657401621)/",
-      "LastAccessTime": "/Date(1789657401621)/"
-    },
-    {
-      "Name": "knime_container_20260917_13161056015928326441.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_13161056015928326441.bin.snappy",
-      "SizeMB": 510.82,
-      "SizeGB": 0.5,
-      "CreationTime": "/Date(1789657175550)/",
-      "LastWriteTime": "/Date(1789657257204)/",
-      "LastAccessTime": "/Date(1789657257204)/"
-    },
-    {
-      "Name": "knime_container_20260917_4821677542460785568.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_4821677542460785568.bin.snappy",
-      "SizeMB": 499.92,
-      "SizeGB": 0.49,
-      "CreationTime": "/Date(1789657100475)/",
-      "LastWriteTime": "/Date(1789657164346)/",
-      "LastAccessTime": "/Date(1789657164346)/"
-    },
     {
       "Name": "knime_container_20260917_1171863428472685634.bin.snappy",
       "FullName": "E:\\Temp\\knime_Horario odontol_19586\\knime_container_20260917_1171863428472685634.bin.snappy",
@@ -310,78 +256,6 @@
       "CreationTime": "/Date(1789656473493)/",
       "LastWriteTime": "/Date(1789656695162)/",
       "LastAccessTime": "/Date(1789656695162)/"
-    },
-    {
-      "Name": "knime_container_20260917_12543242109513493525.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_12543242109513493525.bin.snappy",
-      "SizeMB": 430.28,
-      "SizeGB": 0.42,
-      "CreationTime": "/Date(1789657041886)/",
-      "LastWriteTime": "/Date(1789657100196)/",
-      "LastAccessTime": "/Date(1789657100196)/"
-    },
-    {
-      "Name": "knime_container_20260917_15382063415192312752.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_15382063415192312752.bin.snappy",
-      "SizeMB": 420.81,
-      "SizeGB": 0.41,
-      "CreationTime": "/Date(1789656969582)/",
-      "LastWriteTime": "/Date(1789657039461)/",
-      "LastAccessTime": "/Date(1789657039461)/"
-    },
-    {
-      "Name": "knime_container_20260917_8943082632766983155.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_8943082632766983155.bin.snappy",
-      "SizeMB": 413.2,
-      "SizeGB": 0.4,
-      "CreationTime": "/Date(1789657507565)/",
-      "LastWriteTime": "/Date(1789657569269)/",
-      "LastAccessTime": "/Date(1789657569269)/"
-    },
-    {
-      "Name": "knime_container_20260917_5850591143146343845.bin.snappy",
-      "FullName": "E:\\Temp\\knime_Agendamientos_19568\\knime_container_20260917_5850591143146343845.bin.snappy",
-      "SizeMB": 413.2,
-      "SizeGB": 0.4,
-      "CreationTime": "/Date(1789667262934)/",
-      "LastWriteTime": "/Date(1789667343953)/",
-      "LastAccessTime": "/Date(1789667343953)/"
-    },
-    {
-      "Name": "knime_container_20260917_17689721483439703535.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_17689721483439703535.bin.snappy",
-      "SizeMB": 403.59,
-      "SizeGB": 0.39,
-      "CreationTime": "/Date(1789656865743)/",
-      "LastWriteTime": "/Date(1789656968017)/",
-      "LastAccessTime": "/Date(1789656968017)/"
-    },
-    {
-      "Name": "knime_container_20260917_227933083069099789.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_227933083069099789.bin.snappy",
-      "SizeMB": 392.6,
-      "SizeGB": 0.38,
-      "CreationTime": "/Date(1789656793634)/",
-      "LastWriteTime": "/Date(1789656841697)/",
-      "LastAccessTime": "/Date(1789656841697)/"
-    },
-    {
-      "Name": "knime_container_20260917_16378802149892477537.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_16378802149892477537.bin.snappy",
-      "SizeMB": 387.92,
-      "SizeGB": 0.38,
-      "CreationTime": "/Date(1789657436209)/",
-      "LastWriteTime": "/Date(1789657494527)/",
-      "LastAccessTime": "/Date(1789657494527)/"
-    },
-    {
-      "Name": "knime_container_20260917_4100949775128391671.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_4100949775128391671.bin.snappy",
-      "SizeMB": 386.1,
-      "SizeGB": 0.38,
-      "CreationTime": "/Date(1789656720898)/",
-      "LastWriteTime": "/Date(1789656767778)/",
-      "LastAccessTime": "/Date(1789656767778)/"
     },
     {
       "Name": "knime_container_20260917_2939400079571826659.bin.snappy",
@@ -402,130 +276,22 @@
       "LastAccessTime": "/Date(1789656889689)/"
     },
     {
-      "Name": "knime_container_20260917_4923557855250912820.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_4923557855250912820.bin.snappy",
-      "SizeMB": 266.93,
-      "SizeGB": 0.26,
-      "CreationTime": "/Date(1789656234013)/",
-      "LastWriteTime": "/Date(1789656269546)/",
-      "LastAccessTime": "/Date(1789656269546)/"
-    },
-    {
-      "Name": "knime_container_20260917_9683201151400189008.bin.snappy",
-      "FullName": "E:\\Temp\\knime_Agendamientos_19568\\knime_container_20260917_9683201151400189008.bin.snappy",
-      "SizeMB": 204.25,
-      "SizeGB": 0.2,
-      "CreationTime": "/Date(1789667376742)/",
-      "LastWriteTime": "/Date(1789667422301)/",
-      "LastAccessTime": "/Date(1789667422301)/"
-    },
-    {
-      "Name": "knime_container_20260917_16306995869568410251.bin.snappy",
-      "FullName": "E:\\Temp\\knime_Agendamientos_19568\\knime_container_20260917_16306995869568410251.bin.snappy",
-      "SizeMB": 185.89,
-      "SizeGB": 0.18,
-      "CreationTime": "/Date(1789667449734)/",
-      "LastWriteTime": "/Date(1789667476088)/",
-      "LastAccessTime": "/Date(1789667476088)/"
-    },
-    {
-      "Name": "knime_container_20260917_17406011673395392755.bin.snappy",
-      "FullName": "E:\\Temp\\knime_LTV Odontologia_19588\\knime_container_20260917_17406011673395392755.bin.snappy",
-      "SizeMB": 168.67,
-      "SizeGB": 0.16,
-      "CreationTime": "/Date(1789666310395)/",
-      "LastWriteTime": "/Date(1789666326957)/",
-      "LastAccessTime": "/Date(1789666326957)/"
-    },
-    {
-      "Name": "knime_container_20260917_11874517568059622074.bin.snappy",
-      "FullName": "E:\\Temp\\knime_LTV Odontologia_19588\\knime_container_20260917_11874517568059622074.bin.snappy",
-      "SizeMB": 164.05,
-      "SizeGB": 0.16,
-      "CreationTime": "/Date(1789665649931)/",
-      "LastWriteTime": "/Date(1789665674812)/",
-      "LastAccessTime": "/Date(1789665674812)/"
-    },
-    {
-      "Name": "knime_container_20260917_9523830453351568993.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_9523830453351568993.bin.snappy",
-      "SizeMB": 145.95,
+      "Name": "knime_container_20260917_13810517369574117898.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Nivel de Servic_19567\\knime_container_20260917_13810517369574117898.bin.snappy",
+      "SizeMB": 141.06,
       "SizeGB": 0.14,
-      "CreationTime": "/Date(1789656430355)/",
-      "LastWriteTime": "/Date(1789656441303)/",
-      "LastAccessTime": "/Date(1789656441303)/"
+      "CreationTime": "/Date(1789671493226)/",
+      "LastWriteTime": "/Date(1789671504393)/",
+      "LastAccessTime": "/Date(1789671504393)/"
     },
     {
-      "Name": "knime_container_20260917_14069922394133837860.bin.snappy",
-      "FullName": "E:\\Temp\\knime_Nivel de Servic_19567\\knime_container_20260917_14069922394133837860.bin.snappy",
-      "SizeMB": 141.03,
-      "SizeGB": 0.14,
-      "CreationTime": "/Date(1789667718162)/",
-      "LastWriteTime": "/Date(1789667730114)/",
-      "LastAccessTime": "/Date(1789667730114)/"
-    },
-    {
-      "Name": "KNIME_DuplicateChecker13939435738992465654.bin",
-      "FullName": "E:\\Temp\\knime_Cobranzas_tto_o_19571\\KNIME_DuplicateChecker13939435738992465654.bin",
-      "SizeMB": 130.48,
-      "SizeGB": 0.13,
-      "CreationTime": "/Date(1789667456149)/",
-      "LastWriteTime": "/Date(1789667463033)/",
-      "LastAccessTime": "/Date(1789667463033)/"
-    },
-    {
-      "Name": "knime_container_20260917_5126587283924905915.bin.snappy",
-      "FullName": "E:\\Temp\\knime_LTV Odontologia_19588\\knime_container_20260917_5126587283924905915.bin.snappy",
-      "SizeMB": 128.97,
-      "SizeGB": 0.13,
-      "CreationTime": "/Date(1789665656560)/",
-      "LastWriteTime": "/Date(1789665670413)/",
-      "LastAccessTime": "/Date(1789665670413)/"
-    },
-    {
-      "Name": "knime_container_20260917_16552638721645824310.bin.snappy",
-      "FullName": "E:\\Temp\\knime_Nivel de Servic_19567\\knime_container_20260917_16552638721645824310.bin.snappy",
-      "SizeMB": 114.67,
+      "Name": "knime_container_20260917_1441747632610565015.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Nivel de Servic_19567\\knime_container_20260917_1441747632610565015.bin.snappy",
+      "SizeMB": 114.69,
       "SizeGB": 0.11,
-      "CreationTime": "/Date(1789667730115)/",
-      "LastWriteTime": "/Date(1789667736185)/",
-      "LastAccessTime": "/Date(1789667736185)/"
-    },
-    {
-      "Name": "KNIME_DuplicateChecker16862093693461049432.bin",
-      "FullName": "E:\\Temp\\knime_Cobranzas_tto_o_19571\\KNIME_DuplicateChecker16862093693461049432.bin",
-      "SizeMB": 107.76,
-      "SizeGB": 0.11,
-      "CreationTime": "/Date(1789660954740)/",
-      "LastWriteTime": "/Date(1789660960307)/",
-      "LastAccessTime": "/Date(1789660960307)/"
-    },
-    {
-      "Name": "knime_container_20260917_4617122739313670338.bin.snappy",
-      "FullName": "E:\\Temp\\knime_LTV Odontologia_19588\\knime_container_20260917_4617122739313670338.bin.snappy",
-      "SizeMB": 99.41,
-      "SizeGB": 0.1,
-      "CreationTime": "/Date(1789666344780)/",
-      "LastWriteTime": "/Date(1789666356923)/",
-      "LastAccessTime": "/Date(1789666356923)/"
-    },
-    {
-      "Name": "KNIME_DuplicateChecker6902249540911091365.bin",
-      "FullName": "E:\\Temp\\knime_Cobranzas_tto_o_19571\\KNIME_DuplicateChecker6902249540911091365.bin",
-      "SizeMB": 97.83,
-      "SizeGB": 0.1,
-      "CreationTime": "/Date(1789664140103)/",
-      "LastWriteTime": "/Date(1789664146083)/",
-      "LastAccessTime": "/Date(1789664146083)/"
-    },
-    {
-      "Name": "knime_container_20260917_8785940762901848027.bin.snappy",
-      "FullName": "E:\\Temp\\knime_LTV Odontologia_19588\\knime_container_20260917_8785940762901848027.bin.snappy",
-      "SizeMB": 96.57,
-      "SizeGB": 0.09,
-      "CreationTime": "/Date(1789665257349)/",
-      "LastWriteTime": "/Date(1789665272951)/",
-      "LastAccessTime": "/Date(1789665272951)/"
+      "CreationTime": "/Date(1789671506178)/",
+      "LastWriteTime": "/Date(1789671515006)/",
+      "LastAccessTime": "/Date(1789671515006)/"
     },
     {
       "Name": "KNIME_DuplicateChecker5367942646965915877.bin",
@@ -537,58 +303,13 @@
       "LastAccessTime": "/Date(1789662740088)/"
     },
     {
-      "Name": "knime_container_20260917_18145887768384533085.bin.snappy",
-      "FullName": "E:\\Temp\\knime_Agendamientos_19568\\knime_container_20260917_18145887768384533085.bin.snappy",
-      "SizeMB": 91.77,
-      "SizeGB": 0.09,
-      "CreationTime": "/Date(1789667476089)/",
-      "LastWriteTime": "/Date(1789667486574)/",
-      "LastAccessTime": "/Date(1789667486574)/"
-    },
-    {
-      "Name": "knime_container_20260917_758183953058012822.bin.snappy",
-      "FullName": "E:\\Temp\\knime_LTV Odontologia_19588\\knime_container_20260917_758183953058012822.bin.snappy",
-      "SizeMB": 89.18,
-      "SizeGB": 0.09,
-      "CreationTime": "/Date(1789664740764)/",
-      "LastWriteTime": "/Date(1789664748236)/",
-      "LastAccessTime": "/Date(1789664748236)/"
-    },
-    {
-      "Name": "KNIME_DuplicateChecker1967331268461530733.bin",
-      "FullName": "E:\\Temp\\knime_Cobranzas_tto_o_19571\\KNIME_DuplicateChecker1967331268461530733.bin",
-      "SizeMB": 83.4,
-      "SizeGB": 0.08,
-      "CreationTime": "/Date(1789661942352)/",
-      "LastWriteTime": "/Date(1789661947539)/",
-      "LastAccessTime": "/Date(1789661947539)/"
-    },
-    {
-      "Name": "knime_container_20260917_8567989870271789437.bin.snappy",
-      "FullName": "E:\\Temp\\knime_Cobranzas_tto_o_19571\\knime_container_20260917_8567989870271789437.bin.snappy",
-      "SizeMB": 79.6,
-      "SizeGB": 0.08,
-      "CreationTime": "/Date(1789667992147)/",
-      "LastWriteTime": "/Date(1789668007642)/",
-      "LastAccessTime": "/Date(1789668007642)/"
-    },
-    {
-      "Name": "knime_container_20260917_7965711005760792188.bin.snappy",
-      "FullName": "E:\\Temp\\knime_LTV Odontologia_19588\\knime_container_20260917_7965711005760792188.bin.snappy",
+      "Name": "knime_container_20260917_10011889288069135516.bin.snappy",
+      "FullName": "E:\\Temp\\knime_LTV Odontologia_19588\\knime_container_20260917_10011889288069135516.bin.snappy",
       "SizeMB": 78.3,
       "SizeGB": 0.08,
-      "CreationTime": "/Date(1789664724963)/",
-      "LastWriteTime": "/Date(1789664730086)/",
-      "LastAccessTime": "/Date(1789664730086)/"
-    },
-    {
-      "Name": "knime_container_20260917_15260416673278768921.bin.snappy",
-      "FullName": "E:\\Temp\\knime_LTV Odontologia_19588\\knime_container_20260917_15260416673278768921.bin.snappy",
-      "SizeMB": 78.3,
-      "SizeGB": 0.08,
-      "CreationTime": "/Date(1789665195710)/",
-      "LastWriteTime": "/Date(1789665200581)/",
-      "LastAccessTime": "/Date(1789665200581)/"
+      "CreationTime": "/Date(1789671284968)/",
+      "LastWriteTime": "/Date(1789671290622)/",
+      "LastAccessTime": "/Date(1789671290622)/"
     },
     {
       "Name": "KNIME_DuplicateChecker3304538638118862868.bin",
@@ -600,94 +321,373 @@
       "LastAccessTime": "/Date(1789667620890)/"
     },
     {
-      "Name": "knime_container_20260917_11871616099493067118.bin.snappy",
-      "FullName": "E:\\Temp\\knime_Cobranzas_tto_o_19571\\knime_container_20260917_11871616099493067118.bin.snappy",
-      "SizeMB": 74.73,
+      "Name": "knime_container_20260917_6771667614985809161.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_6771667614985809161.bin.snappy",
+      "SizeMB": 71.42,
       "SizeGB": 0.07,
-      "CreationTime": "/Date(1789667998928)/",
-      "LastWriteTime": "/Date(1789668015736)/",
-      "LastAccessTime": "/Date(1789668015736)/"
+      "CreationTime": "/Date(1789668170715)/",
+      "LastWriteTime": "/Date(1789668181933)/",
+      "LastAccessTime": "/Date(1789668181933)/"
     },
     {
-      "Name": "knime_container_20260917_6519377447179278307.bin.snappy",
-      "FullName": "E:\\Temp\\knime_ESTETICA CAACUP_19580\\knime_container_20260917_6519377447179278307.bin.snappy",
-      "SizeMB": 72.47,
+      "Name": "knime_container_20260917_218199964851430328.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_218199964851430328.bin.snappy",
+      "SizeMB": 68.11,
       "SizeGB": 0.07,
-      "CreationTime": "/Date(1789655881263)/",
-      "LastWriteTime": "/Date(1789655890381)/",
-      "LastAccessTime": "/Date(1789655890381)/"
+      "CreationTime": "/Date(1789668214374)/",
+      "LastWriteTime": "/Date(1789668223506)/",
+      "LastAccessTime": "/Date(1789668223506)/"
     },
     {
-      "Name": "knime_container_20260917_6740702963600083829.bin.snappy",
-      "FullName": "E:\\Temp\\knime_ESTETICA CAACUP_19580\\knime_container_20260917_6740702963600083829.bin.snappy",
-      "SizeMB": 72.47,
-      "SizeGB": 0.07,
-      "CreationTime": "/Date(1789655872256)/",
-      "LastWriteTime": "/Date(1789655881263)/",
-      "LastAccessTime": "/Date(1789655881263)/"
-    },
-    {
-      "Name": "KNIME_DuplicateChecker11741494307208818594.bin",
-      "FullName": "E:\\Temp\\knime_Cobranzas_tto_o_19571\\KNIME_DuplicateChecker11741494307208818594.bin",
-      "SizeMB": 70.75,
-      "SizeGB": 0.07,
-      "CreationTime": "/Date(1789659653127)/",
-      "LastWriteTime": "/Date(1789659656499)/",
-      "LastAccessTime": "/Date(1789659656499)/"
-    },
-    {
-      "Name": "knime_container_20260917_13178565305199116881.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DESGLOSE CARTER_19577\\knime_container_20260917_13178565305199116881.bin.snappy",
-      "SizeMB": 65.11,
+      "Name": "knime_container_20260917_9368110787636403901.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Nivel de Servic_19567\\knime_container_20260917_9368110787636403901.bin.snappy",
+      "SizeMB": 63.88,
       "SizeGB": 0.06,
-      "CreationTime": "/Date(1789656450526)/",
-      "LastWriteTime": "/Date(1789656462748)/",
-      "LastAccessTime": "/Date(1789656462748)/"
+      "CreationTime": "/Date(1789671486455)/",
+      "LastWriteTime": "/Date(1789671492617)/",
+      "LastAccessTime": "/Date(1789671492617)/"
     },
     {
-      "Name": "knime_container_20260917_12692866842068695407.bin.snappy",
-      "FullName": "E:\\Temp\\knime_Nivel de Servic_19567\\knime_container_20260917_12692866842068695407.bin.snappy",
-      "SizeMB": 63.87,
+      "Name": "knime_container_20260917_10912859669279637407.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_10912859669279637407.bin.snappy",
+      "SizeMB": 62.12,
       "SizeGB": 0.06,
-      "CreationTime": "/Date(1789667711658)/",
-      "LastWriteTime": "/Date(1789667716054)/",
-      "LastAccessTime": "/Date(1789667716054)/"
+      "CreationTime": "/Date(1789668181935)/",
+      "LastWriteTime": "/Date(1789668191727)/",
+      "LastAccessTime": "/Date(1789668191727)/"
     },
     {
-      "Name": "knime_container_20260917_12569317856570661958.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DESGLOSE CARTER_19577\\knime_container_20260917_12569317856570661958.bin.snappy",
-      "SizeMB": 62.63,
+      "Name": "knime_container_20260917_6524817330764540576.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_6524817330764540576.bin.snappy",
+      "SizeMB": 61.88,
       "SizeGB": 0.06,
-      "CreationTime": "/Date(1789656462749)/",
-      "LastWriteTime": "/Date(1789656470663)/",
-      "LastAccessTime": "/Date(1789656470663)/"
+      "CreationTime": "/Date(1789668191731)/",
+      "LastWriteTime": "/Date(1789668199563)/",
+      "LastAccessTime": "/Date(1789668199563)/"
     },
     {
-      "Name": "knime_container_20260917_11246256073123826622.bin.snappy",
-      "FullName": "E:\\Temp\\knime_Nivel de Servic_19567\\knime_container_20260917_11246256073123826622.bin.snappy",
+      "Name": "knime_container_20260917_7812629052431054117.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_7812629052431054117.bin.snappy",
+      "SizeMB": 61.82,
+      "SizeGB": 0.06,
+      "CreationTime": "/Date(1789668206028)/",
+      "LastWriteTime": "/Date(1789668214373)/",
+      "LastAccessTime": "/Date(1789668214373)/"
+    },
+    {
+      "Name": "knime_container_20260917_16277563913349751112.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_16277563913349751112.bin.snappy",
+      "SizeMB": 61.82,
+      "SizeGB": 0.06,
+      "CreationTime": "/Date(1789668199564)/",
+      "LastWriteTime": "/Date(1789668206027)/",
+      "LastAccessTime": "/Date(1789668206027)/"
+    },
+    {
+      "Name": "knime_container_20260917_9022196948792113766.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Nivel de Servic_19567\\knime_container_20260917_9022196948792113766.bin.snappy",
       "SizeMB": 61.07,
       "SizeGB": 0.06,
-      "CreationTime": "/Date(1789667643201)/",
-      "LastWriteTime": "/Date(1789667651797)/",
-      "LastAccessTime": "/Date(1789667651797)/"
+      "CreationTime": "/Date(1789671462602)/",
+      "LastWriteTime": "/Date(1789671470119)/",
+      "LastAccessTime": "/Date(1789671470119)/"
     },
     {
-      "Name": "knime_container_20260917_9867347864777800014.bin.snappy",
-      "FullName": "E:\\Temp\\knime_DATAMARTS_19572\\knime_container_20260917_9867347864777800014.bin.snappy",
-      "SizeMB": 61.06,
+      "Name": "knime_container_20260917_9581067533008234690.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_9581067533008234690.bin.snappy",
+      "SizeMB": 59.14,
       "SizeGB": 0.06,
-      "CreationTime": "/Date(1789656277225)/",
-      "LastWriteTime": "/Date(1789656284014)/",
-      "LastAccessTime": "/Date(1789656284014)/"
+      "CreationTime": "/Date(1789668160440)/",
+      "LastWriteTime": "/Date(1789668169187)/",
+      "LastAccessTime": "/Date(1789668169187)/"
     },
     {
-      "Name": "KNIME_DuplicateChecker10999799903181089219.bin",
-      "FullName": "E:\\Temp\\knime_Cobranzas_tto_o_19571\\KNIME_DuplicateChecker10999799903181089219.bin",
-      "SizeMB": 58.86,
+      "Name": "knime_container_20260917_12392851473708750051.bin.snappy",
+      "FullName": "E:\\Temp\\knime_MEE _ Reportes _19590\\knime_container_20260917_12392851473708750051.bin.snappy",
+      "SizeMB": 56.36,
       "SizeGB": 0.06,
-      "CreationTime": "/Date(1789658863524)/",
-      "LastWriteTime": "/Date(1789658866883)/",
-      "LastAccessTime": "/Date(1789658866883)/"
+      "CreationTime": "/Date(1789655980642)/",
+      "LastWriteTime": "/Date(1789655986652)/",
+      "LastAccessTime": "/Date(1789655986652)/"
+    },
+    {
+      "Name": "knime_container_20260917_15363899381429534366.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_15363899381429534366.bin.snappy",
+      "SizeMB": 48.19,
+      "SizeGB": 0.05,
+      "CreationTime": "/Date(1789668233541)/",
+      "LastWriteTime": "/Date(1789668239843)/",
+      "LastAccessTime": "/Date(1789668239843)/"
+    },
+    {
+      "Name": "knime_container_20260917_7440047216120325387.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_7440047216120325387.bin.snappy",
+      "SizeMB": 46.99,
+      "SizeGB": 0.05,
+      "CreationTime": "/Date(1789668226550)/",
+      "LastWriteTime": "/Date(1789668233540)/",
+      "LastAccessTime": "/Date(1789668233540)/"
+    },
+    {
+      "Name": "knime_container_20260917_7985372837284235826.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_7985372837284235826.bin.snappy",
+      "SizeMB": 46.85,
+      "SizeGB": 0.05,
+      "CreationTime": "/Date(1789668193254)/",
+      "LastWriteTime": "/Date(1789668202057)/",
+      "LastAccessTime": "/Date(1789668202057)/"
+    },
+    {
+      "Name": "knime_container_20260917_5842737198726382908.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_5842737198726382908.bin.snappy",
+      "SizeMB": 41.39,
+      "SizeGB": 0.04,
+      "CreationTime": "/Date(1789668142486)/",
+      "LastWriteTime": "/Date(1789668145701)/",
+      "LastAccessTime": "/Date(1789668145701)/"
+    },
+    {
+      "Name": "KNIME_DuplicateChecker5448189722323370224.bin",
+      "FullName": "E:\\Temp\\knime_MPP_19592\\KNIME_DuplicateChecker5448189722323370224.bin",
+      "SizeMB": 39.54,
+      "SizeGB": 0.04,
+      "CreationTime": "/Date(1789668606404)/",
+      "LastWriteTime": "/Date(1789668608251)/",
+      "LastAccessTime": "/Date(1789668608251)/"
+    },
+    {
+      "Name": "knime_container_20260917_14400535481932765208.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_14400535481932765208.bin.snappy",
+      "SizeMB": 38.45,
+      "SizeGB": 0.04,
+      "CreationTime": "/Date(1789668218172)/",
+      "LastWriteTime": "/Date(1789668224297)/",
+      "LastAccessTime": "/Date(1789668224297)/"
+    },
+    {
+      "Name": "knime_container_20260917_2595647171876601142.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_2595647171876601142.bin.snappy",
+      "SizeMB": 38.14,
+      "SizeGB": 0.04,
+      "CreationTime": "/Date(1789668289027)/",
+      "LastWriteTime": "/Date(1789668294101)/",
+      "LastAccessTime": "/Date(1789668294101)/"
+    },
+    {
+      "Name": "knime_container_20260917_1539804354820785993.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_1539804354820785993.bin.snappy",
+      "SizeMB": 37.87,
+      "SizeGB": 0.04,
+      "CreationTime": "/Date(1789668268700)/",
+      "LastWriteTime": "/Date(1789668274201)/",
+      "LastAccessTime": "/Date(1789668274201)/"
+    },
+    {
+      "Name": "knime_container_20260917_15161710583280992068.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_15161710583280992068.bin.snappy",
+      "SizeMB": 37.81,
+      "SizeGB": 0.04,
+      "CreationTime": "/Date(1789668242094)/",
+      "LastWriteTime": "/Date(1789668247228)/",
+      "LastAccessTime": "/Date(1789668247228)/"
+    },
+    {
+      "Name": "knime_container_20260917_3902384811946386541.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_3902384811946386541.bin.snappy",
+      "SizeMB": 37.35,
+      "SizeGB": 0.04,
+      "CreationTime": "/Date(1789668255108)/",
+      "LastWriteTime": "/Date(1789668260976)/",
+      "LastAccessTime": "/Date(1789668260976)/"
+    },
+    {
+      "Name": "knime_container_20260917_8908790242859462760.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Horario odontol_19586\\knime_container_20260917_8908790242859462760.bin.snappy",
+      "SizeMB": 35.45,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789656644871)/",
+      "LastWriteTime": "/Date(1789656650296)/",
+      "LastAccessTime": "/Date(1789656650296)/"
+    },
+    {
+      "Name": "knime_container_20260917_16540670486813111971.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Horario odontol_19586\\knime_container_20260917_16540670486813111971.bin.snappy",
+      "SizeMB": 35.45,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789656467236)/",
+      "LastWriteTime": "/Date(1789656471000)/",
+      "LastAccessTime": "/Date(1789656471000)/"
+    },
+    {
+      "Name": "knime_container_20260917_8686986721330331071.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Horario odontol_19586\\knime_container_20260917_8686986721330331071.bin.snappy",
+      "SizeMB": 35.45,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789656485779)/",
+      "LastWriteTime": "/Date(1789656489540)/",
+      "LastAccessTime": "/Date(1789656489540)/"
+    },
+    {
+      "Name": "knime_container_20260917_8070633085252013079.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Horario odontol_19586\\knime_container_20260917_8070633085252013079.bin.snappy",
+      "SizeMB": 35.45,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789656432367)/",
+      "LastWriteTime": "/Date(1789656435678)/",
+      "LastAccessTime": "/Date(1789656435678)/"
+    },
+    {
+      "Name": "knime_container_20260917_3309351046745077911.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Horario odontol_19586\\knime_container_20260917_3309351046745077911.bin.snappy",
+      "SizeMB": 33.86,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789656489609)/",
+      "LastWriteTime": "/Date(1789656493587)/",
+      "LastAccessTime": "/Date(1789656493587)/"
+    },
+    {
+      "Name": "knime_container_20260917_6610338828486945.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Horario odontol_19586\\knime_container_20260917_6610338828486945.bin.snappy",
+      "SizeMB": 33.86,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789656435853)/",
+      "LastWriteTime": "/Date(1789656439973)/",
+      "LastAccessTime": "/Date(1789656439973)/"
+    },
+    {
+      "Name": "knime_container_20260917_15110209777580513500.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Servicio Est_ti_19599\\knime_container_20260917_15110209777580513500.bin.snappy",
+      "SizeMB": 33.63,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789671044596)/",
+      "LastWriteTime": "/Date(1789671053415)/",
+      "LastAccessTime": "/Date(1789671053415)/"
+    },
+    {
+      "Name": "knime_container_20260917_2702155484269875366.bin.snappy",
+      "FullName": "E:\\Temp\\knime_MEE _ Reportes _19590\\knime_container_20260917_2702155484269875366.bin.snappy",
+      "SizeMB": 29.98,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789655986916)/",
+      "LastWriteTime": "/Date(1789655989142)/",
+      "LastAccessTime": "/Date(1789655989142)/"
+    },
+    {
+      "Name": "knime_container_20260917_2455070160375485305.bin.snappy",
+      "FullName": "E:\\Temp\\knime_MEE _ Reportes _19590\\knime_container_20260917_2455070160375485305.bin.snappy",
+      "SizeMB": 29.82,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789656020972)/",
+      "LastWriteTime": "/Date(1789656024709)/",
+      "LastAccessTime": "/Date(1789656024709)/"
+    },
+    {
+      "Name": "knime_container_20260917_17386391757276728223.bin.snappy",
+      "FullName": "E:\\Temp\\knime_MEE _ Reportes _19590\\knime_container_20260917_17386391757276728223.bin.snappy",
+      "SizeMB": 29.13,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789656071580)/",
+      "LastWriteTime": "/Date(1789656073298)/",
+      "LastAccessTime": "/Date(1789656073298)/"
+    },
+    {
+      "Name": "knime_container_20260917_13421209202199155606.bin.snappy",
+      "FullName": "E:\\Temp\\knime_MEE _ Reportes _19590\\knime_container_20260917_13421209202199155606.bin.snappy",
+      "SizeMB": 29.06,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789656073385)/",
+      "LastWriteTime": "/Date(1789656075105)/",
+      "LastAccessTime": "/Date(1789656075105)/"
+    },
+    {
+      "Name": "knime_container_20260917_2393433554386679408.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_2393433554386679408.bin.snappy",
+      "SizeMB": 25.75,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789668096910)/",
+      "LastWriteTime": "/Date(1789668101074)/",
+      "LastAccessTime": "/Date(1789668101074)/"
+    },
+    {
+      "Name": "knime_container_20260917_8085083653185790596.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Servicio Est_ti_19599\\knime_container_20260917_8085083653185790596.bin.snappy",
+      "SizeMB": 25.7,
+      "SizeGB": 0.03,
+      "CreationTime": "/Date(1789671082397)/",
+      "LastWriteTime": "/Date(1789671086552)/",
+      "LastAccessTime": "/Date(1789671086552)/"
+    },
+    {
+      "Name": "knime_container_20260917_7023087870164283604.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_7023087870164283604.bin.snappy",
+      "SizeMB": 22.37,
+      "SizeGB": 0.02,
+      "CreationTime": "/Date(1789668061882)/",
+      "LastWriteTime": "/Date(1789668066374)/",
+      "LastAccessTime": "/Date(1789668066374)/"
+    },
+    {
+      "Name": "knime_container_20260917_2840882261329524210.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_2840882261329524210.bin.snappy",
+      "SizeMB": 21.29,
+      "SizeGB": 0.02,
+      "CreationTime": "/Date(1789668066434)/",
+      "LastWriteTime": "/Date(1789668069748)/",
+      "LastAccessTime": "/Date(1789668069748)/"
+    },
+    {
+      "Name": "knime_container_20260917_6200082014924056009.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Ventas Corporat_19602\\knime_container_20260917_6200082014924056009.bin.snappy",
+      "SizeMB": 19.42,
+      "SizeGB": 0.02,
+      "CreationTime": "/Date(1789669887687)/",
+      "LastWriteTime": "/Date(1789669889143)/",
+      "LastAccessTime": "/Date(1789669889143)/"
+    },
+    {
+      "Name": "knime_container_20260917_851194350943167481.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Ventas Corporat_19602\\knime_container_20260917_851194350943167481.bin.snappy",
+      "SizeMB": 19.42,
+      "SizeGB": 0.02,
+      "CreationTime": "/Date(1789669886022)/",
+      "LastWriteTime": "/Date(1789669887684)/",
+      "LastAccessTime": "/Date(1789669887684)/"
+    },
+    {
+      "Name": "KNIME_DuplicateChecker3962075188308931521.bin",
+      "FullName": "E:\\Temp\\knime_Servicio Est_ti_19599\\KNIME_DuplicateChecker3962075188308931521.bin",
+      "SizeMB": 19.08,
+      "SizeGB": 0.02,
+      "CreationTime": "/Date(1789663216857)/",
+      "LastWriteTime": "/Date(1789663217947)/",
+      "LastAccessTime": "/Date(1789663217947)/"
+    },
+    {
+      "Name": "knime_container_20260917_17845986401017162102.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Horario odontol_19586\\knime_container_20260917_17845986401017162102.bin.snappy",
+      "SizeMB": 18.25,
+      "SizeGB": 0.02,
+      "CreationTime": "/Date(1789656482948)/",
+      "LastWriteTime": "/Date(1789656483892)/",
+      "LastAccessTime": "/Date(1789656483892)/"
+    },
+    {
+      "Name": "knime_container_20260917_6160245854657936127.bin.snappy",
+      "FullName": "E:\\Temp\\knime_Horario odontol_19586\\knime_container_20260917_6160245854657936127.bin.snappy",
+      "SizeMB": 18.25,
+      "SizeGB": 0.02,
+      "CreationTime": "/Date(1789656521786)/",
+      "LastWriteTime": "/Date(1789656522941)/",
+      "LastAccessTime": "/Date(1789656522941)/"
+    },
+    {
+      "Name": "knime_container_20260917_296417637054074753.bin.snappy",
+      "FullName": "E:\\Temp\\knime_ROLOCOBRO_19596\\knime_container_20260917_296417637054074753.bin.snappy",
+      "SizeMB": 17.84,
+      "SizeGB": 0.02,
+      "CreationTime": "/Date(1789668276655)/",
+      "LastWriteTime": "/Date(1789668277913)/",
+      "LastAccessTime": "/Date(1789668277913)/"
     }
   ],
   "extensiones": [],
