@@ -1,15 +1,7 @@
 {
-  "timestamp": "2026-09-30T00:01:21.338472",
-  "total_dias_registrados": 81,
+  "timestamp": "2026-10-01T00:00:52.915456",
+  "total_dias_registrados": 82,
   "tabla_dia": [
-    {
-      "dia": "2026-08-30",
-      "disco_pct": 18.2,
-      "disco_gb": 44.9,
-      "temp_gb": 36.46,
-      "temp_files": 7239,
-      "knime_mem_gb": 25.58
-    },
     {
       "dia": "2026-08-31",
       "disco_pct": 33.6,
@@ -241,6 +233,14 @@
       "temp_gb": 51.88,
       "temp_files": 10319,
       "knime_mem_gb": 23.33
+    },
+    {
+      "dia": "2026-10-01",
+      "disco_pct": 25.5,
+      "disco_gb": 62.92,
+      "temp_gb": 59.96,
+      "temp_files": 11637,
+      "knime_mem_gb": 25.39
     }
   ],
   "tabla_mes": [
@@ -264,11 +264,18 @@
       "disco_pct_promedio": 20.4,
       "temp_gb_total": 1255.52,
       "temp_files_max": 16547
+    },
+    {
+      "mes": "2026-10",
+      "dias_muestreados": 1,
+      "disco_pct_promedio": 25.5,
+      "temp_gb_total": 59.96,
+      "temp_files_max": 11637
     }
   ],
   "variacion_ayer": {
-    "disco_pct_delta": -3.6,
-    "disco_gb_delta": -8.76,
-    "temp_gb_delta": -9.47
+    "disco_pct_delta": 3.6,
+    "disco_gb_delta": 8.95,
+    "temp_gb_delta": 8.08
   }
 }
