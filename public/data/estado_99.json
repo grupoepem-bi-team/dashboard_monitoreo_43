@@ -1,23 +1,23 @@
 {
-  "timestamp": "2026-10-22T08:01:01.058248",
+  "timestamp": "2026-10-22T09:01:20.435386",
   "host": "192.168.0.99",
   "hostname": "staging-new",
   "uptime": {
-    "raw": "08:01:02 up 86 days, 22:42,  3 users,  load average: 2.26, 2.40, 2.29",
+    "raw": "",
     "status": "ok"
   },
   "disk": {
-    "size": "98G",
-    "used": "64G",
-    "avail": "29G",
-    "use_pct": 69,
-    "status": "ok"
+    "size": "0",
+    "used": "0",
+    "avail": "0",
+    "use_pct": 0,
+    "status": "error"
   },
   "memory": {
-    "total": "9.0Gi",
-    "used": "785Mi",
-    "free": "4.4Gi",
-    "status": "ok"
+    "total": "0",
+    "used": "0",
+    "free": "0",
+    "status": "error"
   },
   "mysql": {
     "active": false,
@@ -27,11 +27,11 @@
     "total_objetos": 0
   },
   "restore": {
-    "estado": "completado",
+    "estado": "unknown",
     "tablas": 0,
     "tiempo_min": 0,
     "zip": "N/A",
-    "timestamp": "2026-10-21 05:18:41"
+    "timestamp": "N/A"
   },
   "source": "192.168.0.95"
 }
