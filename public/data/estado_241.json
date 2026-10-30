@@ -1,35 +1,35 @@
 {
-  "timestamp": "2026-10-30T10:01:26.045189",
+  "timestamp": "2026-10-30T11:01:25.420927",
   "host": "192.168.0.241",
   "hostname": "srv-mysql-espejo-241",
   "disk": {
     "size": "196G",
-    "used": "169G",
-    "avail": "18G",
-    "use_pct": 91,
+    "used": "166G",
+    "avail": "21G",
+    "use_pct": 90,
     "status": "ok"
   },
   "memory": {
     "total": "23Gi",
     "used": "19Gi",
-    "free": "441Mi",
+    "free": "2.1Gi",
     "status": "ok"
   },
   "mysql": {
     "active": true,
     "buffer_pool_gb": 16.0,
-    "tablas_base": 601,
+    "tablas_base": 602,
     "views": 49,
-    "total_objetos": 650
+    "total_objetos": 651
   },
   "replica": {
     "io_running": true,
     "sql_running": true,
-    "seconds_behind": 54,
+    "seconds_behind": 1,
     "last_error": "",
     "last_errno": 0,
     "master_log_file": "mysql-bin.000377",
-    "exec_master_log_pos": 518546115,
+    "exec_master_log_pos": 539434471,
     "status": "ok"
   },
   "source": "192.168.0.95"
