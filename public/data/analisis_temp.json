@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-02T08:00:49.164724",
+  "timestamp": "2026-11-02T09:01:06.402002",
   "host": "192.168.0.43",
   "hostname": "GRUPOEPEM467-VM",
   "analisis_path": "E:\\Temp",
   "metadata": {
-    "files": 33026,
+    "files": 33540,
     "dirs": 72,
-    "bytes": 161889837640
+    "bytes": 162791313461
   },
   "histograma_hora": [
     {
@@ -106,48 +106,48 @@
     },
     {
       "hora": 5,
-      "count": 1478,
-      "bytes": 3888988768
+      "count": 1452,
+      "bytes": 3745878408
     },
     {
       "hora": 6,
-      "count": 1429,
-      "bytes": 4578052389
+      "count": 1413,
+      "bytes": 4020112550
     },
     {
       "hora": 7,
-      "count": 2065,
-      "bytes": 7440142235
+      "count": 1458,
+      "bytes": 3775493129
     },
     {
       "hora": 8,
-      "count": 1086,
-      "bytes": 2725523232
+      "count": 2203,
+      "bytes": 7877434086
     },
     {
       "hora": 9,
-      "count": 1362,
-      "bytes": 6396970341
+      "count": 1408,
+      "bytes": 6512234613
     }
   ],
   "generadores": [
     {
       "pattern": "KNIME_DuplicateChecker",
       "label": "KNIME DuplicateChecker",
-      "count": 31632,
-      "bytes": 82362509954
+      "count": 32030,
+      "bytes": 83728271489
     },
     {
       "pattern": "snap",
       "label": "Snapshot Temp",
-      "count": 1227,
-      "bytes": 79510960566
+      "count": 1342,
+      "bytes": 79046589330
     },
     {
       "pattern": "others",
       "label": "Otros",
-      "count": 73,
-      "bytes": 15192819
+      "count": 74,
+      "bytes": 15278341
     },
     {
       "pattern": "tmp",
@@ -190,20 +190,20 @@
     {
       "bucket": "1h_6h",
       "label": "1 a 6 horas",
-      "count": 1886,
-      "bytes": 5889149373
+      "count": 1837,
+      "bytes": 4997929628
     },
     {
       "bucket": "24h_7d",
       "label": "1 a 7 dias",
-      "count": 23321,
-      "bytes": 132743999295
+      "count": 23681,
+      "bytes": 133772319654
     },
     {
       "bucket": "6h_24h",
       "label": "6 a 24 horas",
-      "count": 6709,
-      "bytes": 18745429181
+      "count": 6728,
+      "bytes": 18673286418
     },
     {
       "bucket": "gt_7d",
@@ -214,28 +214,28 @@
     {
       "bucket": "lt_1h",
       "label": "Menos de 1 hora",
-      "count": 1039,
-      "bytes": 4511281420
+      "count": 1213,
+      "bytes": 5428590011
     }
   ],
   "velocidad_generacion": [
     {
       "periodo": "24h",
       "label": "Ultimas 24 horas",
-      "count": 9634,
-      "bytes": 29145859974
+      "count": 9780,
+      "bytes": 29100486107
     },
     {
       "periodo": "2h",
       "label": "Ultimas 2 horas",
-      "count": 1391,
-      "bytes": 6171708199
+      "count": 1572,
+      "bytes": 6170849357
     },
     {
       "periodo": "6h",
       "label": "Ultimas 6 horas",
-      "count": 2925,
-      "bytes": 10400430793
+      "count": 3052,
+      "bytes": 10427199689
     }
   ],
   "top50_archivos": [
@@ -465,6 +465,15 @@
       "LastAccessTime": "/Date(1793548869529)/"
     },
     {
+      "Name": "KNIME_DuplicateChecker10166741551569197807.bin",
+      "FullName": "E:\\Temp\\knime_Cobranzas_tto_o_10996\\KNIME_DuplicateChecker10166741551569197807.bin",
+      "SizeMB": 389.77,
+      "SizeGB": 0.38,
+      "CreationTime": "/Date(1793617437971)/",
+      "LastWriteTime": "/Date(1793617465638)/",
+      "LastAccessTime": "/Date(1793617465638)/"
+    },
+    {
       "Name": "knime_container_20261031_7010593020192806754.bin.snappy",
       "FullName": "E:\\Temp\\knime_Horario odontol_11011\\knime_container_20261031_7010593020192806754.bin.snappy",
       "SizeMB": 365.82,
@@ -654,13 +663,13 @@
       "LastAccessTime": "/Date(1793551419850)/"
     },
     {
-      "Name": "knime_container_20261102_8597245522088066118.bin.snappy",
-      "FullName": "E:\\Temp\\knime_LTV Odontologia_11013\\knime_container_20261102_8597245522088066118.bin.snappy",
-      "SizeMB": 174.24,
+      "Name": "knime_container_20261102_4282600374969021200.bin.snappy",
+      "FullName": "E:\\Temp\\knime_LTV Odontologia_11013\\knime_container_20261102_4282600374969021200.bin.snappy",
+      "SizeMB": 174.33,
       "SizeGB": 0.17,
-      "CreationTime": "/Date(1793613780863)/",
-      "LastWriteTime": "/Date(1793613802705)/",
-      "LastAccessTime": "/Date(1793613802705)/"
+      "CreationTime": "/Date(1793620596745)/",
+      "LastWriteTime": "/Date(1793620621453)/",
+      "LastAccessTime": "/Date(1793620621453)/"
     },
     {
       "Name": "KNIME_DuplicateChecker3725168321319371536.bin",
@@ -678,15 +687,6 @@
       "SizeGB": 0.17,
       "CreationTime": "/Date(1793350519124)/",
       "LastWriteTime": "/Date(1793350528251)/",
-      "LastAccessTime": "/Date(1793548869529)/"
-    },
-    {
-      "Name": "KNIME_DuplicateChecker789940480052917210.bin",
-      "FullName": "E:\\Temp\\knime_Nivel de Servic_11018\\KNIME_DuplicateChecker789940480052917210.bin",
-      "SizeMB": 171.86,
-      "SizeGB": 0.17,
-      "CreationTime": "/Date(1793388551722)/",
-      "LastWriteTime": "/Date(1793388568239)/",
       "LastAccessTime": "/Date(1793548869529)/"
     }
   ],
