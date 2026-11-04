@@ -595,7 +595,17 @@ async function loadData() {
     if (erroresRes?.ok) errores = await erroresRes.json();
 
     const tsEl = document.getElementById('timestamp');
-    tsEl.textContent = estado?.timestamp ? new Date(estado.timestamp).toLocaleString('es-AR') : 'sin datos';
+    const selloTxt = estado?.timestamp ? new Date(estado.timestamp).toLocaleString('es-AR') : 'sin datos';
+    // 04/11/2026: si la recoleccion se cayo, el dato viene marcado como viejo.
+    // Se dice en rojo, sin maquillaje: un panel honesto vale mas que uno lindo.
+    if (estado && estado.stale) {
+      const horasViejas = (estado.stale_horas !== null && estado.stale_horas !== undefined) ? estado.stale_horas : '?';
+      tsEl.style.color = '#e5484d';
+      tsEl.style.fontWeight = '700';
+      tsEl.textContent = selloTxt + '  ·  SIN ACTUALIZAR hace ' + horasViejas + ' h';
+    } else {
+      tsEl.textContent = selloTxt;
+    }
 
     // BRAND
     if (estado) {
