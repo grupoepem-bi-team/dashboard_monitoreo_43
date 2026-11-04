@@ -6,3 +6,7 @@ test_regresion.py
 
 # Ignorar data/ local (usamos public/data/)
 /data/
+
+# Los datos del tablero ya no se versionan: viajan por Vercel Blob.
+# Los archivos siguen en disco porque el publicador los lee, pero no se publican.
+public/data/
