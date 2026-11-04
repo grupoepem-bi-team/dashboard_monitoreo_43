@@ -581,11 +581,16 @@ function reanimate(selector, animClass) {
 
 // Pide los datos al servidor. La clave se pide una sola vez y queda guardada
 // en este navegador; si el servidor la rechaza, se vuelve a pedir.
+// Si la persona cancela el pedido de clave, no se le vuelve a preguntar en
+// cada refresco (la pagina se actualiza sola cada 5 minutos).
+let claveCancelada = false;
+
 async function pedirDatos() {
   let clave = localStorage.getItem('clave_datos') || '';
   let respuesta = await fetch('/api/datos', { headers: clave ? { 'x-clave': clave } : {} });
-  if (respuesta.status === 401) {
+  if (respuesta.status === 401 && !claveCancelada) {
     const ingresada = prompt('Clave de acceso al tablero:');
+    if (!ingresada) { claveCancelada = true; throw new Error('sin clave'); }
     if (ingresada) {
       localStorage.setItem('clave_datos', ingresada);
       respuesta = await fetch('/api/datos', { headers: { 'x-clave': ingresada } });
