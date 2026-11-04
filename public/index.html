@@ -579,20 +579,31 @@ function reanimate(selector, animClass) {
   });
 }
 
+// Pide los datos al servidor. La clave se pide una sola vez y queda guardada
+// en este navegador; si el servidor la rechaza, se vuelve a pedir.
+async function pedirDatos() {
+  let clave = localStorage.getItem('clave_datos') || '';
+  let respuesta = await fetch('/api/datos', { headers: clave ? { 'x-clave': clave } : {} });
+  if (respuesta.status === 401) {
+    const ingresada = prompt('Clave de acceso al tablero:');
+    if (ingresada) {
+      localStorage.setItem('clave_datos', ingresada);
+      respuesta = await fetch('/api/datos', { headers: { 'x-clave': ingresada } });
+      if (respuesta.status === 401) localStorage.removeItem('clave_datos');
+    }
+  }
+  if (!respuesta.ok) throw new Error('datos no disponibles (' + respuesta.status + ')');
+  return await respuesta.json();
+}
+
 async function loadData() {
   try {
-    const [estadoRes, analisisRes, comparativaRes, erroresRes] = await Promise.all([
-      fetch('data/estado_43.json').catch(() => null),
-      fetch('data/analisis_temp.json').catch(() => null),
-      fetch('data/comparativa.json').catch(() => null),
-      fetch('data/errores_knime.json').catch(() => null)
-    ]);
-
-    let estado = null, analisis = null, comparativa = null, errores = null;
-    if (estadoRes?.ok) estado = await estadoRes.json();
-    if (analisisRes?.ok) analisis = await analisisRes.json();
-    if (comparativaRes?.ok) comparativa = await comparativaRes.json();
-    if (erroresRes?.ok) errores = await erroresRes.json();
+    // 04/11/2026: los datos ya no viven en el repositorio. Se piden a la
+    // funcion del servidor, que valida la clave y los saca de un almacen
+    // privado. Un solo viaje: el paquete trae las cuatro partes juntas.
+    const paquete = await pedirDatos();
+    let estado = paquete.estado_43 || null, analisis = paquete.analisis_temp || null,
+        comparativa = paquete.comparativa || null, errores = paquete.errores_knime || null;
 
     const tsEl = document.getElementById('timestamp');
     const selloTxt = estado?.timestamp ? new Date(estado.timestamp).toLocaleString('es-AR') : 'sin datos';
