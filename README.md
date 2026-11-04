@@ -47,13 +47,13 @@ Historizador: ~/logs-central/scripts/historizar-43.py
     ↓
 JSON comparativa: ~/catedral/dashboard_43/public/data/comparativa.json
     ↓
-Git push automatico (actualizar-y-push.py con token github)
+publicar-blob.py arma UN paquete y lo sube por HTTPS
     ↓
-Repo GitHub: grupoepem-bi-team/dashboard_monitoreo_43
+Almacen PRIVADO de Vercel Blob: monitoreo43/datos.json
     ↓
-Vercel deploy automatico
+api/datos.js lo entrega solo con la clave correcta
     ↓
-https://monitoreo43.vercel.app/
+https://monitoreo43.vercel.app/  (la pagina pide /api/datos)
 ```
 
 ---
@@ -62,9 +62,13 @@ https://monitoreo43.vercel.app/
 
 | Nombre | Job ID | Frecuencia | Script | Que hace |
 |--------|--------|-----------|--------|----------|
-| monitoreo-43-catedral | ef51862dd831 | */30 * * * * | monitoreo-43.sh | Recolecta estado via WinRM |
-| actualizar-dashboard-43 | 541613363b1c | 0 * * * * | actualizar-y-push.py | Copia JSON + git push |
-| historizar-43-diario | e61aaba38ff7 | 0 0 * * * | historizar-y-push.sh | Snapshot historico + push |
+| monitoreo-43-catedral | ef51862dd831 | 0 * * * * | monitoreo-43.sh | Recolecta estado via WinRM |
+| analisis-temp-43 | 55a69aab88f6 | 0 * * * * | analisis-temp-43.sh | Analisis forense de E:\Temp |
+| recolectar-knime-43 | d8f8edc8a925 | 0 * * * * | recolectar-knime-43.sh | Trae el knime.log |
+| actualizar-dashboard-43 | 541613363b1c | 5 * * * * | actualizar-dashboard-completo.sh | Arma el paquete y lo sube a Vercel Blob |
+| historizar-43-diario | e61aaba38ff7 | 0 0 * * * | historizar-y-push.sh | Snapshot historico + publicacion |
+
+Los tres recolectores corren en punto; la publicacion a las :05 para no leer un archivo a medio escribir.
 
 **Ubicacion cron local:** `~/.hermes/cron/`  
 **Scripts:** `~/.hermes/scripts/`  
@@ -77,15 +81,16 @@ https://monitoreo43.vercel.app/
 ### Dashboard (repo)
 ```
 public/
-  index.html           # Dashboard v4 narrativo
-  data/
-    estado_43.json      # Estado general
-    analisis_temp.json  # Analisis forense E:\Temp
-    comparativa.json    # Tablas dia/mes
-    errores_knime.json  # Log errores KNIME
-    alertas.json        # Historial alertas
+  index.html           # Dashboard v4 narrativo (pide los datos a /api/datos)
+api/
+  datos.js             # Funcion: lee el almacen privado y valida la clave
+docs/
+  DATOS_PRIVADOS.md    # Como funciona la publicacion privada
 vercel.json            # Headers no-cache
 README.md              # Este archivo
+
+Los JSON de public/data/ ya NO se versionan: siguen en el disco del servidor porque el
+publicador los lee, pero no se publican (salen 404 en el sitio).
 ```
 
 ### Scripts recolectores
@@ -99,17 +104,17 @@ README.md              # Este archivo
   recolectar-knime-log.py         # Obtiene knime.log via WinRM
 
 ~/.hermes/scripts/
-  monitoreo-43.sh                 # Wrapper cron 30min
-  actualizar-y-push.py            # Git push automatico
-  historizar-y-push.sh            # Wrapper historizacion
+  monitoreo-43.sh                  # Wrapper cron horario (recoleccion)
+  publicar-blob.py                 # Arma el paquete y lo sube a Vercel Blob
+  actualizar-dashboard-completo.sh # Wrapper de publicacion (cron :05)
+  historizar-y-push.sh             # Wrapper historizacion (00:00)
 ```
 
 ### Credenciales (vault)
 ```
 ~/.hermes/vault/
-  windows_43.json       # Credenciales WinRM (user, password)
-  github_token.json       # Token GitHub (auto-redactado, NO usar)
-  .github_token_raw      # Token real para scripts (permisos 600)
+  windows_43.json                  # Credenciales WinRM (user, password)
+  vercel_blob_monitoreo43.json     # Token del almacen + clave de la pagina (600)
 ```
 
 ---
@@ -128,7 +133,7 @@ README.md              # Este archivo
 
 ## Problemas Conocidos / Quirks
 
-1. **Token GitHub auto-redactado:** El sistema Hermes censura tokens en terminal/archivos. Usar `~/.hermes/.github_token_raw` (permisos 600) para scripts.
+1. **Datos privados:** el token del almacen y la clave de la pagina viven en `~/.hermes/vault/vercel_blob_monitoreo43.json` (600). El token de GitHub ya no se usa para publicar datos.
 
 2. **.NET Date format:** PowerShell devuelve fechas como `/Date(1783516607551)/`. El dashboard las parsea con regex: `d.match(/Date\((\d+)\)/)`.
 
@@ -138,12 +143,16 @@ README.md              # Este archivo
 
 5. **Comparativa vacia al inicio:** Solo genera datos cuando `historizar-43.py` corre (medianoche). Los primeros dias mostraran 1 sola fila.
 
+6. **Cuota del almacen:** el plan gratuito da 2.000 escrituras por mes. Un paquete por hora son ~720. No partir el paquete en varios archivos sin revisar la cuota.
+
+7. **Preview protegido:** las URLs de preview piden sesion de Vercel. Pedirlas con curl devuelve la pantalla de login (un HTML de ~330 KB), no un error de la funcion. Probar en un navegador con sesion, o desplegar en dos tiempos a produccion.
+
 ---
 
 ## Como Recuperar / Restaurar
 
 1. **Clonar repo:** `git clone https://github.com/grupoepem-bi-team/dashboard_monitoreo_43.git`
-2. **Token:** Verificar `~/.hermes/.github_token_raw` existe con token valido
+2. **Token del almacen:** Verificar `~/.hermes/vault/vercel_blob_monitoreo43.json`
 3. **Credenciales 43:** Verificar `~/.hermes/vault/windows_43.json`
 4. **Venv:** `~/.venvs/logs-central/bin/python3` debe tener `pywinrm`
 5. **Cronjobs:** `hermes cron list` para verificar 3 jobs activos
@@ -163,4 +172,4 @@ README.md              # Este archivo
 ---
 
 *Documentacion mantenida automaticamente por el pipeline.  
-Ultima actualizacion: 2026-07-11*
+Ultima actualizacion: 2026-11-04*
