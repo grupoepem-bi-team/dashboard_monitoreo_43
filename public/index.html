@@ -592,7 +592,7 @@ async function pedirDatos() {
       if (respuesta.status === 401) localStorage.removeItem('clave_datos');
     }
   }
-  if (!respuesta.ok) throw new Error('datos no disponibles (' + respuesta.status + ')');
+  if (!respuesta.ok) throw new Error(respuesta.status === 401 ? 'sin clave' : 'datos no disponibles (' + respuesta.status + ')');
   return await respuesta.json();
 }
 
@@ -785,7 +785,13 @@ async function loadData() {
 
   } catch (e) {
     console.error(e);
-    document.getElementById('timestamp').textContent = 'Error';
+    // Sin clave no es una falla del sistema: falta el permiso. Se dice claro.
+    const tsEl = document.getElementById('timestamp');
+    tsEl.style.color = '#e5484d';
+    tsEl.style.fontWeight = '700';
+    tsEl.textContent = (e && e.message === 'sin clave')
+      ? 'Necesita la clave de acceso'
+      : 'Error al traer los datos';
   }
 }
 
